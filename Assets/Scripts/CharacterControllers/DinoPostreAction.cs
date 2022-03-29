@@ -25,6 +25,38 @@ public class @DinoPostreAction : IInputActionCollection, IDisposable
                     ""expectedControlType"": ""Vector2"",
                     ""processors"": ""StickDeadzone"",
                     ""interactions"": """"
+                },
+                {
+                    ""name"": ""Attack A"",
+                    ""type"": ""Button"",
+                    ""id"": ""fdd3df15-0949-42c8-8d28-eb58255b6c08"",
+                    ""expectedControlType"": ""Button"",
+                    ""processors"": """",
+                    ""interactions"": """"
+                },
+                {
+                    ""name"": ""Attack B"",
+                    ""type"": ""Button"",
+                    ""id"": ""f16d0e71-9eb0-4535-b32d-16fdf19cbc74"",
+                    ""expectedControlType"": ""Button"",
+                    ""processors"": """",
+                    ""interactions"": """"
+                },
+                {
+                    ""name"": ""Dispacher"",
+                    ""type"": ""Button"",
+                    ""id"": ""e649180f-3888-4a82-9c1e-8d3d201fcd49"",
+                    ""expectedControlType"": ""Button"",
+                    ""processors"": """",
+                    ""interactions"": """"
+                },
+                {
+                    ""name"": ""Interaction"",
+                    ""type"": ""Button"",
+                    ""id"": ""990f0b32-9c78-46c0-b7fe-6fc1e2b874b4"",
+                    ""expectedControlType"": ""Button"",
+                    ""processors"": """",
+                    ""interactions"": """"
                 }
             ],
             ""bindings"": [
@@ -93,6 +125,105 @@ public class @DinoPostreAction : IInputActionCollection, IDisposable
                     ""action"": ""Movement"",
                     ""isComposite"": false,
                     ""isPartOfComposite"": true
+                },
+                {
+                    ""name"": ""WASD"",
+                    ""id"": ""d275118c-0889-4d28-b772-831a4641956e"",
+                    ""path"": ""2DVector"",
+                    ""interactions"": """",
+                    ""processors"": """",
+                    ""groups"": """",
+                    ""action"": ""Movement"",
+                    ""isComposite"": true,
+                    ""isPartOfComposite"": false
+                },
+                {
+                    ""name"": ""up"",
+                    ""id"": ""5b54ad32-fffc-4777-8d63-ae91d84b3c2d"",
+                    ""path"": ""<Keyboard>/w"",
+                    ""interactions"": """",
+                    ""processors"": """",
+                    ""groups"": ""DinoPostre"",
+                    ""action"": ""Movement"",
+                    ""isComposite"": false,
+                    ""isPartOfComposite"": true
+                },
+                {
+                    ""name"": ""down"",
+                    ""id"": ""8b38667d-787e-4a8b-8af5-f5dffa6589ed"",
+                    ""path"": ""<Keyboard>/s"",
+                    ""interactions"": """",
+                    ""processors"": """",
+                    ""groups"": ""DinoPostre"",
+                    ""action"": ""Movement"",
+                    ""isComposite"": false,
+                    ""isPartOfComposite"": true
+                },
+                {
+                    ""name"": ""left"",
+                    ""id"": ""a2a6abe2-7c60-4936-b6a4-cff6d052d28b"",
+                    ""path"": ""<Keyboard>/a"",
+                    ""interactions"": """",
+                    ""processors"": """",
+                    ""groups"": ""DinoPostre"",
+                    ""action"": ""Movement"",
+                    ""isComposite"": false,
+                    ""isPartOfComposite"": true
+                },
+                {
+                    ""name"": ""right"",
+                    ""id"": ""32bc6933-0fc3-4849-a521-2986c8997316"",
+                    ""path"": ""<Keyboard>/d"",
+                    ""interactions"": """",
+                    ""processors"": """",
+                    ""groups"": ""DinoPostre"",
+                    ""action"": ""Movement"",
+                    ""isComposite"": false,
+                    ""isPartOfComposite"": true
+                },
+                {
+                    ""name"": """",
+                    ""id"": ""bb1a03fb-3b82-42b8-a0c5-e9b1dea6891e"",
+                    ""path"": ""<Keyboard>/z"",
+                    ""interactions"": """",
+                    ""processors"": """",
+                    ""groups"": ""DinoPostre"",
+                    ""action"": ""Attack A"",
+                    ""isComposite"": false,
+                    ""isPartOfComposite"": false
+                },
+                {
+                    ""name"": """",
+                    ""id"": ""f32abeab-042f-4ecc-b1ff-754135527b81"",
+                    ""path"": ""<Keyboard>/x"",
+                    ""interactions"": """",
+                    ""processors"": """",
+                    ""groups"": """",
+                    ""action"": ""Attack B"",
+                    ""isComposite"": false,
+                    ""isPartOfComposite"": false
+                },
+                {
+                    ""name"": """",
+                    ""id"": ""9e6cbf61-17c6-4fa3-ba43-52770fabe2d9"",
+                    ""path"": ""<Keyboard>/c"",
+                    ""interactions"": """",
+                    ""processors"": """",
+                    ""groups"": ""DinoPostre"",
+                    ""action"": ""Dispacher"",
+                    ""isComposite"": false,
+                    ""isPartOfComposite"": false
+                },
+                {
+                    ""name"": """",
+                    ""id"": ""512117dd-4fe4-4511-821e-717d81afc937"",
+                    ""path"": ""<Keyboard>/v"",
+                    ""interactions"": """",
+                    ""processors"": """",
+                    ""groups"": ""DinoPostre"",
+                    ""action"": ""Interaction"",
+                    ""isComposite"": false,
+                    ""isPartOfComposite"": false
                 }
             ]
         }
@@ -119,6 +250,10 @@ public class @DinoPostreAction : IInputActionCollection, IDisposable
         // DinopostreController
         m_DinopostreController = asset.FindActionMap("DinopostreController", throwIfNotFound: true);
         m_DinopostreController_Movement = m_DinopostreController.FindAction("Movement", throwIfNotFound: true);
+        m_DinopostreController_AttackA = m_DinopostreController.FindAction("Attack A", throwIfNotFound: true);
+        m_DinopostreController_AttackB = m_DinopostreController.FindAction("Attack B", throwIfNotFound: true);
+        m_DinopostreController_Dispacher = m_DinopostreController.FindAction("Dispacher", throwIfNotFound: true);
+        m_DinopostreController_Interaction = m_DinopostreController.FindAction("Interaction", throwIfNotFound: true);
     }
 
     public void Dispose()
@@ -169,11 +304,19 @@ public class @DinoPostreAction : IInputActionCollection, IDisposable
     private readonly InputActionMap m_DinopostreController;
     private IDinopostreControllerActions m_DinopostreControllerActionsCallbackInterface;
     private readonly InputAction m_DinopostreController_Movement;
+    private readonly InputAction m_DinopostreController_AttackA;
+    private readonly InputAction m_DinopostreController_AttackB;
+    private readonly InputAction m_DinopostreController_Dispacher;
+    private readonly InputAction m_DinopostreController_Interaction;
     public struct DinopostreControllerActions
     {
         private @DinoPostreAction m_Wrapper;
         public DinopostreControllerActions(@DinoPostreAction wrapper) { m_Wrapper = wrapper; }
         public InputAction @Movement => m_Wrapper.m_DinopostreController_Movement;
+        public InputAction @AttackA => m_Wrapper.m_DinopostreController_AttackA;
+        public InputAction @AttackB => m_Wrapper.m_DinopostreController_AttackB;
+        public InputAction @Dispacher => m_Wrapper.m_DinopostreController_Dispacher;
+        public InputAction @Interaction => m_Wrapper.m_DinopostreController_Interaction;
         public InputActionMap Get() { return m_Wrapper.m_DinopostreController; }
         public void Enable() { Get().Enable(); }
         public void Disable() { Get().Disable(); }
@@ -186,6 +329,18 @@ public class @DinoPostreAction : IInputActionCollection, IDisposable
                 @Movement.started -= m_Wrapper.m_DinopostreControllerActionsCallbackInterface.OnMovement;
                 @Movement.performed -= m_Wrapper.m_DinopostreControllerActionsCallbackInterface.OnMovement;
                 @Movement.canceled -= m_Wrapper.m_DinopostreControllerActionsCallbackInterface.OnMovement;
+                @AttackA.started -= m_Wrapper.m_DinopostreControllerActionsCallbackInterface.OnAttackA;
+                @AttackA.performed -= m_Wrapper.m_DinopostreControllerActionsCallbackInterface.OnAttackA;
+                @AttackA.canceled -= m_Wrapper.m_DinopostreControllerActionsCallbackInterface.OnAttackA;
+                @AttackB.started -= m_Wrapper.m_DinopostreControllerActionsCallbackInterface.OnAttackB;
+                @AttackB.performed -= m_Wrapper.m_DinopostreControllerActionsCallbackInterface.OnAttackB;
+                @AttackB.canceled -= m_Wrapper.m_DinopostreControllerActionsCallbackInterface.OnAttackB;
+                @Dispacher.started -= m_Wrapper.m_DinopostreControllerActionsCallbackInterface.OnDispacher;
+                @Dispacher.performed -= m_Wrapper.m_DinopostreControllerActionsCallbackInterface.OnDispacher;
+                @Dispacher.canceled -= m_Wrapper.m_DinopostreControllerActionsCallbackInterface.OnDispacher;
+                @Interaction.started -= m_Wrapper.m_DinopostreControllerActionsCallbackInterface.OnInteraction;
+                @Interaction.performed -= m_Wrapper.m_DinopostreControllerActionsCallbackInterface.OnInteraction;
+                @Interaction.canceled -= m_Wrapper.m_DinopostreControllerActionsCallbackInterface.OnInteraction;
             }
             m_Wrapper.m_DinopostreControllerActionsCallbackInterface = instance;
             if (instance != null)
@@ -193,6 +348,18 @@ public class @DinoPostreAction : IInputActionCollection, IDisposable
                 @Movement.started += instance.OnMovement;
                 @Movement.performed += instance.OnMovement;
                 @Movement.canceled += instance.OnMovement;
+                @AttackA.started += instance.OnAttackA;
+                @AttackA.performed += instance.OnAttackA;
+                @AttackA.canceled += instance.OnAttackA;
+                @AttackB.started += instance.OnAttackB;
+                @AttackB.performed += instance.OnAttackB;
+                @AttackB.canceled += instance.OnAttackB;
+                @Dispacher.started += instance.OnDispacher;
+                @Dispacher.performed += instance.OnDispacher;
+                @Dispacher.canceled += instance.OnDispacher;
+                @Interaction.started += instance.OnInteraction;
+                @Interaction.performed += instance.OnInteraction;
+                @Interaction.canceled += instance.OnInteraction;
             }
         }
     }
@@ -209,5 +376,9 @@ public class @DinoPostreAction : IInputActionCollection, IDisposable
     public interface IDinopostreControllerActions
     {
         void OnMovement(InputAction.CallbackContext context);
+        void OnAttackA(InputAction.CallbackContext context);
+        void OnAttackB(InputAction.CallbackContext context);
+        void OnDispacher(InputAction.CallbackContext context);
+        void OnInteraction(InputAction.CallbackContext context);
     }
 }
