@@ -1,24 +1,31 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using System.Linq;
+using Dinopostres.Definitions;
+
 
 namespace Dinopostres.CharacterControllers
 {
     public class DinoPostre : MonoBehaviour
     {
-        public delegate void Skill(string name, object element);
-        public Skill[] callbackSkills = new Skill[4];
+        
 
-        private Dictionary<string, object> dic_skillSet= new Dictionary<string, object> { 
-            {"TestA",1},  
-            {"TestB","Especial"},  
-        };
+        [SerializeField]
+        int int_ID;
+        [SerializeField]
+        DinoDef.DinoChar enm_Dino;
+        [SerializeField]
+        List<SkillDef> lst_SkillList;
+        [SerializeField]
+        string[] lst_skills = new string[4];
+        int int_Level;
+        float f_Hp,f_Textura,f_Sabor, f_Covertura,f_COnfite,f_Peso;
 
         // Start is called before the first frame update
         void Awake()
         {
-            callbackSkills[0] = TestA;
-            callbackSkills[1] = TestB;
+
         }
 
         // Update is called once per frame
@@ -27,22 +34,52 @@ namespace Dinopostres.CharacterControllers
 
         }
 
+        private void OnDestroy()
+        {
+            
+        }
+
+        private void OnTriggerEnter(Collider other)
+        {
+            
+        }
+
+        public void SetSkills()
+        {
+
+        }
+
         public void ExecuteAttack(int index)
         {
-            string[] skills= new string[dic_skillSet.Count];
-            dic_skillSet.Keys.CopyTo(skills,0);
+            string skill = lst_skills[index];
 
-            callbackSkills[index].Invoke(skills[index], dic_skillSet[skills[index]]);
+            try
+            {
+                SkillDef def= lst_SkillList.Where((x) => x._SkillName == skill).First();
+                Debug.Log("Prepare Attack");
+                StartCoroutine(Attack(def));
+
+            }
+            catch (System.Exception e)
+            {
+                Debug.Log($"Error al llamar ataque {e.Message}");
+            }
         }
 
-        private void TestA(string msg, object num)
+        private IEnumerator Attack(SkillDef _skill)
         {
-            Debug.Log($"Test {msg} es {num}");
-        }
+            Debug.Log($"Skill: {_skill._SkillName} | Collider: {((GameObject)_skill._EmitterOrCollider).name}");
 
-        private void TestB(string msg, object str)
-        {
-            Debug.Log($"Test {msg} es {str}");
+            GameObject collider = (GameObject)_skill._EmitterOrCollider;
+
+            collider.SetActive(true);
+
+            yield return _skill._ColdDown();
+
+            collider.SetActive(false);
+
+
+
         }
     }
 }

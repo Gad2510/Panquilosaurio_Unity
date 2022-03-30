@@ -14,7 +14,7 @@ namespace Dinopostres.CharacterControllers
         private Rigidbody selfRigid;
 
         private Vector2 direction;
-
+        private float lastAngle;
         // Start is called before the first frame update
         void Awake()
         {
@@ -53,10 +53,8 @@ namespace Dinopostres.CharacterControllers
         {
             Vector3 velocity = selfRigid.velocity;
 
-            Vector2 dir = direction.normalized;
-            float angle = Mathf.Atan2(dir.x, dir.y) * Mathf.Rad2Deg;
-
-            selfRigid.MoveRotation(Quaternion.Euler(0f, angle, 0f));
+            if (direction.magnitude > 0)
+                ChangeDirection();
 
             velocity.x = direction.x;
             velocity.z = direction.y;
@@ -66,9 +64,17 @@ namespace Dinopostres.CharacterControllers
             selfRigid.velocity = velocity;
         }
 
+        private void ChangeDirection()
+        {
+            Vector2 dir = direction.normalized;
+            float angle = Mathf.Atan2(dir.x, dir.y) * Mathf.Rad2Deg;
+
+            LeanTween.rotate(this.gameObject, new Vector3(0f, angle, 0f), 0.1f);
+        }
+
         private void Controllers(InputAction.CallbackContext ctx)
         {
-            print(ctx.action.name.ToString());
+            //print(ctx.action.name.ToString());
             if (DP_current)
             {
                 switch (ctx.action.name)
