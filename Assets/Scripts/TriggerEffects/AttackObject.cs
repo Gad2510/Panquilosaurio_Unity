@@ -1,14 +1,17 @@
 using UnityEngine;
 
-public class AttackObject : MonoBehaviour
+namespace Dinopostres.TriggerEffects
 {
-    protected string str_Compere;
-    protected float f_damage;
-
-    public float _Damage { set => f_damage=value; }
-    protected void Awake()
+    public class AttackObject : MonoBehaviour
     {
-        str_Compere = transform.root.CompareTag("Player") ? "Enemy": "Player" ;
-        gameObject.layer = LayerMask.NameToLayer(str_Compere);
+        protected string str_Compere;
+        protected float f_damage;
+
+        public float _Damage { set => f_damage = value; }
+        protected void Awake()
+        {
+            str_Compere = transform.root.CompareTag("Player") ? "Enemy" : "Player";
+            gameObject.layer = LayerMask.NameToLayer(str_Compere);
+        }
     }
 }

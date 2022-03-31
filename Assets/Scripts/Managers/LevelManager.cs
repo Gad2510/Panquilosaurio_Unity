@@ -4,20 +4,17 @@ using UnityEngine;
 
 namespace Dinopostres.Managers
 {
-    public class EnemyManager : MonoBehaviour
+    public class LevelManager : MonoBehaviour
     {
-        List<Enemy> lst_EnemyInLevel= new List<Enemy>();
+        EnemyManager EM_EnemyManager;
+        bool isIncrementalStage;
 
-        public List<Enemy> CurrentEnemies { get => lst_EnemyInLevel; }
+        public EnemyManager _EnemyManager { get => EM_EnemyManager; }
+
         // Start is called before the first frame update
         void Start()
         {
 
-        }
-
-        private void OnLevelWasLoaded(int level)
-        {
-            lst_EnemyInLevel.Clear();
         }
 
         // Update is called once per frame

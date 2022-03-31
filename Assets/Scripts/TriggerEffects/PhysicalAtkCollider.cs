@@ -2,10 +2,13 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class PhysicalAtkCollider : AttackObject
+namespace Dinopostres.TriggerEffects
 {
-    private void OnTriggerEnter(Collider other)
+    public class PhysicalAtkCollider : AttackObject
     {
-        
+        private void OnTriggerEnter(Collider other)
+        {
+
+        }
     }
 }

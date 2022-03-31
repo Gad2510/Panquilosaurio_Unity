@@ -25,10 +25,10 @@ namespace Dinopostres.Definitions
         [SerializeField]
         Rank enm_Rank;
         [SerializeField]
-        int int_Value;
+        object int_Value;
 
         public Area _Area { get => enm_Area; }
         public Rank _Rank { get => enm_Rank; }
-        public int _Value { get => int_Value; }
+        public object _Value { get => int_Value; }
     }
 }

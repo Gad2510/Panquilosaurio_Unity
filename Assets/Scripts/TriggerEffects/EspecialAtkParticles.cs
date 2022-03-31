@@ -2,17 +2,18 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class EspecialAtkParticles : AttackObject
+namespace Dinopostres.TriggerEffects
 {
-    private List<int> lst_enmiesID = new List<int>();
-
-    private void OnEnable()
+    public class EspecialAtkParticles : AttackObject
     {
-        lst_enmiesID.Clear();
-    }
+        private void OnEnable()
+        {
 
-    private void OnParticleTrigger()
-    {
-        
+        }
+
+        private void OnParticleTrigger()
+        {
+
+        }
     }
 }
