@@ -1,0 +1,35 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 08f3234a661a5a94fbcf5d5d91871df8, type: 3}
+  m_Name: Ingredients
+  m_EditorClassIdentifier: 
+  lst_Ingredients:
+  - enm_Ingredient: 0
+    enm_IngreType: 3
+    spt_IngreImage: {fileID: 0}
+    par_Particles: {fileID: 8926484042661614526, guid: 80f0998127fa833488c4d3ec593b960e, type: 3}
+  - enm_Ingredient: 1
+    enm_IngreType: 0
+    spt_IngreImage: {fileID: 0}
+    par_Particles: {fileID: 8926484042661614526, guid: 80f0998127fa833488c4d3ec593b960e, type: 3}
+  - enm_Ingredient: 2
+    enm_IngreType: 2
+    spt_IngreImage: {fileID: 0}
+    par_Particles: {fileID: 0}
+  - enm_Ingredient: 3
+    enm_IngreType: 0
+    spt_IngreImage: {fileID: 0}
+    par_Particles: {fileID: 0}
+  - enm_Ingredient: 4
+    enm_IngreType: 3
+    spt_IngreImage: {fileID: 0}
+    par_Particles: {fileID: 0}

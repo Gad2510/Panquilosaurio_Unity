@@ -1,0 +1,6 @@
+<ui:UXML xmlns:ui="UnityEngine.UIElements" xmlns:uie="UnityEditor.UIElements" editor-extension-mode="False">
+    <ui:VisualElement style="justify-content: center; align-items: center;">
+        <ui:Button text="Button" display-tooltip-when-elided="true" name="btn_Click_01" enable-rich-text="true" style="height: 26px; width: 87px; white-space: nowrap; -unity-text-align: middle-center; font-size: 24px;" />
+        <ui:Button text="Button" display-tooltip-when-elided="true" name="btn_Click_02" enable-rich-text="true" style="height: 26px; width: 87px; white-space: nowrap; -unity-text-align: middle-center; font-size: 24px;" />
+    </ui:VisualElement>
+</ui:UXML>

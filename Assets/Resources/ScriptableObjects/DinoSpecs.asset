@@ -1,0 +1,67 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 8f0c207b6742fea4295b1024b9e284cb, type: 3}
+  m_Name: DinoSpecs
+  m_EditorClassIdentifier: 
+  lst_DinoStats:
+  - enm_Dino: 0
+    initHP: 50
+    endHp: 200
+    initPeso: 100
+    endPeso: 100
+    initConfite: 100
+    endConfite: 100
+    initCobertura: 100
+    endCobertura: 100
+    initSabor: 100
+    endSabor: 100
+    initTextura: 100
+    endTextura: 100
+  - enm_Dino: 1
+    initHP: 0
+    endHp: 0
+    initPeso: 0
+    endPeso: 0
+    initConfite: 0
+    endConfite: 0
+    initCobertura: 0
+    endCobertura: 0
+    initSabor: 0
+    endSabor: 0
+    initTextura: 0
+    endTextura: 0
+  - enm_Dino: 0
+    initHP: 0
+    endHp: 0
+    initPeso: 0
+    endPeso: 0
+    initConfite: 0
+    endConfite: 0
+    initCobertura: 0
+    endCobertura: 0
+    initSabor: 0
+    endSabor: 0
+    initTextura: 0
+    endTextura: 0
+  - enm_Dino: 0
+    initHP: 0
+    endHp: 0
+    initPeso: 0
+    endPeso: 0
+    initConfite: 0
+    endConfite: 0
+    initCobertura: 0
+    endCobertura: 0
+    initSabor: 0
+    endSabor: 0
+    initTextura: 0
+    endTextura: 0
