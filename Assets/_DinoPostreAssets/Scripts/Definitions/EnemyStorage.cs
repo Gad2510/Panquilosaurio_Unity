@@ -1,0 +1,66 @@
+using System.Collections;
+using System.Collections.Generic;
+using System.Linq;
+using UnityEngine;
+
+namespace Dinopostres.Definitions
+{
+    [CreateAssetMenu(fileName = "EnemyStorage", menuName = "Dinopostre/EnemyStorage", order = 3)]
+    public class EnemyStorage : ScriptableObject
+    {
+        private static EnemyStorage ES_instance;
+        [SerializeField]
+        List<DinoDef> lst_Definitions;
+
+        public static EnemyStorage _Instance()
+        {
+            if (ES_instance == null)
+            {
+                ES_instance = Resources.Load<EnemyStorage>("ScriptableObjects/EnemyStorage");
+            }
+
+            return ES_instance;
+        }
+
+        public DinoDef Look4DinoDef(DinoDef.DinoChar _dino)
+        {
+            try
+            {
+                DinoDef def = lst_Definitions.Where((x) => x._Dino == _dino).First();
+                return def;
+            }
+            catch (System.Exception e)
+            {
+                Debug.LogWarning("Dino not define");
+                return null;
+            }
+        }
+        public string GetDeafultEnemyAttack(DinoDef.DinoChar _dino)
+        {
+            try
+            {
+                DinoDef def =lst_Definitions.Where((x) => x._Dino == _dino).First();
+                return def._DefaultSkill;
+            }
+            catch(System.Exception e)
+            {
+                Debug.LogWarning("Default attack not define");
+                return "";
+            }
+        }
+
+        public Sprite GetDinoImage(DinoDef.DinoChar _dino)
+        {
+            try
+            {
+                DinoDef def = lst_Definitions.Where((x) => x._Dino == _dino).First();
+                return def._DinoImage;
+            }
+            catch (System.Exception e)
+            {
+                Debug.LogWarning("Dino image not found");
+                return null;
+            }
+        }
+    }
+}

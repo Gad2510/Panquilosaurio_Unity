@@ -1,15 +1,14 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
-using Dinopostres.CharacterControllers;
 
 namespace Dinopostres.Managers
 {
     public class EnemyManager : MonoBehaviour
     {
-        private static List<Enemy> lst_EnemyInLevel= new List<Enemy>();
+        private static List<GameObject> lst_EnemyInLevel= new List<GameObject>();
 
-        public static List<Enemy> CurrentEnemies { get => lst_EnemyInLevel; }
+        public static List<GameObject> CurrentEnemies { get => lst_EnemyInLevel; }
         // Start is called before the first frame update
         void Start()
         {
@@ -27,12 +26,12 @@ namespace Dinopostres.Managers
 
         }
 
-        public static void RegisterEnemy(Enemy _enemy)
+        public static void RegisterEnemy(GameObject _enemy)
         {
             lst_EnemyInLevel.Add(_enemy);
         }
 
-        public static void RemoveEnemy(Enemy _enemy)
+        public static void RemoveEnemy(GameObject _enemy)
         {
             lst_EnemyInLevel.Remove(_enemy);
         }

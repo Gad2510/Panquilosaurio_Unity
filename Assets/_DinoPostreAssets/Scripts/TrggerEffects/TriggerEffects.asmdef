@@ -1,0 +1,16 @@
+{
+    "name": "TriggerEffects",
+    "rootNamespace": "",
+    "references": [
+        "GUID:93ef3f92a762654458b0231e5f1c39ec"
+    ],
+    "includePlatforms": [],
+    "excludePlatforms": [],
+    "allowUnsafeCode": false,
+    "overrideReferences": false,
+    "precompiledReferences": [],
+    "autoReferenced": true,
+    "defineConstraints": [],
+    "versionDefines": [],
+    "noEngineReferences": false
+}

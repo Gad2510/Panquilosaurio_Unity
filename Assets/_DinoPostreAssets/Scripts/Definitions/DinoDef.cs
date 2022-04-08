@@ -22,17 +22,17 @@ namespace Dinopostres.Definitions
         [SerializeField]
         string str_DefaultSkill;
         [SerializeField]
-        Dinopostres.CharacterControllers.DinoPostre DP_prefeb;
+        Object DP_prefeb;
         [SerializeField]
         Sprite spt_DinoImage;
         [SerializeField]
         List<IngredientCount> lst_Rewards;
 
-        DinoChar _Dino { get => Dino; }
-        string _DefaultSkill { get => str_DefaultSkill; }
-        Dinopostres.CharacterControllers.DinoPostre _Prefab { get => DP_prefeb; }
-        Sprite _DinoImage { get => spt_DinoImage; }
-        List<IngredientCount> _Rewards { get => lst_Rewards; }
+        public DinoChar _Dino { get => Dino; }
+        public string _DefaultSkill { get => str_DefaultSkill; }
+        public Object _Prefab { get => DP_prefeb; }
+        public Sprite _DinoImage { get => spt_DinoImage; }
+        public List<IngredientCount> _Rewards { get => lst_Rewards; }
 
         public int HasLocation(LocationCount.Area _ckeakArea, LocationCount.Rank _checkRank)
         {

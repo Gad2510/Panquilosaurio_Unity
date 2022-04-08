@@ -7,10 +7,6 @@ namespace Dinopostres.CharacterControllers
 {
     public abstract class Controller : MonoBehaviour
     {
-        public enum GameActions
-        {
-            HIT,none
-        };
 
         public delegate void Actions(ActionEvent ev);
         private Actions OnGetHit;
@@ -26,7 +22,7 @@ namespace Dinopostres.CharacterControllers
 
             selfRigid = GetComponent<Rigidbody>();
             DP_current = GetComponentInChildren<DinoPostre>();
-
+            gameObject.tag = "Controller";
             if (DP_current)
             {
                 //index 0= cantidad , 1= posicion
@@ -51,11 +47,12 @@ namespace Dinopostres.CharacterControllers
 
         protected abstract void Movement();
 
-        public void ExecuteAction(GameActions _action, ActionEvent ev)
+        public void ExecuteAction(ActionEvent ev)
         {
-            switch (_action)
+            Debug.Log("ACTION EVENT");
+            switch (ev._Action)
             {
-                case GameActions.HIT:
+                case Events.ActionEvent.GameActions.HIT:
                     if (!isInvincible)
                     {
                         StartCoroutine(InvinsibleCouldown());

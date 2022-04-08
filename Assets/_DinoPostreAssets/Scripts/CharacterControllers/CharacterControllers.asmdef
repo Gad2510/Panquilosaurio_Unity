@@ -1,0 +1,20 @@
+{
+    "name": "CharacterControllers",
+    "rootNamespace": "",
+    "references": [
+        "GUID:93ef3f92a762654458b0231e5f1c39ec",
+        "GUID:12033e9dd9b5d3249817b8abe14e00ae",
+        "GUID:75469ad4d38634e559750d17036d5f7c",
+        "GUID:15b9c2d8059a258419c2862e04b06257",
+        "GUID:21ac9df2cc1c9e34ba913faca6af0504"
+    ],
+    "includePlatforms": [],
+    "excludePlatforms": [],
+    "allowUnsafeCode": false,
+    "overrideReferences": false,
+    "precompiledReferences": [],
+    "autoReferenced": true,
+    "defineConstraints": [],
+    "versionDefines": [],
+    "noEngineReferences": false
+}

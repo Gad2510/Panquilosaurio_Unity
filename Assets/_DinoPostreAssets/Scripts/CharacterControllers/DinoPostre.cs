@@ -17,7 +17,7 @@ namespace Dinopostres.CharacterControllers
         [SerializeField]
         List<SkillDef> lst_SkillList;
         [SerializeField]
-        string[] lst_skills = new string[4];
+        string[] lst_skills = new string[5];
 
         int int_Level;
         const int MAX_LEVEL= 100;
@@ -36,12 +36,15 @@ namespace Dinopostres.CharacterControllers
         };
 
         public bool IsPlayer { set => isPlayer = value; }
+        public bool IsAttacking { get => isAttacking; }
+        public float _Peso { get => dic_Stats[DinoStatsDef.Stats.PESO]; }
 
         // Start is called before the first frame update
         void Awake()
         {
             int_Level = 1;
             InitStats();
+            lst_skills[4]=EnemyStorage._Instance().GetDeafultEnemyAttack(enm_Dino);
             f_TestHP = dic_Stats[DinoStatsDef.Stats.HP];
         }
 
