@@ -45,8 +45,9 @@ namespace Dinopostres.TriggerEffects
         {
             float damageValue = (f_damage * f_baseDamage) / 50;
 
-            ActionEvent ev = new ActionEvent(0, "Sending Damage",ActionEvent.GameActions.HIT ,new List<object> { damageValue, transform.position });
-            _col.transform.root.SendMessage("ExecuteAction", ev);
+            ActionEvent ev = new ActionEvent(_col.transform.root.GetInstanceID(), "Sending Damage",ActionEvent.GameActions.HIT ,new List<object> { damageValue, transform.position });
+            Managers.EnemyManager._OnDamage(ev);
+            //_col.transform.root.SendMessage("ExecuteAction", ev);
         }
 
     }

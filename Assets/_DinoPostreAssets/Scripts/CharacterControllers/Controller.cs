@@ -8,9 +8,6 @@ namespace Dinopostres.CharacterControllers
     public abstract class Controller : MonoBehaviour
     {
 
-        public delegate void Actions(ActionEvent ev);
-        private Actions OnGetHit;
-
         protected DinoPostre DP_current;
         protected Rigidbody selfRigid;
         protected bool isInvincible;
@@ -26,7 +23,7 @@ namespace Dinopostres.CharacterControllers
             if (DP_current)
             {
                 //index 0= cantidad , 1= posicion
-                OnGetHit += DP_current.GetDamage;
+                Managers.EnemyManager._OnDamage += ExecuteAction;
             }
         }
 
@@ -34,7 +31,7 @@ namespace Dinopostres.CharacterControllers
         {
             if (DP_current)
             {
-                OnGetHit -= DP_current.GetDamage;
+                Managers.EnemyManager._OnDamage -= ExecuteAction;
             }
 
         }
@@ -49,14 +46,16 @@ namespace Dinopostres.CharacterControllers
 
         public void ExecuteAction(ActionEvent ev)
         {
-            Debug.Log("ACTION EVENT");
+            if (ev.ID != transform.GetInstanceID())
+                return;
+
             switch (ev._Action)
             {
                 case Events.ActionEvent.GameActions.HIT:
                     if (!isInvincible)
                     {
                         StartCoroutine(InvinsibleCouldown());
-                        OnGetHit(ev);
+                        DP_current.GetDamage((float)ev.GetParameterByIndex(0));
                     }
                     break;
                 default:

@@ -1,5 +1,4 @@
 using UnityEngine;
-using Dinopostres.TriggerEffects;
 
 namespace Dinopostres.Definitions
 {
@@ -11,7 +10,7 @@ namespace Dinopostres.Definitions
         [SerializeField]
         bool isPhysical;
         [SerializeField]
-        AttackObject AO_EmitterOrCollider;
+        GameObject AO_EmitterOrCollider;
         [SerializeField]
         float f_duration;
 
@@ -19,7 +18,7 @@ namespace Dinopostres.Definitions
 
         public string _SkillName { get => str_SkillName; }
         public bool _isPhysical { get => isPhysical; }
-        public AttackObject _EmitterOrCollider { get => AO_EmitterOrCollider; }
+        public GameObject _EmitterOrCollider { get => AO_EmitterOrCollider; }
 
         public WaitForSeconds _ColdDown()
         {

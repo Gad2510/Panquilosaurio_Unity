@@ -1,11 +1,15 @@
 using System.Collections;
 using System.Collections.Generic;
+using Dinopostres.Events;
 using UnityEngine;
 
 namespace Dinopostres.Managers
 {
     public class EnemyManager : MonoBehaviour
     {
+        public delegate void GameActions(ActionEvent ev);
+        public static GameActions _OnDamage;
+
         private static List<GameObject> lst_EnemyInLevel= new List<GameObject>();
 
         public static List<GameObject> CurrentEnemies { get => lst_EnemyInLevel; }

@@ -2,7 +2,8 @@
     "name": "TriggerEffects",
     "rootNamespace": "",
     "references": [
-        "GUID:93ef3f92a762654458b0231e5f1c39ec"
+        "GUID:93ef3f92a762654458b0231e5f1c39ec",
+        "GUID:15b9c2d8059a258419c2862e04b06257"
     ],
     "includePlatforms": [],
     "excludePlatforms": [],

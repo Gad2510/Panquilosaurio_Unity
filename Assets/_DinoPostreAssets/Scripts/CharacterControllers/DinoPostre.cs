@@ -117,7 +117,7 @@ namespace Dinopostres.CharacterControllers
         private IEnumerator Attack(SkillDef _skill)
         {
 
-            Dinopostres.TriggerEffects.AttackObject collider = _skill._EmitterOrCollider;
+            TriggerEffects.AttackObject collider = _skill._EmitterOrCollider.GetComponent<TriggerEffects.AttackObject>();
 
             collider._Damage = (_skill._isPhysical) ? dic_Stats[DinoStatsDef.Stats.SABOR]: dic_Stats[DinoStatsDef.Stats.TEXTURA];
 
@@ -130,9 +130,9 @@ namespace Dinopostres.CharacterControllers
             isAttacking = false;
         }
 
-        public void GetDamage(ActionEvent ev)
+        public void GetDamage(float damage)
         {
-            dic_Stats[DinoStatsDef.Stats.HP] -= (float)ev.GetParameterByIndex(0);
+            dic_Stats[DinoStatsDef.Stats.HP] -= damage;
             f_TestHP = dic_Stats[DinoStatsDef.Stats.HP];
             if (dic_Stats[DinoStatsDef.Stats.HP] <= 0)
             {

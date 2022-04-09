@@ -2,8 +2,7 @@
     "name": "Definitions",
     "rootNamespace": "",
     "references": [
-        "GUID:93ef3f92a762654458b0231e5f1c39ec",
-        "GUID:43aaedb126dea584c83a286c8304a03d"
+        "GUID:93ef3f92a762654458b0231e5f1c39ec"
     ],
     "includePlatforms": [],
     "excludePlatforms": [],

@@ -297,7 +297,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!73398921 &813767621
 VFXRenderer:
   m_ObjectHideFlags: 2
@@ -305,7 +305,7 @@ VFXRenderer:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 813767620}
-  m_Enabled: 1
+  m_Enabled: 0
   m_CastShadows: 0
   m_ReceiveShadows: 0
   m_DynamicOccludee: 1
@@ -984,11 +984,11 @@ MonoBehaviour:
   lst_SkillList:
   - str_SkillName: Test A
     isPhysical: 1
-    AO_EmitterOrCollider: {fileID: 1801601455}
+    AO_EmitterOrCollider: {fileID: 1801601454}
     f_duration: 0.3
   - str_SkillName: Test B
     isPhysical: 0
-    AO_EmitterOrCollider: {fileID: 1886172714}
+    AO_EmitterOrCollider: {fileID: 1886172713}
     f_duration: 1
   lst_skills:
   - Test A
@@ -1254,11 +1254,11 @@ MonoBehaviour:
   lst_SkillList:
   - str_SkillName: Test A
     isPhysical: 1
-    AO_EmitterOrCollider: {fileID: 1499680889}
+    AO_EmitterOrCollider: {fileID: 1499680884}
     f_duration: 0.3
   - str_SkillName: Test B
     isPhysical: 0
-    AO_EmitterOrCollider: {fileID: 894974057}
+    AO_EmitterOrCollider: {fileID: 894974055}
     f_duration: 1
   lst_skills:
   - Test A
