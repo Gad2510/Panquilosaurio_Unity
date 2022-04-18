@@ -25,15 +25,14 @@ namespace Dinopostres.Definitions
         [SerializeField]
         Sprite spt_IngreImage;
         [SerializeField]
-        VisualEffectObject par_Particles;
+        Mesh msh_Colectable;
+        [SerializeField]
+        Material mat_CollectableMaterial;
 
         public Sample _Ingredient { get => enm_Ingredient; }
         public IngredientType _Type { get => enm_IngreType; }
         public Sprite _Sprite { get => spt_IngreImage; }
-
-        public VisualEffectObject GetParticleSystem(int amount)
-        {
-            return par_Particles;
-        }
+        public Mesh _Mash { get => msh_Colectable; }
+        public Material _Mat { get => mat_CollectableMaterial; }
     }
 }

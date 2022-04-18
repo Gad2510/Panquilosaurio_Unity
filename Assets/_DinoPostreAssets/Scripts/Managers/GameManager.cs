@@ -28,7 +28,6 @@ namespace Dinopostres.Managers
             GameObject go = new GameObject("Manager");
             _instance = go.AddComponent<GameManager>();
             _instance.LM_LevelManager = go.AddComponent<LevelManager>();
-
             DontDestroyOnLoad(go);
         }
     }

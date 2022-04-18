@@ -9,6 +9,7 @@ namespace Dinopostres.Managers
     {
         public delegate void GameActions(ActionEvent ev);
         public static GameActions _OnDamage;
+        public static GameActions _OnDead;
 
         private static List<GameObject> lst_EnemyInLevel= new List<GameObject>();
 

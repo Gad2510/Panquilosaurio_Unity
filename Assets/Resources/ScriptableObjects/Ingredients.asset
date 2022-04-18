@@ -16,20 +16,25 @@ MonoBehaviour:
   - enm_Ingredient: 0
     enm_IngreType: 3
     spt_IngreImage: {fileID: 0}
-    par_Particles: {fileID: 8926484042661614526, guid: 80f0998127fa833488c4d3ec593b960e, type: 3}
+    msh_Colectable: {fileID: 0}
+    mat_CollectableMaterial: {fileID: 0}
   - enm_Ingredient: 1
     enm_IngreType: 0
     spt_IngreImage: {fileID: 0}
-    par_Particles: {fileID: 8926484042661614526, guid: 80f0998127fa833488c4d3ec593b960e, type: 3}
+    msh_Colectable: {fileID: 0}
+    mat_CollectableMaterial: {fileID: 0}
   - enm_Ingredient: 2
     enm_IngreType: 2
     spt_IngreImage: {fileID: 0}
-    par_Particles: {fileID: 0}
+    msh_Colectable: {fileID: 0}
+    mat_CollectableMaterial: {fileID: 0}
   - enm_Ingredient: 3
     enm_IngreType: 0
     spt_IngreImage: {fileID: 0}
-    par_Particles: {fileID: 0}
+    msh_Colectable: {fileID: 0}
+    mat_CollectableMaterial: {fileID: 0}
   - enm_Ingredient: 4
     enm_IngreType: 3
     spt_IngreImage: {fileID: 0}
-    par_Particles: {fileID: 0}
+    msh_Colectable: {fileID: 0}
+    mat_CollectableMaterial: {fileID: 0}
