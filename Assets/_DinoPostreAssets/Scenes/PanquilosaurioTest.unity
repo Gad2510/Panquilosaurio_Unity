@@ -1696,6 +1696,10 @@ PrefabInstance:
       propertyPath: m_Name
       value: Agujaceratops_model
       objectReference: {fileID: 0}
+    - target: {fileID: 6756270356664419675, guid: 7387dec0bbe3f884da275c7afca5e0e0, type: 3}
+      propertyPath: m_Enabled
+      value: 1
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 7387dec0bbe3f884da275c7afca5e0e0, type: 3}
 --- !u!4 &2093576066 stripped

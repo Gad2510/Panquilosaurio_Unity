@@ -32,7 +32,7 @@ namespace Dinopostres.Definitions
         public Sample _Ingredient { get => enm_Ingredient; }
         public IngredientType _Type { get => enm_IngreType; }
         public Sprite _Sprite { get => spt_IngreImage; }
-        public Mesh _Mash { get => msh_Colectable; }
+        public Mesh _Mesh { get => msh_Colectable; }
         public Material _Mat { get => mat_CollectableMaterial; }
     }
 }

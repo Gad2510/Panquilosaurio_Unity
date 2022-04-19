@@ -43,7 +43,7 @@ namespace Dinopostres.CharacterControllers
                 Percepcion();
                 base.Update();
             }
-            transform.LookAt(Player.PL_Instance.transform);
+            
         }
 
         protected override void OnDestroy()
@@ -57,6 +57,7 @@ namespace Dinopostres.CharacterControllers
             if (!isPlayerNear)
             {
                 nav_MeshAgent.destination = v3_Origin;
+                transform.LookAt(v3_Origin);
                 return;
             }
 
@@ -70,9 +71,9 @@ namespace Dinopostres.CharacterControllers
                 nav_MeshAgent.velocity = Vector3.zero;
                 ctn_Attack = StartCoroutine(prepareAttack());
             }
-                
 
-            
+            transform.LookAt(Player.PL_Instance.transform);
+
         }
         //To check how near the player is to the enemy
         private void Percepcion()

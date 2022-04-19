@@ -137,6 +137,18 @@ namespace Dinopostres.CharacterControllers
             if (dic_Stats[DinoStatsDef.Stats.HP] <= 0)
             {
                 print("I died");
+                if (!isPlayer)
+                    GetRewards();
+            }
+        }
+
+        private void GetRewards()
+        {
+            DinoDef dino = EnemyStorage._Instance().Look4DinoDef(enm_Dino);
+
+            foreach(IngredientCount _ing in dino._Rewards)
+            {
+                
             }
         }
     }

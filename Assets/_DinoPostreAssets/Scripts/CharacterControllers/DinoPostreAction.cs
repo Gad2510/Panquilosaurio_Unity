@@ -1,4 +1,4 @@
-// GENERATED AUTOMATICALLY FROM 'Assets/Scripts/CharacterControllers/DinoPostreAction.inputactions'
+// GENERATED AUTOMATICALLY FROM 'Assets/_DinoPostreAssets/Scripts/CharacterControllers/DinoPostreAction.inputactions'
 
 using System;
 using System.Collections;
