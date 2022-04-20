@@ -16,25 +16,20 @@ MonoBehaviour:
   - enm_Ingredient: 0
     enm_IngreType: 3
     spt_IngreImage: {fileID: 0}
-    msh_Colectable: {fileID: 0}
-    mat_CollectableMaterial: {fileID: 0}
+    obj_Colectable: {fileID: 1389482468973450677, guid: 37d5e13907a8f7642bac9492449cb9c8, type: 3}
   - enm_Ingredient: 1
     enm_IngreType: 0
     spt_IngreImage: {fileID: 0}
-    msh_Colectable: {fileID: 0}
-    mat_CollectableMaterial: {fileID: 0}
+    obj_Colectable: {fileID: 0}
   - enm_Ingredient: 2
     enm_IngreType: 2
     spt_IngreImage: {fileID: 0}
-    msh_Colectable: {fileID: 0}
-    mat_CollectableMaterial: {fileID: 0}
+    obj_Colectable: {fileID: 0}
   - enm_Ingredient: 3
     enm_IngreType: 0
     spt_IngreImage: {fileID: 0}
-    msh_Colectable: {fileID: 0}
-    mat_CollectableMaterial: {fileID: 0}
+    obj_Colectable: {fileID: 2376059307339953027, guid: eca32d2ec49f6014299b6d8815096ac8, type: 3}
   - enm_Ingredient: 4
     enm_IngreType: 3
     spt_IngreImage: {fileID: 0}
-    msh_Colectable: {fileID: 0}
-    mat_CollectableMaterial: {fileID: 0}
+    obj_Colectable: {fileID: 0}

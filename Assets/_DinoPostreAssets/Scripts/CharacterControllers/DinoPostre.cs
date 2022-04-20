@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using UnityEngine;
 using System.Linq;
 using Dinopostres.Definitions;
+using Dinopostres.Managers;
 using Dinopostres.Events;
 
 namespace Dinopostres.CharacterControllers
@@ -148,7 +149,7 @@ namespace Dinopostres.CharacterControllers
 
             foreach(IngredientCount _ing in dino._Rewards)
             {
-                
+                LevelManager._Instance._RewardManager.SpawnRewards(transform.position, _ing._Ingredient, _ing._Count);
             }
         }
     }

@@ -7,37 +7,45 @@ namespace Dinopostres.Managers
 {
     public class RewardManager : MonoBehaviour
     {
-        private Object rewardTemplate;
-
-        private Queue<Rigidbody> rewardObjects;
-        private Queue<Rigidbody> inactiveObjects;
+        private Dictionary<IngredientDef.Sample ,Queue<Rigidbody>> inactiveObjects;
         // Start is called before the first frame update
         void Awake()
         {
-            rewardObjects = new Queue<Rigidbody>();
-            inactiveObjects = new Queue<Rigidbody>();
+            inactiveObjects = new Dictionary<IngredientDef.Sample, Queue<Rigidbody>>();
         }
 
-        // Update is called once per frame
-        void Update()
+        public void SpawnRewards(Vector3 _pos, IngredientDef.Sample _type, float amount)
         {
+            for (int i = 0; i < amount; i++)
+            {
+                Rigidbody go;
+                if (inactiveObjects.ContainsKey(_type) && inactiveObjects[_type].Count > 0)
+                {
+                    //ActiveObject
+                    go=inactiveObjects[_type].Dequeue();
+                }
+                else
+                {
+                    //Create object
+                    Object rewardTemplate = Ingredients.Instance().GetIngredientPrefab(_type);
 
+                    go = (Instantiate(rewardTemplate, _pos, Quaternion.identity) as GameObject).GetComponent<Rigidbody>();
+                }
+
+                float angle = Random.Range(0f, 360f);
+                go.gameObject.GetComponent<MeshRenderer>().enabled = true;
+                go.transform.position = _pos;
+                go.velocity = (new Vector3(Mathf.Sin(angle), 0f, Mathf.Cos(angle)))*5;
+            }
         }
 
-        private void SpawnRewards(Vector3 pos)
+        public void RegisterUnspawn(Rigidbody go, IngredientDef.Sample _type)
         {
-
-            if (inactiveObjects.Count > 0)
+            if(inactiveObjects[_type] == null)
             {
-                //ActiveObject
-
-
+                inactiveObjects[_type] = new Queue<Rigidbody>();
             }
-            else
-            {
-                //Create object
-                Rigidbody go = Instantiate(rewardTemplate, pos, Quaternion.identity) as Rigidbody;
-            }
+            inactiveObjects[_type].Enqueue(go);
         }
     }
 }

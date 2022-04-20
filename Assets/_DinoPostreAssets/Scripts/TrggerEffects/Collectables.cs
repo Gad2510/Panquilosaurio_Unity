@@ -1,44 +1,53 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using Dinopostres.Managers;
 using Dinopostres.Definitions;
 
 namespace Dinopostres.TriggerEffects
 {
     public class Collectables : MonoBehaviour
     {
+        [SerializeField]
         IngredientDef.Sample enm_Type;
-
-        MeshFilter mfl_selfMeshFilter;
+        Rigidbody selfRigid;
         MeshRenderer mhr_selfRenderer;
 
         WaitForSeconds w4s_CouldDown = new WaitForSeconds(5f);
         // Start is called before the first frame update
         void Awake()
         {
-            mfl_selfMeshFilter = GetComponent<MeshFilter>();
             mhr_selfRenderer = GetComponent<MeshRenderer>();
-        }
+            selfRigid = GetComponent<Rigidbody>();
 
-        public void InitValues(IngredientDef.Sample _type)
-        {
-            Mesh meshRef;
-            Material matRef;
-            Ingredients.Instance().GetIngredientElements(_type, out meshRef, out matRef);
-
-            mfl_selfMeshFilter.mesh = meshRef;
-            mhr_selfRenderer.material = matRef;
-            enm_Type = _type;
+            StartCoroutine(TimerActiveValues());
         }
 
         private IEnumerator TimerActiveValues()
         {
             yield return w4s_CouldDown;
+            Unspawn();
         }
 
         private void OnTriggerEnter(Collider other)
         {
+            if (other.CompareTag("Player"))
+            {
+                RegisterCount();
+                Unspawn();
+            }
+        }
 
+        private void Unspawn()
+        {
+            mhr_selfRenderer.enabled = false;
+            LevelManager._Instance._RewardManager.RegisterUnspawn(selfRigid, enm_Type);
+        }
+
+        private void RegisterCount()
+        {
+            //Call when the player get the collectable in time
+            StopAllCoroutines();
         }
     }
 }

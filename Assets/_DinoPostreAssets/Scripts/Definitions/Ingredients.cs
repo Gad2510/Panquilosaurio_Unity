@@ -48,19 +48,17 @@ namespace Dinopostres.Definitions
             }
         }
 
-        public void GetIngredientElements(IngredientDef.Sample _sample,out  Mesh _mesh, out Material _mat)
+        public Object GetIngredientPrefab(IngredientDef.Sample _sample)
         {
             try
             {
                 IngredientDef ingre= lst_Ingredients.Where((x) => x._Ingredient == _sample).First();
-                _mesh = ingre._Mesh;
-                _mat = ingre._Mat;
+                return ingre._Mesh;
             }
             catch (System.Exception e)
             {
                 Debug.LogWarning("Ingredient not found");
-                _mesh = null;
-                _mat = null;
+                return null;
             }
         }
     }

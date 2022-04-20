@@ -25,14 +25,11 @@ namespace Dinopostres.Definitions
         [SerializeField]
         Sprite spt_IngreImage;
         [SerializeField]
-        Mesh msh_Colectable;
-        [SerializeField]
-        Material mat_CollectableMaterial;
+        Object obj_Colectable;
 
         public Sample _Ingredient { get => enm_Ingredient; }
         public IngredientType _Type { get => enm_IngreType; }
         public Sprite _Sprite { get => spt_IngreImage; }
-        public Mesh _Mesh { get => msh_Colectable; }
-        public Material _Mat { get => mat_CollectableMaterial; }
+        public Object _Mesh { get => obj_Colectable; }
     }
 }
