@@ -9,13 +9,14 @@ namespace Dinopostres.TriggerEffects
         [SerializeField]
         protected float f_baseDamage;
 
+        protected string str_Compere;
         protected float f_damage;
 
         public float _Damage { set => f_damage = value; }
 
         protected virtual void Awake()
         {
-            string str_Compere = transform.root.CompareTag("Player") ? "Enemy" : "Player";
+            str_Compere = transform.root.CompareTag("Player") ? "Controller" : "Player";
             gameObject.layer = LayerMask.NameToLayer(str_Compere);
         }
         protected void OnTriggerEnter(Collider other)
@@ -26,7 +27,7 @@ namespace Dinopostres.TriggerEffects
                 SendDamage(ctrl);
             }*/
 
-            if (other.transform.root.CompareTag("Controller"))
+            if (other.transform.root.CompareTag(str_Compere))
             {
                 SendDamage(other);
             }

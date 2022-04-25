@@ -22,16 +22,35 @@ namespace Dinopostres.Definitions
             return DS_instance;
         }
 
-        public DinoStatsDef LookForStats(DinoDef.DinoChar _Dino)
+        public DinoStatsDef LookForStats(DinoDef.DinoChar _dino)
         {
             try
             {
-                return lst_DinoStats.Where((x) => x._Dino == _Dino).First();
+                return lst_DinoStats.Where((x) => x._Dino == _dino).First();
             }
             catch (System.Exception e)
             {
-                Debug.LogError("Definition not found in the criptable object");
+                Debug.LogError("Definition not found in the scriptable object");
                 return null;
+            }
+        }
+
+        public float CalculatePower(DinoDef.DinoChar _dino, int _level)
+        {
+            try
+            {
+                float power = 0;
+                DinoStatsDef stats = lst_DinoStats.Where((x) => x._Dino == _dino).First();
+                for (int i = 0; i < (int)DinoStatsDef.Stats.none; i++)
+                {
+                    power += stats.CalculateCurrentValue((DinoStatsDef.Stats)i, _level);
+                }
+                return power;
+            }
+            catch (System.Exception e)
+            {
+                Debug.LogError("Definition not found in the scriptable object to get current power");
+                return -1;
             }
         }
     }

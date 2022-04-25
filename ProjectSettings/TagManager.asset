@@ -6,6 +6,8 @@ TagManager:
   tags:
   - Attack
   - Controller
+  - UI_Controllers
+  - UI_Dispacher
   layers:
   - Default
   - TransparentFX
@@ -13,10 +15,10 @@ TagManager:
   - 
   - Water
   - UI
-  - Enemy
+  - Controller
   - Player
   - Colectables
-  - 
+  - Ignore
   - 
   - 
   - 

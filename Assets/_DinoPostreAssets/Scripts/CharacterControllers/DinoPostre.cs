@@ -20,10 +20,10 @@ namespace Dinopostres.CharacterControllers
         [SerializeField]
         string[] lst_skills = new string[5];
 
-        int int_Level;
-        const int MAX_LEVEL= 100;
+        int int_Level=1;
         bool isAttacking=false;
         bool isPlayer;
+        float f_maxHealth;
         public float f_TestHP;
 
         Dictionary<DinoStatsDef.Stats, float> dic_Stats = new Dictionary<DinoStatsDef.Stats, float>
@@ -38,15 +38,13 @@ namespace Dinopostres.CharacterControllers
 
         public bool IsPlayer { set => isPlayer = value; }
         public bool IsAttacking { get => isAttacking; }
+        public float CurrentHealth { set => dic_Stats[DinoStatsDef.Stats.HP] = value; }
         public float _Peso { get => dic_Stats[DinoStatsDef.Stats.PESO]; }
 
         // Start is called before the first frame update
         void Awake()
         {
-            int_Level = 1;
-            InitStats();
             lst_skills[4]=EnemyStorage._Instance().GetDeafultEnemyAttack(enm_Dino);
-            f_TestHP = dic_Stats[DinoStatsDef.Stats.HP];
         }
 
         // Update is called once per frame
@@ -70,8 +68,9 @@ namespace Dinopostres.CharacterControllers
 
         }
 
-        private void InitStats()
+        public void InitStats(int _level)
         {
+            int_Level = _level;
             DinoStatsDef stats = DinoSpecsDef.Instance().LookForStats(enm_Dino);
 
             for(int i=0;i<(int)DinoStatsDef.Stats.none; i++)
@@ -80,15 +79,17 @@ namespace Dinopostres.CharacterControllers
                 SetStatByLevel(stats, (DinoStatsDef.Stats)i,ref value);
                 dic_Stats[(DinoStatsDef.Stats)i] = value;
 
-               // Debug.Log($"STAT {(DinoStatsDef.Stats)i}  | Valor {value}");
+                Debug.Log($"STAT {(DinoStatsDef.Stats)i}  | Valor {value}");
             }
+
+            f_maxHealth = dic_Stats[DinoStatsDef.Stats.HP];
+
+            f_TestHP = dic_Stats[DinoStatsDef.Stats.HP];
         }
 
         private void SetStatByLevel(DinoStatsDef _statDef,DinoStatsDef.Stats _statName, ref float _stat)
         {
-            float init, end;
-            _statDef.GetStats(_statName,out init,out end);
-            _stat = init + Mathf.Floor(((end - init) / MAX_LEVEL) *( int_Level-1));
+            _stat = _statDef.CalculateCurrentValue(_statName,int_Level);
         }
 
         public void SetSkills()
@@ -139,10 +140,17 @@ namespace Dinopostres.CharacterControllers
             {
                 print("I died");
                 if (!isPlayer)
+                {
                     GetRewards();
+                    Destroy(this.gameObject, 2f);
+                }
             }
         }
 
+        public float GetHeath()
+        {
+            return dic_Stats[DinoStatsDef.Stats.HP] / f_maxHealth;
+        }
         private void GetRewards()
         {
             DinoDef dino = EnemyStorage._Instance().Look4DinoDef(enm_Dino);

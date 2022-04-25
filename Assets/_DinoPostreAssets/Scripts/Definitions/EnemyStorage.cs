@@ -22,6 +22,20 @@ namespace Dinopostres.Definitions
             return ES_instance;
         }
 
+        public List<DinoDef> GetEnemiesPerLevel(LocationCount.Area _area, LocationCount.Rank _rank)
+        {
+            try
+            {
+                List<DinoDef> enemies = lst_Definitions.Where((x) => x.HasLocation(_area, _rank) > 0).ToList();
+                return enemies;
+            }
+            catch(System.Exception e)
+            {
+                Debug.Log("An error occur while getting enemies in level");
+                return null;
+            }
+        }
+
         public DinoDef Look4DinoDef(DinoDef.DinoChar _dino)
         {
             try
@@ -62,5 +76,7 @@ namespace Dinopostres.Definitions
                 return null;
             }
         }
+
+
     }
 }

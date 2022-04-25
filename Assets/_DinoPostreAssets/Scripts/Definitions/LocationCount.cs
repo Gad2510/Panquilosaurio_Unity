@@ -9,6 +9,7 @@ namespace Dinopostres.Definitions
     {
         public enum Area
         {
+            demo,
             menu,
             criadero,
             praderaCriadero,
@@ -25,10 +26,11 @@ namespace Dinopostres.Definitions
         [SerializeField]
         Rank enm_Rank;
         [SerializeField]
-        object int_Value;
+        [Range (0,100)]
+        float int_Value;
 
         public Area _Area { get => enm_Area; }
         public Rank _Rank { get => enm_Rank; }
-        public object _Value { get => int_Value; }
+        public float _Value { get => int_Value; }
     }
 }

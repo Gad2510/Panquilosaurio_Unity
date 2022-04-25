@@ -7,6 +7,8 @@ namespace Dinopostres.Definitions
     [System.Serializable]
     public class DinoStatsDef
     {
+
+        const int MAX_LEVEL = 100;
         public enum Stats
         {
             HP,PESO,CONFITE,COBERTURA,SABOR,TEXTURA,none
@@ -41,7 +43,15 @@ namespace Dinopostres.Definitions
         float endTextura;
 
         public DinoDef.DinoChar _Dino { get => enm_Dino; }
-        
+
+        public float CalculateCurrentValue(Stats _stat, int _level)
+        {
+            float init;
+            float end;
+            GetStats(_stat, out init, out end);
+            return init + Mathf.Floor(((end - init) / MAX_LEVEL) * (_level));
+        }
+
         public void GetStats (Stats _stat, out float _initV, out float _endV)
         {
             switch (_stat)

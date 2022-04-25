@@ -19,8 +19,17 @@ namespace Dinopostres.TriggerEffects
         {
             mhr_selfRenderer = GetComponent<MeshRenderer>();
             selfRigid = GetComponent<Rigidbody>();
+        }
 
+        void OnBecameVisible()
+        {
+            gameObject.layer = LayerMask.NameToLayer("Colectables");
             StartCoroutine(TimerActiveValues());
+        }
+
+        private void OnBecameInvisible()
+        {
+            gameObject.layer = LayerMask.NameToLayer("Ignore");
         }
 
         private IEnumerator TimerActiveValues()
@@ -31,7 +40,7 @@ namespace Dinopostres.TriggerEffects
 
         private void OnTriggerEnter(Collider other)
         {
-            if (other.CompareTag("Player"))
+            if (other.transform.root.CompareTag("Player"))
             {
                 RegisterCount();
                 Unspawn();

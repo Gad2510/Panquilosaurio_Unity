@@ -35,13 +35,13 @@ namespace Dinopostres.Managers
                 float angle = Random.Range(0f, 360f);
                 go.gameObject.GetComponent<MeshRenderer>().enabled = true;
                 go.transform.position = _pos;
-                go.velocity = (new Vector3(Mathf.Sin(angle), 0f, Mathf.Cos(angle)))*5;
+                go.velocity = (new Vector3(Mathf.Sin(angle), 0.5f, Mathf.Cos(angle)))*3;
             }
         }
 
         public void RegisterUnspawn(Rigidbody go, IngredientDef.Sample _type)
         {
-            if(inactiveObjects[_type] == null)
+            if(!inactiveObjects.ContainsKey(_type) || inactiveObjects[_type]==null )
             {
                 inactiveObjects[_type] = new Queue<Rigidbody>();
             }

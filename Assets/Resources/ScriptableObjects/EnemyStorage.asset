@@ -15,10 +15,11 @@ MonoBehaviour:
   lst_Definitions:
   - Dino: 0
     lst_Areas:
-    - enm_Area: 2
-      enm_Rank: 0
+    - enm_Area: 0
+      enm_Rank: 1
+      int_Value: 100
     str_DefaultSkill: Test A
-    DP_prefeb: {fileID: 0}
+    DP_prefeb: {fileID: 2900804541589546330, guid: f2aeb63cdcd4d4f47a31520bf3e85163, type: 3}
     spt_DinoImage: {fileID: 0}
     lst_Rewards:
     - enm_Ingredient: 0
@@ -29,17 +30,18 @@ MonoBehaviour:
     lst_Areas:
     - enm_Area: 2
       enm_Rank: 0
+      int_Value: 0
     str_DefaultSkill: 
     DP_prefeb: {fileID: 0}
     spt_DinoImage: {fileID: 0}
     lst_Rewards: []
-  - Dino: 0
+  - Dino: 2
     lst_Areas: []
     str_DefaultSkill: 
     DP_prefeb: {fileID: 0}
     spt_DinoImage: {fileID: 0}
     lst_Rewards: []
-  - Dino: 0
+  - Dino: 3
     lst_Areas: []
     str_DefaultSkill: 
     DP_prefeb: {fileID: 0}

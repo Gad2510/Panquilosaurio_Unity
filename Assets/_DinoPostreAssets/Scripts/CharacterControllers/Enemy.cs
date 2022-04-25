@@ -17,22 +17,20 @@ namespace Dinopostres.CharacterControllers
         public float f_PlayerDistance;
         public float f_AttackDistance;
         NavMeshAgent nav_MeshAgent;
-        WaitForSeconds w4s_AttackPreparation= new WaitForSeconds(3);
+        WaitForSeconds w4s_AttackPreparation= new WaitForSeconds(2);
         Coroutine ctn_Attack;
         Vector3 v3_Origin;
 
-        protected override void Awake()
+        protected override void Start()
         {
-            base.Awake();
-            EnemyManager.RegisterEnemy(this.gameObject);
+            base.Start();
+            LevelManager._Instance._EnemyManager.RegisterEnemy(this.gameObject);
 
             isPlayerNear = false;
             isAttacking = false;
             v3_Origin = transform.position;
             nav_MeshAgent = gameObject.AddComponent<NavMeshAgent>();
-        }
-        private void Start()
-        {
+
             nav_MeshAgent.speed = (base.DP_current._Peso / 100);
         }
         // Update is called once per frame
@@ -43,13 +41,14 @@ namespace Dinopostres.CharacterControllers
                 Percepcion();
                 base.Update();
             }
-            
+
+            MoveHealBar();
         }
 
         protected override void OnDestroy()
         {
             base.OnDestroy();
-            EnemyManager.RemoveEnemy(this.gameObject);
+            LevelManager._Instance._EnemyManager.RemoveEnemy(this.gameObject);
         }
 
         protected override void Movement()
@@ -57,7 +56,7 @@ namespace Dinopostres.CharacterControllers
             if (!isPlayerNear)
             {
                 nav_MeshAgent.destination = v3_Origin;
-                transform.LookAt(v3_Origin);
+                transform.LookAt(v3_Origin+transform.forward);
                 return;
             }
 
