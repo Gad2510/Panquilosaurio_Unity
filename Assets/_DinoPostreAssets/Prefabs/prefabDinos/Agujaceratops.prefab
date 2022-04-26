@@ -38,7 +38,7 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 2900804541589546330}
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
-  m_LocalPosition: {x: 0, y: 0, z: 1.145}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children:
   - {fileID: 3443849783576476242}
@@ -62,7 +62,7 @@ MonoBehaviour:
   int_ID: 0
   enm_Dino: 0
   lst_SkillList:
-  - str_SkillName: Test A
+  - str_SkillName: Tackle
     isPhysical: 1
     AO_EmitterOrCollider: {fileID: 2900804542137889686}
     f_duration: 0.3
@@ -71,11 +71,11 @@ MonoBehaviour:
     AO_EmitterOrCollider: {fileID: 2900804542322508817}
     f_duration: 1
   lst_skills:
-  - Test A
+  - Tackle
   - Test B
   - 
   - 
-  - 
+  - Tackle
   f_TestHP: 0
 --- !u!1 &2900804541737988648
 GameObject:
@@ -408,7 +408,7 @@ GameObject:
   - component: {fileID: 2900804542322508819}
   m_Layer: 6
   m_Name: pivot_Effct
-  m_TagString: Untagged
+  m_TagString: Attack
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0

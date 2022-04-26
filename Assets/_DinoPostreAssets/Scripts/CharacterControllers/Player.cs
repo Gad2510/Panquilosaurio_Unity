@@ -98,7 +98,7 @@ namespace Dinopostres.CharacterControllers
 
         private void Controllers(InputAction.CallbackContext _ctx)
         {
-            print(_ctx.action.name.ToString());
+            //print(_ctx.action.name.ToString());
             if (DP_current)
             {
                 switch (_ctx.action.name)

@@ -1387,6 +1387,10 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   trns_DescriptionParent: {fileID: 5313580181508996949}
+  txt_DescriptionName: {fileID: 5313580181130220455}
+  txt_DescriptionPower: {fileID: 5313580181757236595}
+  txt_DescriptionPS: {fileID: 5313580180645470294}
+  sl_healthRef: {fileID: 5313580181708183984}
   test:
     int_recolectedMigas: 0
     int_dinoChanges: 0
@@ -1439,11 +1443,11 @@ MonoBehaviour:
       isSelected: 0
     - int_ID: 9
       int_currentHealth: 100
-      int_Level: 1
+      int_Level: 20
       enm_Dino: 0
       isSelected: 0
     - int_ID: 10
-      int_currentHealth: 100
+      int_currentHealth: 20
       int_Level: 1
       enm_Dino: 1
       isSelected: 0
