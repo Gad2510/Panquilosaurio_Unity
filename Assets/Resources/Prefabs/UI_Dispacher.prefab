@@ -1405,7 +1405,47 @@ MonoBehaviour:
     - int_ID: 2
       int_currentHealth: 100
       int_Level: 1
+      enm_Dino: 1
+      isSelected: 0
+    - int_ID: 3
+      int_currentHealth: 100
+      int_Level: 1
+      enm_Dino: 2
+      isSelected: 0
+    - int_ID: 4
+      int_currentHealth: 100
+      int_Level: 1
+      enm_Dino: 3
+      isSelected: 0
+    - int_ID: 5
+      int_currentHealth: 100
+      int_Level: 1
       enm_Dino: 0
+      isSelected: 0
+    - int_ID: 6
+      int_currentHealth: 100
+      int_Level: 1
+      enm_Dino: 1
+      isSelected: 0
+    - int_ID: 7
+      int_currentHealth: 100
+      int_Level: 1
+      enm_Dino: 2
+      isSelected: 0
+    - int_ID: 8
+      int_currentHealth: 100
+      int_Level: 1
+      enm_Dino: 3
+      isSelected: 0
+    - int_ID: 9
+      int_currentHealth: 100
+      int_Level: 1
+      enm_Dino: 0
+      isSelected: 0
+    - int_ID: 10
+      int_currentHealth: 100
+      int_Level: 1
+      enm_Dino: 1
       isSelected: 0
     lst_unlockRecepies: 
     lst_lockRecepies: 

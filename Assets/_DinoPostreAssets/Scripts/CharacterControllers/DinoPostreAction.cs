@@ -198,7 +198,7 @@ public class @DinoPostreAction : IInputActionCollection, IDisposable
                     ""path"": ""<Keyboard>/x"",
                     ""interactions"": """",
                     ""processors"": """",
-                    ""groups"": """",
+                    ""groups"": ""DinoPostre"",
                     ""action"": ""Attack B"",
                     ""isComposite"": false,
                     ""isPartOfComposite"": false
@@ -206,7 +206,7 @@ public class @DinoPostreAction : IInputActionCollection, IDisposable
                 {
                     ""name"": """",
                     ""id"": ""9e6cbf61-17c6-4fa3-ba43-52770fabe2d9"",
-                    ""path"": ""<Keyboard>/c"",
+                    ""path"": ""<Keyboard>/q"",
                     ""interactions"": """",
                     ""processors"": """",
                     ""groups"": ""DinoPostre"",
@@ -217,7 +217,7 @@ public class @DinoPostreAction : IInputActionCollection, IDisposable
                 {
                     ""name"": """",
                     ""id"": ""512117dd-4fe4-4511-821e-717d81afc937"",
-                    ""path"": ""<Keyboard>/v"",
+                    ""path"": ""<Keyboard>/e"",
                     ""interactions"": """",
                     ""processors"": """",
                     ""groups"": ""DinoPostre"",

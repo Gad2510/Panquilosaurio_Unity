@@ -9,9 +9,12 @@ namespace Dinopostres.CharacterControllers
     {
         [SerializeField]
         private int int_spwnCount = 5;
-
+        [SerializeField]
+        private static int startLevel=1;
         bool isBossStage;
         WaitForSeconds w4s_timerboss = new WaitForSeconds(10f);
+
+        public static int StartLevel { set => startLevel = value; }
 
         private void Awake()
         {
@@ -63,12 +66,15 @@ namespace Dinopostres.CharacterControllers
             Vector3 ofsset = Vector3.zero;
             for (int i = 0; i < ens.Count(); i++)
             {
+                float angle = (360 / (enemies.Count())) * i;
+                ofsset.x = Mathf.Sin(angle);
+                ofsset.y = Mathf.Cos(angle);
                 GameObject go= Instantiate(ens[i], transform.position + ofsset, Quaternion.identity) as GameObject;
-                go.AddComponent<Enemy>();
+                Enemy en=go.AddComponent<Enemy>();
+                en.SetEnemyLevel(startLevel);
                 Rigidbody rd= go.AddComponent<Rigidbody>();
-                rd.constraints = RigidbodyConstraints.FreezePositionY & RigidbodyConstraints.FreezeRotationX & RigidbodyConstraints.FreezeRotationZ;
-                ofsset.x = Mathf.Sin(360 / (enemies.Count() - 1));
-                ofsset.y = Mathf.Cos(360 / (enemies.Count() - 1));
+                rd.constraints = RigidbodyConstraints.FreezePositionY | RigidbodyConstraints.FreezeRotationX | RigidbodyConstraints.FreezeRotationZ;
+                
             }
         }
     }

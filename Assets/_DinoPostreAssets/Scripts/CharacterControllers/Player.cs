@@ -2,6 +2,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.InputSystem;
+using Dinopostres.Managers;
 using Dinopostres.Definitions;
 
 namespace Dinopostres.CharacterControllers
@@ -29,14 +30,13 @@ namespace Dinopostres.CharacterControllers
             //Bind Attacks
             InS_gameActions.DinopostreController.AttackA.performed += Controllers;
             InS_gameActions.DinopostreController.AttackB.performed += Controllers;
+            InS_gameActions.DinopostreController.Dispacher.performed += Controllers;
         }
 
         // Start is called before the first frame update
         protected override void Start()
         {
             base.Start();
-
-            
 
             gameObject.tag = "Player";
 
@@ -67,6 +67,12 @@ namespace Dinopostres.CharacterControllers
             MoveHealBar();
         }
 
+        protected override void GetHIT()
+        {
+            if(isDispacherOpen)
+                LevelManager._Instance.OpenCloseDispacher(!isDispacherOpen);
+        }
+
         protected override void Movement()
         {
             Vector3 velocity = selfRigid.velocity;
@@ -92,16 +98,21 @@ namespace Dinopostres.CharacterControllers
 
         private void Controllers(InputAction.CallbackContext _ctx)
         {
-            //print(ctx.action.name.ToString());
+            print(_ctx.action.name.ToString());
             if (DP_current)
             {
                 switch (_ctx.action.name)
                 {
                     case "Attack A":
-                        DP_current.ExecuteAttack(0);
+                        if (!isDispacherOpen)
+                            DP_current.ExecuteAttack(0);
                         break;
                     case "Attack B":
-                        DP_current.ExecuteAttack(1);
+                        if (!isDispacherOpen)
+                            DP_current.ExecuteAttack(1);
+                        break;
+                    case "Dispacher":
+                        LevelManager._Instance.OpenCloseDispacher(!isDispacherOpen);
                         break;
                 }
             }
@@ -112,6 +123,7 @@ namespace Dinopostres.CharacterControllers
             Destroy(DP_current.gameObject);
             DinoPostre dino = (Instantiate(EnemyStorage._Instance().Look4DinoDef(_newDino.Dino)._Prefab, transform) as GameObject).GetComponent<DinoPostre>();
             DP_current = dino;
+            DP_current.IsPlayer = true;
             DP_current.transform.localPosition = Vector3.zero;
             DP_current.InitStats(_newDino.Level);
             DP_current.CurrentHealth = _newDino.CurrentHealth;

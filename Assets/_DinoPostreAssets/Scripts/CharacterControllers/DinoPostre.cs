@@ -79,7 +79,7 @@ namespace Dinopostres.CharacterControllers
                 SetStatByLevel(stats, (DinoStatsDef.Stats)i,ref value);
                 dic_Stats[(DinoStatsDef.Stats)i] = value;
 
-                Debug.Log($"STAT {(DinoStatsDef.Stats)i}  | Valor {value}");
+                Debug.Log($"STAT {(DinoStatsDef.Stats)i}  | Valor {value}  - {isPlayer}");
             }
 
             f_maxHealth = dic_Stats[DinoStatsDef.Stats.HP];

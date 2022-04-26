@@ -19,6 +19,7 @@ namespace Dinopostres.Managers
         private RewardManager RM_RewardManger;
         private bool isIncrementalStage;
 
+        private GameObject go_dispacher;
         public EnemyManager _EnemyManager { get => EM_EnemyManager; }
         public RewardManager _RewardManager { get => RM_RewardManger; }
 
@@ -37,6 +38,10 @@ namespace Dinopostres.Managers
             ES_EnemyStorage = EnemyStorage._Instance();
 
             LoadStage(LocationCount.Area.demo, LocationCount.Rank.none);
+
+            Object pref_dispacher = Resources.Load<Object>("Prefabs/UI_Dispacher");
+            go_dispacher= Instantiate(pref_dispacher) as GameObject;
+            go_dispacher.SetActive(false);
         }
 
         private void OnLevelWasLoaded(int level)
@@ -55,6 +60,11 @@ namespace Dinopostres.Managers
             enm_lastArea = _area;
             enm_lastRank = _rank;
             lst_enemiesInLevel = ES_EnemyStorage.GetEnemiesPerLevel(_area, _rank);
+        }
+
+        public void OpenCloseDispacher(bool _state)
+        {
+            go_dispacher.SetActive(_state);
         }
 
         public Object GetEnemiesFromLevel(out float _rarety)

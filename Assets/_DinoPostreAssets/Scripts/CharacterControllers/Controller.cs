@@ -73,6 +73,7 @@ namespace Dinopostres.CharacterControllers
                             selfRigid.velocity = (transform.position-(Vector3)ev.GetParameterByIndex(1)).normalized * 5f;
 
                         sl_healthVisual.value = DP_current.GetHeath();
+                        GetHIT();
                     }
                     break;
                 default:
@@ -81,6 +82,7 @@ namespace Dinopostres.CharacterControllers
             }
         }
 
+        protected abstract void GetHIT();
         private IEnumerator InvinsibleCouldown()
         {
             isInvincible = true;

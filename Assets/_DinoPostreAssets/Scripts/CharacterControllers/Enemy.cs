@@ -10,16 +10,16 @@ namespace Dinopostres.CharacterControllers
     public class Enemy : Controller
     {
         private const float f_Distance2Player = 3f;
-        private const float f_Distance2Attack = 0.5f;
+        private const float f_Distance2Attack = 1f;
 
         bool isPlayerNear;
         bool isAttacking;
         public float f_PlayerDistance;
         public float f_AttackDistance;
-        NavMeshAgent nav_MeshAgent;
-        WaitForSeconds w4s_AttackPreparation= new WaitForSeconds(2);
-        Coroutine ctn_Attack;
-        Vector3 v3_Origin;
+        private NavMeshAgent nav_MeshAgent;
+        private WaitForSeconds w4s_AttackPreparation = new WaitForSeconds(2);
+        private Coroutine ctn_Attack;
+        private Vector3 v3_Origin;
 
         protected override void Start()
         {
@@ -31,7 +31,9 @@ namespace Dinopostres.CharacterControllers
             v3_Origin = transform.position;
             nav_MeshAgent = gameObject.AddComponent<NavMeshAgent>();
 
+            Debug.Log($"Dino {base.DP_current._Peso}");
             nav_MeshAgent.speed = (base.DP_current._Peso / 100);
+            nav_MeshAgent.radius = 0.1f;
         }
         // Update is called once per frame
         protected override void Update()
@@ -74,6 +76,15 @@ namespace Dinopostres.CharacterControllers
             transform.LookAt(Player.PL_Instance.transform);
 
         }
+
+        public void SetEnemyLevel(int _level)
+        {
+            if (DP_current == null)
+                DP_current = GetComponentInChildren<DinoPostre>();
+
+            DP_current.InitStats(_level);
+
+        }
         //To check how near the player is to the enemy
         private void Percepcion()
         {
@@ -89,6 +100,11 @@ namespace Dinopostres.CharacterControllers
 
             DP_current.ExecuteAttack(4);
             isAttacking = false;
+        }
+
+        protected override void GetHIT()
+        {
+            StopCoroutine(ctn_Attack);
         }
     }
 }
