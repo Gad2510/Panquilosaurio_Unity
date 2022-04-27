@@ -77,14 +77,14 @@ namespace Dinopostres.CharacterControllers
 
             SpawnMinions(bossRef, 1, 0, true);
 
-            InvokeRepeating(nameof(SpawnCompanions),0,20f);
+            InvokeRepeating(nameof(SpawnCompanions),0,40f);
         }
 
         private void SpawnCompanions()
         {
             for (int i = 1; i < 5; i++)
             {
-                SpawnMinions(obj_companionRef, 1, 0);
+                SpawnMinions(obj_companionRef, 4, i);
             }
         }
 
@@ -105,9 +105,9 @@ namespace Dinopostres.CharacterControllers
             {
                 float angle = (360 / (count)) * pos;
                 ofsset.x = Mathf.Sin(angle)*f_colliderRadius;
-                ofsset.y = Mathf.Cos(angle)*f_colliderRadius;
+                ofsset.z = Mathf.Cos(angle)*f_colliderRadius;
             }
-            
+            Debug.Log(transform.position + ofsset);
             GameObject go = Instantiate(pref, transform.position + ofsset, Quaternion.identity) as GameObject;
             Enemy en;
             if (!isBoss)

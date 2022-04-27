@@ -34,16 +34,30 @@ MonoBehaviour:
     str_DefaultSkill: Headbutt
     DP_prefeb: {fileID: 1134162109193569663, guid: 8b71611c883ac854db2ae1e122720f52, type: 3}
     spt_DinoImage: {fileID: 0}
-    lst_Rewards: []
+    lst_Rewards:
+    - enm_Ingredient: 0
+      int_Count: 2
+    - enm_Ingredient: 4
+      int_Count: 1
   - Dino: 2
     lst_Areas: []
     str_DefaultSkill: Bite
     DP_prefeb: {fileID: 1004624042988374264, guid: 75418e07bc987f14fb4522885e4adbf9, type: 3}
     spt_DinoImage: {fileID: 0}
-    lst_Rewards: []
+    lst_Rewards:
+    - enm_Ingredient: 0
+      int_Count: 2
+    - enm_Ingredient: 2
+      int_Count: 1
+    - enm_Ingredient: 1
+      int_Count: 1
   - Dino: 3
     lst_Areas: []
     str_DefaultSkill: Peck
     DP_prefeb: {fileID: 5179616011630811484, guid: 0776fa41e84fe6941b6e724b43e3b43d, type: 3}
     spt_DinoImage: {fileID: 0}
-    lst_Rewards: []
+    lst_Rewards:
+    - enm_Ingredient: 0
+      int_Count: 2
+    - enm_Ingredient: 4
+      int_Count: 1

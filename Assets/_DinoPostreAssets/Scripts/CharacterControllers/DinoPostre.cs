@@ -112,7 +112,7 @@ namespace Dinopostres.CharacterControllers
             }
             catch (System.Exception e)
             {
-                Debug.Log($"Error al llamar ataque {e.Message}");
+                Debug.Log($"Error al llamar de {enm_Dino} ataque {e.Message}");
             }
         }
 

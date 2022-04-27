@@ -60,7 +60,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   int_ID: 0
-  enm_Dino: 0
+  enm_Dino: 1
   lst_SkillList:
   - str_SkillName: Headbutt
     isPhysical: 1
@@ -75,7 +75,7 @@ MonoBehaviour:
   - 
   - 
   - 
-  - 
+  - Headbutt
   f_TestHP: 0
 --- !u!1 &2224733016559529160
 GameObject:
@@ -229,7 +229,7 @@ BoxCollider:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 6631980999802394915}
   m_Material: {fileID: 0}
-  m_IsTrigger: 0
+  m_IsTrigger: 1
   m_Enabled: 1
   serializedVersion: 2
   m_Size: {x: 1, y: 1, z: 1}
