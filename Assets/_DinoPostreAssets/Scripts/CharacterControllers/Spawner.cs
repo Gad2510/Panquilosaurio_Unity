@@ -11,14 +11,18 @@ namespace Dinopostres.CharacterControllers
         private int int_spwnCount = 5;
         [SerializeField]
         private static int startLevel=1;
-        bool isBossStage;
-        WaitForSeconds w4s_timerboss = new WaitForSeconds(10f);
 
+        [SerializeField]
+        bool isBossStage;
+
+        Object obj_companionRef;
+        WaitForSeconds w4s_timerboss = new WaitForSeconds(10f);
+        float f_colliderRadius;
         public static int StartLevel { set => startLevel = value; }
 
         private void Awake()
         {
-
+            f_colliderRadius = GetComponent<SphereCollider>().radius;
         }
 
         private void OnTriggerEnter(Collider other)
@@ -26,14 +30,22 @@ namespace Dinopostres.CharacterControllers
             print(other.transform.root.tag);
             if (other.transform.root.CompareTag("Player"))
             {
-                GetEnemiesTospawn();
+                if (!isBossStage)
+                {
+                    GetEnemiesTospawn();
+                }
+                else
+                {
+                    GetBossAndAllies();
+                }
                 gameObject.SetActive(false);
             }
         }
 
         private void OnDrawGizmos()
         {
-
+            Gizmos.color = Color.green;
+            Gizmos.DrawWireSphere(transform.position, GetComponent<SphereCollider>().radius);
         }
 
         void GetEnemiesTospawn()
@@ -59,23 +71,57 @@ namespace Dinopostres.CharacterControllers
 
             OrderEnemies(enemies);
         }
+        private void GetBossAndAllies()
+        {
+            Object bossRef= LevelManager._Instance.GetBossFromLevel(out obj_companionRef);
+
+            SpawnMinions(bossRef, 1, 0, true);
+
+            InvokeRepeating(nameof(SpawnCompanions),0,20f);
+        }
+
+        private void SpawnCompanions()
+        {
+            for (int i = 1; i < 5; i++)
+            {
+                SpawnMinions(obj_companionRef, 1, 0);
+            }
+        }
 
         private void OrderEnemies(Dictionary<float, Object> enemies)
         {
             List<Object> ens = enemies.OrderBy((x) => x.Key).Select((x) => x.Value).ToList();
-            Vector3 ofsset = Vector3.zero;
+            
             for (int i = 0; i < ens.Count(); i++)
             {
-                float angle = (360 / (enemies.Count())) * i;
-                ofsset.x = Mathf.Sin(angle);
-                ofsset.y = Mathf.Cos(angle);
-                GameObject go= Instantiate(ens[i], transform.position + ofsset, Quaternion.identity) as GameObject;
-                Enemy en=go.AddComponent<Enemy>();
-                en.SetEnemyLevel(startLevel);
-                Rigidbody rd= go.AddComponent<Rigidbody>();
-                rd.constraints = RigidbodyConstraints.FreezePositionY | RigidbodyConstraints.FreezeRotationX | RigidbodyConstraints.FreezeRotationZ;
-                
+                SpawnMinions(ens[i], ens.Count(), i);
             }
+        }
+
+        private void SpawnMinions(Object pref,int count, int pos, bool isBoss=false)
+        {
+            Vector3 ofsset = Vector3.zero;
+            if (pos != 0)
+            {
+                float angle = (360 / (count)) * pos;
+                ofsset.x = Mathf.Sin(angle)*f_colliderRadius;
+                ofsset.y = Mathf.Cos(angle)*f_colliderRadius;
+            }
+            
+            GameObject go = Instantiate(pref, transform.position + ofsset, Quaternion.identity) as GameObject;
+            Enemy en;
+            if (!isBoss)
+            {
+                en = go.AddComponent<Enemy>();
+            }
+            else
+            {
+                en = go.AddComponent<Boss>();
+            }
+            
+            en.SetEnemyLevel(startLevel);
+            Rigidbody rd = go.AddComponent<Rigidbody>();
+            rd.constraints = RigidbodyConstraints.FreezePositionY | RigidbodyConstraints.FreezeRotationX | RigidbodyConstraints.FreezeRotationZ;
         }
     }
 }

@@ -86,7 +86,7 @@ namespace Dinopostres.CharacterControllers
 
         }
         //To check how near the player is to the enemy
-        private void Percepcion()
+        protected void Percepcion()
         {
             f_PlayerDistance = Vector3.Distance(Player.PL_Instance.transform.position, v3_Origin);
             f_AttackDistance = Vector3.Distance(Player.PL_Instance.transform.position, transform.position);
@@ -94,7 +94,7 @@ namespace Dinopostres.CharacterControllers
             isPlayerNear = f_PlayerDistance < f_Distance2Player;
         }
 
-        private IEnumerator prepareAttack()
+        protected IEnumerator prepareAttack()
         {
             yield return w4s_AttackPreparation;
 

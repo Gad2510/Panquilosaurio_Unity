@@ -28,9 +28,9 @@ MonoBehaviour:
       int_Count: 1
   - Dino: 1
     lst_Areas:
-    - enm_Area: 2
-      enm_Rank: 0
-      int_Value: 0
+    - enm_Area: 0
+      enm_Rank: 1
+      int_Value: 20
     str_DefaultSkill: Headbutt
     DP_prefeb: {fileID: 1134162109193569663, guid: 8b71611c883ac854db2ae1e122720f52, type: 3}
     spt_DinoImage: {fileID: 0}

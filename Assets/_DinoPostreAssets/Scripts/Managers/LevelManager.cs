@@ -13,6 +13,7 @@ namespace Dinopostres.Managers
         public List<DinoDef> lst_enemiesInLevel;
 
         private EnemyStorage ES_EnemyStorage;
+        private BossStageStorage BSS_BossStageStorage;
 
         private static LevelManager LM_instance;
         private EnemyManager EM_EnemyManager;
@@ -39,6 +40,7 @@ namespace Dinopostres.Managers
             RM_RewardManger = this.gameObject.AddComponent<RewardManager>();
 
             ES_EnemyStorage = EnemyStorage._Instance();
+            BSS_BossStageStorage = BossStageStorage._Instance();
 
             LoadStage(LocationCount.Area.demo, LocationCount.Rank.none);
 
@@ -86,6 +88,13 @@ namespace Dinopostres.Managers
             }
 
             return lst_enemiesInLevel[0]._Prefab;
+        }
+
+        public Object GetBossFromLevel(out Object _companion)
+        {
+            BossRelation rel= BSS_BossStageStorage.SelectRandomBoss(enm_lastArea, enm_lastRank);
+            _companion =ES_EnemyStorage.Look4DinoDef(rel._Companion)._Prefab;
+            return ES_EnemyStorage.Look4DinoDef(rel._Boss)._Prefab;
         }
 
         public void RegisterTeleporter(GameObject _go, int _id, bool isBoss=false)
