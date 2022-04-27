@@ -17,7 +17,10 @@ namespace Dinopostres.Managers
         private static LevelManager LM_instance;
         private EnemyManager EM_EnemyManager;
         private RewardManager RM_RewardManger;
-        private bool isIncrementalStage;
+
+        private int int_stageCount;
+        private Dictionary<int, GameObject> dic_TelportersInLevel;
+        private GameObject go_bossTeleporter;
 
         private GameObject go_dispacher;
         public EnemyManager _EnemyManager { get => EM_EnemyManager; }
@@ -42,11 +45,15 @@ namespace Dinopostres.Managers
             Object pref_dispacher = Resources.Load<Object>("Prefabs/UI_Dispacher");
             go_dispacher= Instantiate(pref_dispacher) as GameObject;
             go_dispacher.SetActive(false);
+
+            dic_TelportersInLevel = new Dictionary<int, GameObject>();
+            int_stageCount = 0;
         }
 
         private void OnLevelWasLoaded(int level)
         {
-            
+            dic_TelportersInLevel.Clear();
+            int_stageCount = 0;
         }
 
         // Update is called once per frame
@@ -79,6 +86,35 @@ namespace Dinopostres.Managers
             }
 
             return lst_enemiesInLevel[0]._Prefab;
+        }
+
+        public void RegisterTeleporter(GameObject _go, int _id, bool isBoss=false)
+        {
+            if (!isBoss)
+                dic_TelportersInLevel.Add(_id, _go);
+            else
+                go_bossTeleporter = _go;
+        }
+
+        public GameObject SelectNextTeleporter(int currentTeleporterID)
+        {
+            if (int_stageCount < 3)
+            {
+                try
+                {
+                    int ran = Random.Range(0, dic_TelportersInLevel.Count() - 1);
+                    GameObject tel = dic_TelportersInLevel.Where((x) => x.Key != currentTeleporterID).ElementAt(ran).Value;
+                    int_stageCount++;
+                    return tel;
+                }
+                catch (System.Exception e)
+                {
+                    Debug.LogError("No teleporter register");
+                    return go_bossTeleporter;
+                }
+            }
+
+            return go_bossTeleporter;
         }
 
     }
