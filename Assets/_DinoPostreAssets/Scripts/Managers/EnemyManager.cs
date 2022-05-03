@@ -13,6 +13,7 @@ namespace Dinopostres.Managers
         public delegate void GameActions(ActionEvent ev);
         public static GameActions _OnDamage;
         public static GameActions _OnDead;
+
         
         private List<GameObject> lst_EnemyInLevel= new List<GameObject>();
 
@@ -42,5 +43,7 @@ namespace Dinopostres.Managers
         {
             lst_EnemyInLevel.Remove(_enemy);
         }
+
+        
     }
 }

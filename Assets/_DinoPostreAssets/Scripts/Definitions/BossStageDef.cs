@@ -26,8 +26,7 @@ namespace Dinopostres.Definitions
             {
                 count += lst_bosses[i]._Value;
             }
-
-            return lst_bosses[i];
+            return lst_bosses[i-1];
         }
     }
 

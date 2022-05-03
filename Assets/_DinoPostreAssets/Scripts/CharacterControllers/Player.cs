@@ -10,8 +10,7 @@ namespace Dinopostres.CharacterControllers
     public class Player : Controller
     {
         public static Player PL_Instance;
-
-        private DinoPostreAction InS_gameActions;
+        
         private Vector2 direction;
 
         private bool isDispacherOpen=false;
@@ -22,20 +21,15 @@ namespace Dinopostres.CharacterControllers
         {
             //Start Instance
             PL_Instance = this;
-
-            InS_gameActions = new DinoPostreAction();
-            //Bind movement action
-            InS_gameActions.DinopostreController.Movement.performed += ctx => direction = ctx.ReadValue<Vector2>();
-            InS_gameActions.DinopostreController.Movement.canceled += ctx => direction = ctx.ReadValue<Vector2>();
-            //Bind Attacks
-            InS_gameActions.DinopostreController.AttackA.performed += Controllers;
-            InS_gameActions.DinopostreController.AttackB.performed += Controllers;
-            InS_gameActions.DinopostreController.Dispacher.performed += Controllers;
+            
         }
 
         // Start is called before the first frame update
         protected override void Start()
         {
+            DinoSaveData info = GameManager._instance.GetActiveDino();
+            SwitchDino(info);
+
             base.Start();
 
             gameObject.tag = "Player";
@@ -48,16 +42,17 @@ namespace Dinopostres.CharacterControllers
             }
             //init camera
             Camera.main.gameObject.AddComponent<CameraController>();
+
+            //Bind movement action
+            GameManager._instance.InS_gameActions.DinopostreController.Movement.performed += ctx => direction = ctx.ReadValue<Vector2>();
+            GameManager._instance.InS_gameActions.DinopostreController.Movement.canceled += ctx => direction = ctx.ReadValue<Vector2>();
+            //Bind Attacks
+            GameManager._instance.InS_gameActions.DinopostreController.AttackA.performed += Controllers;
+            GameManager._instance.InS_gameActions.DinopostreController.AttackB.performed += Controllers;
+            GameManager._instance.InS_gameActions.DinopostreController.Dispacher.performed += Controllers;
         }
 
-        private void OnEnable()
-        {
-            InS_gameActions.Enable();
-        }
-        private void OnDisable()
-        {
-            InS_gameActions.Disable();
-        }
+        
 
         protected override void Update()
         {
@@ -66,18 +61,22 @@ namespace Dinopostres.CharacterControllers
 
             MoveHealBar();
         }
-
+        protected override void GetDead()
+        {
+            GameManager._instance.LoseLive();
+            
+        }
         protected override void GetHIT()
         {
             if(isDispacherOpen)
-                LevelManager._Instance.OpenCloseDispacher(!isDispacherOpen);
+                ((GameModeINSTAGE)LevelManager._Instance._GameMode).OpenCloseDispacher(!isDispacherOpen);
         }
 
         protected override void Movement()
         {
             Vector3 velocity = selfRigid.velocity;
 
-            if (direction.magnitude > 0)
+            if (direction.magnitude > 0 && GameManager._instance._TimeScale>0)
                 ChangeDirection();
 
             velocity.x = direction.x;
@@ -85,7 +84,7 @@ namespace Dinopostres.CharacterControllers
 
 
 
-            selfRigid.velocity = velocity;
+            selfRigid.velocity = velocity * GameManager._instance._TimeScale;
         }
 
         private void ChangeDirection()
@@ -112,15 +111,22 @@ namespace Dinopostres.CharacterControllers
                             DP_current.ExecuteAttack(1);
                         break;
                     case "Dispacher":
-                        LevelManager._Instance.OpenCloseDispacher(!isDispacherOpen);
+                        OpenDispacher();
                         break;
                 }
             }
         }
 
+        private void OpenDispacher()
+        {
+            ((GameModeINSTAGE)LevelManager._Instance._GameMode).OpenCloseDispacher(!isDispacherOpen);
+        }
+
         public void SwitchDino(DinoSaveData _newDino)
         {
-            Destroy(DP_current.gameObject);
+            if(DP_current!=null)
+                Destroy(DP_current.gameObject);
+
             DinoPostre dino = (Instantiate(EnemyStorage._Instance().Look4DinoDef(_newDino.Dino)._Prefab, transform) as GameObject).GetComponent<DinoPostre>();
             DP_current = dino;
             DP_current.IsPlayer = true;

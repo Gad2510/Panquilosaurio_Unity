@@ -9,17 +9,24 @@ namespace Dinopostres.CharacterControllers
 {
     public class Enemy : Controller
     {
-        private const float f_Distance2Player = 3f;
-        private const float f_Distance2Attack = 1f;
+        public delegate void Attacks();
+        protected Attacks _defaultAttack;
 
-        bool isPlayerNear;
-        bool isAttacking;
+        private const float f_Distance2Player = 3f;
+        private const float f_Distance2Attack = 1.1f;
+
+        private bool isPlayerNear;
+        private bool isAttacking;
+        private bool hasLimitView= true;
         public float f_PlayerDistance;
         public float f_AttackDistance;
         private NavMeshAgent nav_MeshAgent;
-        private WaitForSeconds w4s_AttackPreparation = new WaitForSeconds(2);
-        private Coroutine ctn_Attack;
+        protected WaitForSeconds w4s_AttackPreparation = new WaitForSeconds(2);
+        protected Coroutine ctn_Attack;
         private Vector3 v3_Origin;
+
+        private float f_Speed;
+        public bool _HasLimitView { set => hasLimitView = false; }
 
         protected override void Start()
         {
@@ -31,9 +38,11 @@ namespace Dinopostres.CharacterControllers
             v3_Origin = transform.position;
             nav_MeshAgent = gameObject.AddComponent<NavMeshAgent>();
 
-            Debug.Log($"Dino {base.DP_current._Peso}");
-            nav_MeshAgent.speed = (base.DP_current._Peso / 100);
+            f_Speed = (100 / base.DP_current._Peso);
+            nav_MeshAgent.speed = f_Speed;
             nav_MeshAgent.radius = 0.1f;
+
+            _defaultAttack = DinoDefaultAttack;
         }
         // Update is called once per frame
         protected override void Update()
@@ -43,7 +52,7 @@ namespace Dinopostres.CharacterControllers
                 Percepcion();
                 base.Update();
             }
-
+            nav_MeshAgent.speed = f_Speed * GameManager._instance._TimeScale;
             MoveHealBar();
         }
 
@@ -55,7 +64,7 @@ namespace Dinopostres.CharacterControllers
 
         protected override void Movement()
         {
-            if (!isPlayerNear)
+            if (!isPlayerNear && hasLimitView)
             {
                 nav_MeshAgent.destination = v3_Origin;
                 transform.LookAt(v3_Origin+transform.forward);
@@ -70,11 +79,16 @@ namespace Dinopostres.CharacterControllers
             {
                 isAttacking = true;
                 nav_MeshAgent.velocity = Vector3.zero;
-                ctn_Attack = StartCoroutine(prepareAttack());
+                SetAttack();
             }
 
             transform.LookAt(Player.PL_Instance.transform);
 
+        }
+
+        protected virtual void SetAttack()
+        {
+            ctn_Attack = StartCoroutine(prepareAttack(_defaultAttack, w4s_AttackPreparation));
         }
 
         public void SetEnemyLevel(int _level)
@@ -94,17 +108,42 @@ namespace Dinopostres.CharacterControllers
             isPlayerNear = f_PlayerDistance < f_Distance2Player;
         }
 
-        protected IEnumerator prepareAttack()
+        protected IEnumerator prepareAttack(Attacks _skill, WaitForSeconds _couldown, bool inVulnerable=false)
         {
-            yield return w4s_AttackPreparation;
-
-            DP_current.ExecuteAttack(4);
+            base.isInvincible = inVulnerable;
+            yield return _couldown;
+            base.isInvincible = false;
+            _skill.Invoke();
             isAttacking = false;
+        }
+
+        private void DinoDefaultAttack() 
+        {
+            DP_current.ExecuteAttack(4);
         }
 
         protected override void GetHIT()
         {
             StopCoroutine(ctn_Attack);
+            isAttacking = false;
+            if (isDead)
+            {
+                StartCoroutine(SpawnReward());
+            }
+        }
+
+        protected override void GetDead()
+        {
+            base.isDead = true;
+        }
+        private IEnumerator SpawnReward()
+        {
+            gameObject.layer = LayerMask.NameToLayer("Ignore");
+            yield return null;
+            yield return new WaitWhile(() => base.selfRigid.velocity.magnitude > 0.1f);
+
+            DP_current.GetRewards();
+            Destroy(this.gameObject);
         }
     }
 }

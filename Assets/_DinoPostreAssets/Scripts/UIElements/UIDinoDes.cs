@@ -41,9 +41,9 @@ namespace Dinopostres.UIElements
                 RemoveBtnClicEvent(onClick);
 
             txt_name.text = _dinoData.Dino.ToString();
-            txt_power.text = DinoSpecsDef.Instance().CalculatePower(_dinoData.Dino,_dinoData.Level).ToString();
+            txt_power.text = _dinoData.Power.ToString();
 
-            float maxHealth = DinoSpecsDef.Instance().LookForStats(_dinoData.Dino).CalculateCurrentValue(DinoStatsDef.Stats.HP, _dinoData.Level);
+            float maxHealth = _dinoData.MaxHealth;
             sl_healthBar.value = _dinoData.CurrentHealth /maxHealth;
 
             onClick = () => { Player.PL_Instance.SwitchDino(_dinoData); };

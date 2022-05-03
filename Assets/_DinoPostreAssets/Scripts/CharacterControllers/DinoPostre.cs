@@ -138,10 +138,9 @@ namespace Dinopostres.CharacterControllers
             f_TestHP = dic_Stats[DinoStatsDef.Stats.HP];
             if (dic_Stats[DinoStatsDef.Stats.HP] <= 0)
             {
-                print("I died");
+                
                 if (!isPlayer)
                 {
-                    GetRewards();
                     Destroy(this.gameObject, 2f);
                 }
             }
@@ -151,14 +150,20 @@ namespace Dinopostres.CharacterControllers
         {
             return dic_Stats[DinoStatsDef.Stats.HP] / f_maxHealth;
         }
-        private void GetRewards()
+        public void GetRewards()
         {
             DinoDef dino = EnemyStorage._Instance().Look4DinoDef(enm_Dino);
-
-            foreach(IngredientCount _ing in dino._Rewards)
+            IngredientDef.Sample _ing;
+            int i=0;
+            int max = dino._Rewards.Sum((x) => x._Count);
+            int ran = Random.Range(0, max);
+            for (int count = 0; i < dino._Rewards.Count() && count<ran; i++)
             {
-                LevelManager._Instance._RewardManager.SpawnRewards(transform.position, _ing._Ingredient, _ing._Count);
+                count += dino._Rewards[0]._Count;
             }
+            Debug.Log($"Index = {i-1} max = {max} random= {ran}");
+            LevelManager._Instance._RewardManager.SpawnRewards(transform.position, dino._Rewards[i-1]._Ingredient);
+
         }
     }
 }

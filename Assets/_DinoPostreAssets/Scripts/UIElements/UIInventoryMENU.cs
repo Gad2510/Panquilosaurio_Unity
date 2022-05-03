@@ -1,0 +1,49 @@
+using System.Collections;
+using System.Collections.Generic;
+using System.Linq;
+using UnityEngine;
+using UnityEngine.UI;
+using Dinopostres.Definitions;
+using Dinopostres.Managers;
+
+namespace Dinopostres.UIElements
+{
+    public class UIInventoryMENU : MonoBehaviour
+    {
+        [SerializeField]
+        Button btn_return;
+
+        private UIIngredientDes[] arr_Ingredients;
+        int activeSlots = 0;
+        // Start is called before the first frame update
+        void Awake()
+        {
+            btn_return.onClick.AddListener(()=> ((GameModeINSTAGE)LevelManager._Instance._GameMode).CloseInventory());
+        }
+
+        private void OnEnable()
+        {
+            if (arr_Ingredients == null)
+            {
+                arr_Ingredients = GetComponentsInChildren<UIIngredientDes>();
+                arr_Ingredients = arr_Ingredients.OrderBy((x) => x._Ingredient).ToArray();
+            }
+
+            if (activeSlots < GameManager._instance.PD_gameData.Inventory.Count)
+            {
+                activeSlots = GameManager._instance.PD_gameData.Inventory.Count;
+                UpdateSlots();
+            }
+            btn_return.Select();
+        }
+
+        private void UpdateSlots()
+        {
+            for(int i=0; i < activeSlots; i++)
+            {
+                arr_Ingredients[i].UpdateDescriptions(GameManager._instance.PD_gameData.Inventory[i]._Ingredient);
+                Debug.Log(arr_Ingredients[i].name);
+            }
+        }
+    }
+}

@@ -6,6 +6,7 @@ using UnityEngine.UI;
 using TMPro;
 using Dinopostres.CharacterControllers;
 using Dinopostres.Definitions;
+using Dinopostres.Managers;
 
 namespace Dinopostres.UIElements
 {
@@ -25,8 +26,6 @@ namespace Dinopostres.UIElements
         private UIDinoDes [] arr_UIDinoDescriptions;
         private int int_lastIndex;
         public int int_currentIndex;
-
-        public PlayerData test;
 
         // Start is called before the first frame update
         void Start()
@@ -82,9 +81,9 @@ namespace Dinopostres.UIElements
         }
         private void InitUIVisuals()
         {
-            if (test.DinoInventory.Count() < 8)
+            if (GameManager._instance._GameData.DinoInventory.Count() < 8)
             {
-                for (int i = 7; i >= test.DinoInventory.Count(); i--)
+                for (int i = 7; i >= GameManager._instance._GameData.DinoInventory.Count(); i--)
                 {
                     arr_UIDinoDescriptions[i].gameObject.SetActive(false);
                 }
@@ -93,9 +92,9 @@ namespace Dinopostres.UIElements
         }
         private void InitUiValues()
         {
-            for(int i =0; i< test.DinoInventory.Count() && i<8; i++)
+            for(int i =0; i< GameManager._instance._GameData.DinoInventory.Count() && i<8; i++)
             {
-                arr_UIDinoDescriptions[i].InitStats(test.DinoInventory[i]);
+                arr_UIDinoDescriptions[i].InitStats(GameManager._instance._GameData.DinoInventory[i]);
             }
         }
 
@@ -110,16 +109,16 @@ namespace Dinopostres.UIElements
                     if (int_currentIndex > 0)
                     {
                         trns_DescriptionParent.GetChild(7).SetAsFirstSibling();
-                        arr_UIDinoDescriptions[(int_currentIndex-1)%8].InitStats(test.DinoInventory[int_currentIndex-1]);
+                        arr_UIDinoDescriptions[(int_currentIndex-1)%8].InitStats(GameManager._instance._GameData.DinoInventory[int_currentIndex-1]);
                     }
                     
                     break;
                 case 7:
                     int_currentIndex += 1;
-                    if (int_currentIndex< test.DinoInventory.Count()-1)
+                    if (int_currentIndex< GameManager._instance._GameData.DinoInventory.Count()-1)
                     {
                         trns_DescriptionParent.GetChild(0).SetAsLastSibling();
-                        arr_UIDinoDescriptions[(int_currentIndex+1)% 8].InitStats(test.DinoInventory[int_currentIndex+1]);
+                        arr_UIDinoDescriptions[(int_currentIndex+1)% 8].InitStats(GameManager._instance._GameData.DinoInventory[int_currentIndex+1]);
                     }
                     
                     break;
@@ -127,15 +126,15 @@ namespace Dinopostres.UIElements
                     int_currentIndex += (int_lastIndex > _siblingIndex) ? -1 : 1;
                     break;
             }
-            int_currentIndex = Mathf.Clamp(int_currentIndex, 0, test.DinoInventory.Count() - 1);
+            int_currentIndex = Mathf.Clamp(int_currentIndex, 0, GameManager._instance._GameData.DinoInventory.Count() - 1);
         }
 
         private void UpdateDescription(DinoSaveData _info)
         {
             txt_DescriptionName.text = _info.Dino.ToString();
-            txt_DescriptionPower.text= DinoSpecsDef.Instance().CalculatePower(_info.Dino, _info.Level).ToString();
+            txt_DescriptionPower.text=_info.Power.ToString();
 
-            float maxHealth = DinoSpecsDef.Instance().LookForStats(_info.Dino).CalculateCurrentValue(DinoStatsDef.Stats.HP, _info.Level);
+            float maxHealth =_info.MaxHealth;
             txt_DescriptionPS.text = $"{_info.CurrentHealth} / {maxHealth}";
             sl_healthRef.value = _info.CurrentHealth / maxHealth;
         }

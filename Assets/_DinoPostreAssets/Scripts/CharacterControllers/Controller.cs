@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using UnityEngine;
 using Dinopostres.Events;
 using UnityEngine.UI;
+using Dinopostres.Managers;
 
 namespace Dinopostres.CharacterControllers
 {
@@ -12,12 +13,17 @@ namespace Dinopostres.CharacterControllers
         protected DinoPostre DP_current;
         protected Rigidbody selfRigid;
         protected bool isInvincible;
-        private WaitForSeconds w4s_InvincibleColddown= new WaitForSeconds(2f);
+        protected bool isDead;
+
+        private WaitForSeconds w4s_InvincibleColddown= new WaitForSeconds(0.2f);
         private Vector3 v3_Offset = new Vector3(0f,50f,0f);
+
+        protected bool isStaticHealthBar=false;
 
         protected virtual void Start()
         {
             isInvincible = false;
+            isDead = false;
 
             selfRigid = GetComponent<Rigidbody>();
             DP_current = GetComponentInChildren<DinoPostre>();
@@ -28,8 +34,7 @@ namespace Dinopostres.CharacterControllers
                 Managers.EnemyManager._OnDamage += ExecuteAction;
             }
 
-            Object sld = Resources.Load<Object>("Prefabs/sl_Controller");
-            sl_healthVisual = (Instantiate(sld, GameObject.FindGameObjectWithTag("UI_Controllers").transform) as GameObject).GetComponent<Slider>();
+            CreateHealthBar();
         }
 
         protected virtual void OnDestroy()
@@ -46,13 +51,17 @@ namespace Dinopostres.CharacterControllers
         // Update is called once per frame
         protected virtual void Update()
         {
-            Movement();
+            if(!isDead)
+                Movement();
         }
 
         protected abstract void Movement();
 
         protected void MoveHealBar()
         {
+            if (isStaticHealthBar)
+                return;
+
             sl_healthVisual.transform.position = Camera.main.WorldToScreenPoint(transform.position)+ v3_Offset;
         }
 
@@ -66,13 +75,21 @@ namespace Dinopostres.CharacterControllers
                 case Events.ActionEvent.GameActions.HIT:
                     if (!isInvincible)
                     {
-                        StartCoroutine(InvinsibleCouldown());
+                        StartCoroutine(InvinsibleCouldown(w4s_InvincibleColddown));
                         DP_current.GetDamage((float)ev.GetParameterByIndex(0));
+                        sl_healthVisual.value = DP_current.GetHeath();
 
                         if (selfRigid != null)
-                            selfRigid.velocity = (transform.position-(Vector3)ev.GetParameterByIndex(1)).normalized * 5f;
+                        {
+                            float intensity = 1;
+                            if (sl_healthVisual.value <= 0)
+                            {
+                                GetDead();
+                                intensity = 5;
+                            }
 
-                        sl_healthVisual.value = DP_current.GetHeath();
+                            selfRigid.velocity = (transform.position - (Vector3)ev.GetParameterByIndex(1)).normalized * intensity;
+                        }
                         GetHIT();
                     }
                     break;
@@ -82,11 +99,18 @@ namespace Dinopostres.CharacterControllers
             }
         }
 
+        protected virtual void CreateHealthBar()
+        {
+            Object sld = Resources.Load<Object>("Prefabs/sl_Controller");
+            sl_healthVisual = (Instantiate(sld, ((GameModeINSTAGE)LevelManager._Instance._GameMode)._Status.transform) as GameObject).GetComponent<Slider>();
+        }
+
+        protected abstract void GetDead();
         protected abstract void GetHIT();
-        private IEnumerator InvinsibleCouldown()
+        protected IEnumerator InvinsibleCouldown(WaitForSeconds _time)
         {
             isInvincible = true;
-            yield return w4s_InvincibleColddown;
+            yield return _time;
             isInvincible = false;
         }
     }

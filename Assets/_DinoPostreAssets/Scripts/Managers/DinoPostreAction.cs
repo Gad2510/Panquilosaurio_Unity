@@ -1,4 +1,4 @@
-// GENERATED AUTOMATICALLY FROM 'Assets/_DinoPostreAssets/Scripts/CharacterControllers/DinoPostreAction.inputactions'
+// GENERATED AUTOMATICALLY FROM 'Assets/_DinoPostreAssets/Scripts/Managers/DinoPostreAction.inputactions'
 
 using System;
 using System.Collections;
@@ -54,6 +54,14 @@ public class @DinoPostreAction : IInputActionCollection, IDisposable
                     ""name"": ""Interaction"",
                     ""type"": ""Button"",
                     ""id"": ""990f0b32-9c78-46c0-b7fe-6fc1e2b874b4"",
+                    ""expectedControlType"": ""Button"",
+                    ""processors"": """",
+                    ""interactions"": """"
+                },
+                {
+                    ""name"": ""Pause"",
+                    ""type"": ""Button"",
+                    ""id"": ""82aef0bd-1f03-43c3-92e1-1c6748c9f2ac"",
                     ""expectedControlType"": ""Button"",
                     ""processors"": """",
                     ""interactions"": """"
@@ -224,6 +232,17 @@ public class @DinoPostreAction : IInputActionCollection, IDisposable
                     ""action"": ""Interaction"",
                     ""isComposite"": false,
                     ""isPartOfComposite"": false
+                },
+                {
+                    ""name"": """",
+                    ""id"": ""86ec7235-a04a-492e-bf66-6f6cfbce17a6"",
+                    ""path"": ""<Keyboard>/escape"",
+                    ""interactions"": """",
+                    ""processors"": """",
+                    ""groups"": """",
+                    ""action"": ""Pause"",
+                    ""isComposite"": false,
+                    ""isPartOfComposite"": false
                 }
             ]
         }
@@ -254,6 +273,7 @@ public class @DinoPostreAction : IInputActionCollection, IDisposable
         m_DinopostreController_AttackB = m_DinopostreController.FindAction("Attack B", throwIfNotFound: true);
         m_DinopostreController_Dispacher = m_DinopostreController.FindAction("Dispacher", throwIfNotFound: true);
         m_DinopostreController_Interaction = m_DinopostreController.FindAction("Interaction", throwIfNotFound: true);
+        m_DinopostreController_Pause = m_DinopostreController.FindAction("Pause", throwIfNotFound: true);
     }
 
     public void Dispose()
@@ -308,6 +328,7 @@ public class @DinoPostreAction : IInputActionCollection, IDisposable
     private readonly InputAction m_DinopostreController_AttackB;
     private readonly InputAction m_DinopostreController_Dispacher;
     private readonly InputAction m_DinopostreController_Interaction;
+    private readonly InputAction m_DinopostreController_Pause;
     public struct DinopostreControllerActions
     {
         private @DinoPostreAction m_Wrapper;
@@ -317,6 +338,7 @@ public class @DinoPostreAction : IInputActionCollection, IDisposable
         public InputAction @AttackB => m_Wrapper.m_DinopostreController_AttackB;
         public InputAction @Dispacher => m_Wrapper.m_DinopostreController_Dispacher;
         public InputAction @Interaction => m_Wrapper.m_DinopostreController_Interaction;
+        public InputAction @Pause => m_Wrapper.m_DinopostreController_Pause;
         public InputActionMap Get() { return m_Wrapper.m_DinopostreController; }
         public void Enable() { Get().Enable(); }
         public void Disable() { Get().Disable(); }
@@ -341,6 +363,9 @@ public class @DinoPostreAction : IInputActionCollection, IDisposable
                 @Interaction.started -= m_Wrapper.m_DinopostreControllerActionsCallbackInterface.OnInteraction;
                 @Interaction.performed -= m_Wrapper.m_DinopostreControllerActionsCallbackInterface.OnInteraction;
                 @Interaction.canceled -= m_Wrapper.m_DinopostreControllerActionsCallbackInterface.OnInteraction;
+                @Pause.started -= m_Wrapper.m_DinopostreControllerActionsCallbackInterface.OnPause;
+                @Pause.performed -= m_Wrapper.m_DinopostreControllerActionsCallbackInterface.OnPause;
+                @Pause.canceled -= m_Wrapper.m_DinopostreControllerActionsCallbackInterface.OnPause;
             }
             m_Wrapper.m_DinopostreControllerActionsCallbackInterface = instance;
             if (instance != null)
@@ -360,6 +385,9 @@ public class @DinoPostreAction : IInputActionCollection, IDisposable
                 @Interaction.started += instance.OnInteraction;
                 @Interaction.performed += instance.OnInteraction;
                 @Interaction.canceled += instance.OnInteraction;
+                @Pause.started += instance.OnPause;
+                @Pause.performed += instance.OnPause;
+                @Pause.canceled += instance.OnPause;
             }
         }
     }
@@ -380,5 +408,6 @@ public class @DinoPostreAction : IInputActionCollection, IDisposable
         void OnAttackB(InputAction.CallbackContext context);
         void OnDispacher(InputAction.CallbackContext context);
         void OnInteraction(InputAction.CallbackContext context);
+        void OnPause(InputAction.CallbackContext context);
     }
 }

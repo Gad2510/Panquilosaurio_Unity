@@ -19,12 +19,13 @@ namespace Dinopostres.TriggerEffects
         {
             mhr_selfRenderer = GetComponent<MeshRenderer>();
             selfRigid = GetComponent<Rigidbody>();
+
         }
 
         void OnBecameVisible()
         {
             gameObject.layer = LayerMask.NameToLayer("Colectables");
-            StartCoroutine(TimerActiveValues());
+            //StartCoroutine(TimerActiveValues());
         }
 
         private void OnBecameInvisible()
@@ -45,6 +46,7 @@ namespace Dinopostres.TriggerEffects
                 RegisterCount();
                 Unspawn();
             }
+
         }
 
         private void Unspawn()
@@ -57,6 +59,11 @@ namespace Dinopostres.TriggerEffects
         {
             //Call when the player get the collectable in time
             StopAllCoroutines();
+
+            Events.RecordEvent ev = new Events.RecordEvent(0, "Envio de ingredientes", 10 + (int)enm_Type);
+            GameManager._instance.OnRecordEvent(ev);
+
+            Debug.Log($"Ingredient send {enm_Type}");
         }
     }
 }

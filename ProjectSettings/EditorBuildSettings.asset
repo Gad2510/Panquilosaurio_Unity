@@ -6,6 +6,9 @@ EditorBuildSettings:
   serializedVersion: 2
   m_Scenes:
   - enabled: 1
+    path: Assets/_DinoPostreAssets/Scenes/Menu.unity
+    guid: b7bea0acd592a4a47a91daaf51b081a4
+  - enabled: 1
     path: Assets/_DinoPostreAssets/Scenes/Criadero.unity
     guid: bdab94fecb458fa418e4b53ec596052e
   - enabled: 1

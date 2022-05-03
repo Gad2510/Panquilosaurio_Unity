@@ -17,28 +17,28 @@ MonoBehaviour:
     lst_Areas:
     - enm_Area: 0
       enm_Rank: 1
-      int_Value: 100
+      int_Value: 50
     str_DefaultSkill: Tackle
     DP_prefeb: {fileID: 2900804541589546330, guid: f2aeb63cdcd4d4f47a31520bf3e85163, type: 3}
     spt_DinoImage: {fileID: 0}
     lst_Rewards:
     - enm_Ingredient: 0
-      int_Count: 2
+      int_Count: 60
     - enm_Ingredient: 3
-      int_Count: 1
+      int_Count: 40
   - Dino: 1
     lst_Areas:
     - enm_Area: 0
       enm_Rank: 1
-      int_Value: 20
+      int_Value: 50
     str_DefaultSkill: Headbutt
     DP_prefeb: {fileID: 1134162109193569663, guid: 8b71611c883ac854db2ae1e122720f52, type: 3}
     spt_DinoImage: {fileID: 0}
     lst_Rewards:
     - enm_Ingredient: 0
-      int_Count: 2
+      int_Count: 60
     - enm_Ingredient: 4
-      int_Count: 1
+      int_Count: 40
   - Dino: 2
     lst_Areas: []
     str_DefaultSkill: Bite
@@ -46,11 +46,11 @@ MonoBehaviour:
     spt_DinoImage: {fileID: 0}
     lst_Rewards:
     - enm_Ingredient: 0
-      int_Count: 2
+      int_Count: 60
     - enm_Ingredient: 2
-      int_Count: 1
+      int_Count: 30
     - enm_Ingredient: 1
-      int_Count: 1
+      int_Count: 10
   - Dino: 3
     lst_Areas: []
     str_DefaultSkill: Peck
@@ -58,6 +58,6 @@ MonoBehaviour:
     spt_DinoImage: {fileID: 0}
     lst_Rewards:
     - enm_Ingredient: 0
-      int_Count: 2
+      int_Count: 60
     - enm_Ingredient: 4
-      int_Count: 1
+      int_Count: 40

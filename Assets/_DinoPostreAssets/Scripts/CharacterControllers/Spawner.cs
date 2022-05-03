@@ -22,12 +22,11 @@ namespace Dinopostres.CharacterControllers
 
         private void Awake()
         {
-            f_colliderRadius = GetComponent<SphereCollider>().radius;
+            f_colliderRadius = GetComponent<SphereCollider>().radius/2;
         }
 
         private void OnTriggerEnter(Collider other)
         {
-            print(other.transform.root.tag);
             if (other.transform.root.CompareTag("Player"))
             {
                 if (!isBossStage)
@@ -75,7 +74,7 @@ namespace Dinopostres.CharacterControllers
         {
             Object bossRef= LevelManager._Instance.GetBossFromLevel(out obj_companionRef);
 
-            SpawnMinions(bossRef, 1, 0, true);
+            SpawnMinions(bossRef, 1, 0,0f,true);
 
             InvokeRepeating(nameof(SpawnCompanions),0,40f);
         }
@@ -84,7 +83,7 @@ namespace Dinopostres.CharacterControllers
         {
             for (int i = 1; i < 5; i++)
             {
-                SpawnMinions(obj_companionRef, 4, i);
+                SpawnMinions(obj_companionRef, 4, i,45f);
             }
         }
 
@@ -98,27 +97,31 @@ namespace Dinopostres.CharacterControllers
             }
         }
 
-        private void SpawnMinions(Object pref,int count, int pos, bool isBoss=false)
+        private void SpawnMinions(Object pref,int count, int pos, float angleOfseet = 0, bool isBoss=false)
         {
             Vector3 ofsset = Vector3.zero;
             if (pos != 0)
             {
-                float angle = (360 / (count)) * pos;
+                float angle = (((360 / (count)) * pos)+angleOfseet)*Mathf.Deg2Rad;
                 ofsset.x = Mathf.Sin(angle)*f_colliderRadius;
                 ofsset.z = Mathf.Cos(angle)*f_colliderRadius;
             }
-            Debug.Log(transform.position + ofsset);
             GameObject go = Instantiate(pref, transform.position + ofsset, Quaternion.identity) as GameObject;
             Enemy en;
             if (!isBoss)
             {
                 en = go.AddComponent<Enemy>();
+
+                
             }
             else
             {
                 en = go.AddComponent<Boss>();
             }
-            
+
+            if (isBossStage)
+                en._HasLimitView = true;
+
             en.SetEnemyLevel(startLevel);
             Rigidbody rd = go.AddComponent<Rigidbody>();
             rd.constraints = RigidbodyConstraints.FreezePositionY | RigidbodyConstraints.FreezeRotationX | RigidbodyConstraints.FreezeRotationZ;

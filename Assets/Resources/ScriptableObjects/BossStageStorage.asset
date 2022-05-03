@@ -18,7 +18,7 @@ MonoBehaviour:
     lst_bosses:
     - enm_boss: 1
       enm_Companion: 0
-      int_value: 40
+      int_value: 50
     - enm_boss: 3
       enm_Companion: 1
-      int_value: 10
+      int_value: 50
