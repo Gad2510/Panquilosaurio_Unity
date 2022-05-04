@@ -20,7 +20,7 @@ namespace Dinopostres.Managers
         {
             {"Menu",GameStates.Menu },
             {"Criadero",GameStates.Map },
-            {"PraderCrianza",GameStates.InStage },
+            {"Pradera Crianza",GameStates.InStage },
             {"Volcan",GameStates.InStage },
             {"PanquilosaurioTest",GameStates.InStage },
         };
@@ -98,7 +98,7 @@ namespace Dinopostres.Managers
 
         public void LoadLevel(string _level)
         {
-            LoadLevel(_level);
+            SceneManager.LoadScene(_level);
         }
 
         public void LoadStage(LocationCount.Area _area, LocationCount.Rank _rank)

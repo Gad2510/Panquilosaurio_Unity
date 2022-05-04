@@ -47,7 +47,7 @@ namespace Dinopostres.Managers
                 FileStream file = File.Open(pathCombined, FileMode.Open);
                 PlayerData gm = (PlayerData)bf.Deserialize(file);
                 file.Close();
-                Debug.Log(gm.DinoInventory[0].ID);
+                //Debug.Log(gm.DinoInventory[0].ID);
 
                 return gm;
             }

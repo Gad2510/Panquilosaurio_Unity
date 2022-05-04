@@ -1,6 +1,7 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using Dinopostres.Definitions;
 using Dinopostres.Managers;
 namespace Dinopostres.TriggerEffects
 {
@@ -14,8 +15,12 @@ namespace Dinopostres.TriggerEffects
         private bool isBoss;
 
         [SerializeField]
-        private string str_destiny;
+        private LocationCount.Area enm_area= LocationCount.Area.none;
+        [SerializeField]
+        private LocationCount.Rank enm_rank = LocationCount.Rank.none;
 
+        public LocationCount.Area _Area { get => enm_area; }
+        public LocationCount.Rank _Rank { get => enm_rank; }
         private void Start()
         {
             if(!isStage && isLock)
@@ -40,7 +45,9 @@ namespace Dinopostres.TriggerEffects
         {
             if (isStage)
             {
-                //Change Scene
+                string lvlName = Locations.Instance().LookForLevelName(enm_area, enm_rank);
+                Debug.Log($"Loading scen {lvlName}");
+                LevelManager._Instance.LoadLevel(lvlName);
             }
             else
             {

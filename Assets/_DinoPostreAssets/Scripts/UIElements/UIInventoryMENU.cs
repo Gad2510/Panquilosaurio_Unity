@@ -42,7 +42,6 @@ namespace Dinopostres.UIElements
             for(int i=0; i < activeSlots; i++)
             {
                 arr_Ingredients[i].UpdateDescriptions(GameManager._instance.PD_gameData.Inventory[i]._Ingredient);
-                Debug.Log(arr_Ingredients[i].name);
             }
         }
     }

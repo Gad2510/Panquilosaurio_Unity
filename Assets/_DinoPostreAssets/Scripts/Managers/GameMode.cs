@@ -30,7 +30,7 @@ namespace Dinopostres.Managers
             {MenuDef.menu, "" },
             {MenuDef.settings, "" },
             {MenuDef.load, "" },
-            {MenuDef.decriptions, "" },
+            {MenuDef.decriptions, "UI_Descriptions" },
         };
 
         protected Dictionary<MenuDef, GameObject> dic_menus;
@@ -41,6 +41,12 @@ namespace Dinopostres.Managers
         {
             InitMenus();
             enm_lastMenu = MenuDef.none;
+        }
+
+        private void OnLevelWasLoaded(int level)
+        {
+            Debug.Log("Init menus");
+            InitMenus();
         }
 
         // Update is called once per frame

@@ -13,7 +13,8 @@ namespace Dinopostres.Definitions
             menu,
             criadero,
             praderaCriadero,
-            volcan
+            volcan,
+            none
         }
 
         public enum Rank

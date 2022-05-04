@@ -16,7 +16,7 @@ namespace Dinopostres.Definitions
 
         public LocationCount.Area _Area { get => enm_Area; }
         public LocationCount.Rank _Rank { get => enm_Rank; }
-        
+         
         public BossRelation GetRandomBoss()
         {
             int max =lst_bosses.Sum((x) => x._Value);
@@ -27,6 +27,19 @@ namespace Dinopostres.Definitions
                 count += lst_bosses[i]._Value;
             }
             return lst_bosses[i-1];
+        }
+
+        public List<DinoDef> GetAllBossesDef()
+        {
+            try
+            {
+                List<DinoDef> dinos=(lst_bosses.Select((x) => EnemyStorage._Instance().Look4DinoDef(x._Boss))).ToList();
+                return dinos;
+            }catch (System.Exception e)
+            {
+                Debug.LogError($"No se pudo encontrar ningun boss asignado a este nivel Area {enm_Area.ToString()}  Rank {enm_Rank.ToString()}");
+                return null;
+            }
         }
     }
 

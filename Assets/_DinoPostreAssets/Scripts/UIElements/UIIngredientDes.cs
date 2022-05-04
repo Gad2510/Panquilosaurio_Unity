@@ -37,7 +37,6 @@ namespace Dinopostres.UIElements
 
         public void UpdateDescriptions(IngredientDef.Sample _type)
         {
-            Debug.Log($"Update to {_type}");
             enm_ingredient = _type;
             img_ingredientImg.sprite = Ingredients.Instance().GetIngredientVisual(enm_ingredient);
             txt_ingredientCount.text =string.Format( "X{0}",GameManager._instance.PD_gameData.GetIngredientCount(enm_ingredient).ToString("00"));

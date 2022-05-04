@@ -12,10 +12,13 @@ EditorBuildSettings:
     path: Assets/_DinoPostreAssets/Scenes/Criadero.unity
     guid: bdab94fecb458fa418e4b53ec596052e
   - enabled: 1
-    path: Assets/_DinoPostreAssets/Scenes/PraderCrianza.unity
+    path: Assets/_DinoPostreAssets/Scenes/Pradera Crianza.unity
     guid: a9770ac3dba17c84fa9dbea5f6ae6af4
   - enabled: 1
     path: Assets/_DinoPostreAssets/Scenes/Volcan.unity
     guid: 735fd893fe7537043ae43a822d05c87f
+  - enabled: 1
+    path: Assets/_DinoPostreAssets/Scenes/PanquilosaurioTest.unity
+    guid: bf1d2dbf0bfeb5e4d98fdfaa0eea8bf0
   m_configObjects:
     com.unity.input.settings: {fileID: 11400000, guid: 77b27a5542b4453459e99935bf0973bb, type: 2}

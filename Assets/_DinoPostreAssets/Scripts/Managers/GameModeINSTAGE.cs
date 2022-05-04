@@ -10,8 +10,16 @@ namespace Dinopostres.Managers
         {
             get
             {
-                if (dic_menus.ContainsKey(MenuDef.status) && dic_menus[MenuDef.status] != null)
+                Debug.Log($"Status Contains key {dic_menus.ContainsKey(MenuDef.status)} | Contains value {dic_menus[MenuDef.status] != null}");
+                if (dic_menus.ContainsKey(MenuDef.status) )
+                {
+                    if(dic_menus[MenuDef.status] == null)
+                    {
+                        dic_menus[MenuDef.status] = LoadGameMenu(dic_menuRef[MenuDef.status], true);
+                    }
                     return dic_menus[MenuDef.status];
+                }
+                    
 
                 dic_menus.Add(MenuDef.status, LoadGameMenu(dic_menuRef[MenuDef.status], true));
                 return dic_menus[MenuDef.status];

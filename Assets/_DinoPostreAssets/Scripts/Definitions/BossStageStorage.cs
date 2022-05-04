@@ -22,6 +22,19 @@ namespace Dinopostres.Definitions
             return BSS_instance;
         }
 
+        public List<DinoDef> GetAllBossesInStage(LocationCount.Area _area, LocationCount.Rank _rank)
+        {
+            try
+            {
+                return lst_bossStageDef.First((x) => x._Area == _area && x._Rank == _rank).GetAllBossesDef();
+            }
+            catch (System.Exception e)
+            {
+                Debug.LogError("No Boss in the current stage");
+                return null;
+            }
+        }
+
         public BossRelation SelectRandomBoss(LocationCount.Area _area, LocationCount.Rank _rank)
         {
             try

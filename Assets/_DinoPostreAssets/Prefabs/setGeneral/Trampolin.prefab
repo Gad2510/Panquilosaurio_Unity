@@ -27,7 +27,7 @@ Transform:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 9094483264768217866}
-  m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
   m_LocalPosition: {x: 0.7166898, y: 4.670964, z: -3.5898356}
   m_LocalScale: {x: 0.45433137, y: 0.1315999, z: 0.41996434}
   m_Children: []
@@ -108,7 +108,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 106d99ce3166df249b3276de9e34f070, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  isLock: 0
-  isStage: 0
+  isLock: 1
+  isStage: 1
   isBoss: 0
   str_destiny: 
