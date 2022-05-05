@@ -35,7 +35,7 @@ namespace Dinopostres.Managers
             dic_menus.Add(MenuDef.gameplay, LoadGameMenu(dic_menuRef[MenuDef.gameplay],true));
         }
 
-        public void OpenCloseDispacher(bool _state)
+        /*public void OpenCloseDispacher(bool _state)
         {
             if (enm_lastMenu == MenuDef.none)
                 dic_menus[MenuDef.dispacher].SetActive(_state);
@@ -53,6 +53,6 @@ namespace Dinopostres.Managers
             dic_menus[MenuDef.inventory].SetActive(false);
             if (enm_lastMenu == MenuDef.pause)
                 dic_menus[MenuDef.pause].SetActive(true);
-        }
+        }*/
     }
 }

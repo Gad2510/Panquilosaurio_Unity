@@ -19,7 +19,7 @@ namespace Dinopostres.Managers
             decriptions,
             none
         }
-        protected MenuDef enm_lastMenu;
+        public MenuDef enm_lastMenu;
         protected Dictionary<MenuDef, string> dic_menuRef =new Dictionary<MenuDef, string>
         {
             {MenuDef.pause, "UI_PauseMenu" },
@@ -49,12 +49,6 @@ namespace Dinopostres.Managers
             InitMenus();
         }
 
-        // Update is called once per frame
-        void Update()
-        {
-
-        }
-
         protected abstract void InitMenus();
 
         protected GameObject LoadGameMenu(string _name, bool _active = false)
@@ -64,6 +58,17 @@ namespace Dinopostres.Managers
             var.SetActive(_active);
 
             return var;
+        }
+
+        public void OpenCloseSpecicficMenu(MenuDef _menu, bool _state)
+        {
+            Debug.Log(_menu);
+            if (enm_lastMenu != MenuDef.none && enm_lastMenu!=_menu)
+            {
+                dic_menus[enm_lastMenu].SetActive(!_state);
+            }
+            dic_menus[_menu].SetActive(_state);
+            enm_lastMenu =(_state) ?_menu:MenuDef.none;
         }
     }
 }

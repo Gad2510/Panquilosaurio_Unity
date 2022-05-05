@@ -20,7 +20,7 @@ namespace Dinopostres.CharacterControllers
             _attackList.Add(base._defaultAttack, w4s_AttackPreparation);
             _attackList.Add(SuperTackle, new WaitForSeconds(1));
             _attackList.Add(ShockWave, null);
-            _attackList.Add(ShockWave, new WaitForSeconds(3));
+            _attackList.Add(ChargeShockWave, new WaitForSeconds(3));
 
             isStaticHealthBar = true;
             transform.localScale = Vector3.one * 3f;
@@ -61,13 +61,16 @@ namespace Dinopostres.CharacterControllers
             yield return _time;
             isAttackObject = false;
         }
-
+        private void ChargeShockWave()
+        {
+            ShockWave();
+        }
         private void ShockWave()
         {
             RaycastHit hit;
             if(Physics.SphereCast(transform.position,10f,transform.forward,out hit, 10f,LayerMask.NameToLayer("Player"))){
                 Vector3 dir = (hit.transform.position - transform.position).normalized;
-                hit.rigidbody.AddForce(dir * 10f);
+                hit.transform.root.GetComponent<Rigidbody>().AddForce(dir * 10f);
             }
         }
         private void OnCollisionEnter(Collision collision)

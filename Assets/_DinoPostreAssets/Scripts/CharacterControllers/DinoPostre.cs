@@ -38,37 +38,16 @@ namespace Dinopostres.CharacterControllers
 
         public bool IsPlayer { set => isPlayer = value; }
         public bool IsAttacking { get => isAttacking; }
-        public float CurrentHealth { set => dic_Stats[DinoStatsDef.Stats.HP] = value; }
+        public float CurrentHealth { get => dic_Stats[DinoStatsDef.Stats.HP]; set => dic_Stats[DinoStatsDef.Stats.HP] = value; }
         public float _Peso { get => dic_Stats[DinoStatsDef.Stats.PESO]; }
-
+        public DinoDef.DinoChar _DinoChar { get => enm_Dino; }
         // Start is called before the first frame update
         void Awake()
         {
             lst_skills[4]=EnemyStorage._Instance().GetDeafultEnemyAttack(enm_Dino);
         }
 
-        // Update is called once per frame
-        void Update()
-        {
-
-        }
-
-        private void OnDestroy()
-        {
-            
-        }
-
-        public void OnCollisionEnter(Collision collision)
-        {
-
-        }
-
-        private void OnTriggerEnter(Collider other)
-        {
-
-        }
-
-        public void InitStats(int _level)
+        public void InitStats(int _level, DinoSaveData _def=null)
         {
             int_Level = _level;
             DinoStatsDef stats = DinoSpecsDef.Instance().LookForStats(enm_Dino);
@@ -81,8 +60,10 @@ namespace Dinopostres.CharacterControllers
 
                 //Debug.Log($"STAT {(DinoStatsDef.Stats)i}  | Valor {value}  - {isPlayer}");
             }
-
             f_maxHealth = dic_Stats[DinoStatsDef.Stats.HP];
+            if(_def!=null)
+                dic_Stats[DinoStatsDef.Stats.HP] = _def.CurrentHealth;
+            
 
             f_TestHP = dic_Stats[DinoStatsDef.Stats.HP];
         }

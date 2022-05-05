@@ -18,7 +18,7 @@ namespace Dinopostres.UIElements
         // Start is called before the first frame update
         void Awake()
         {
-            btn_return.onClick.AddListener(()=> ((GameModeINSTAGE)LevelManager._Instance._GameMode).CloseInventory());
+            btn_return.onClick.AddListener(() => LevelManager._Instance._GameMode.OpenCloseSpecicficMenu(GameMode.MenuDef.inventory, false));
         }
 
         private void OnEnable()

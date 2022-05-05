@@ -14,7 +14,7 @@ namespace Dinopostres.CharacterControllers
         private Vector2 direction;
 
         private bool isDispacherOpen=false;
-
+        private DinoSaveData currentData;
         public bool IsDispacheOpen { set => isDispacherOpen = value; }
 
         private void Awake()
@@ -38,7 +38,7 @@ namespace Dinopostres.CharacterControllers
             if (base.DP_current)
             {
                 base.DP_current.IsPlayer = true;
-                DP_current.InitStats(1);
+                DP_current.InitStats(currentData.Level,currentData);
             }
             //init camera
             Camera.main.gameObject.AddComponent<CameraController>();
@@ -69,7 +69,9 @@ namespace Dinopostres.CharacterControllers
         protected override void GetHIT()
         {
             if(isDispacherOpen)
-                ((GameModeINSTAGE)LevelManager._Instance._GameMode).OpenCloseDispacher(!isDispacherOpen);
+                LevelManager._Instance._GameMode.OpenCloseSpecicficMenu(GameMode.MenuDef.dispacher,!isDispacherOpen);
+
+            currentData.CurrentHealth = DP_current.CurrentHealth;
         }
 
         protected override void Movement()
@@ -97,7 +99,7 @@ namespace Dinopostres.CharacterControllers
 
         private void Controllers(InputAction.CallbackContext _ctx)
         {
-            //print(_ctx.action.name.ToString());
+
             if (DP_current)
             {
                 switch (_ctx.action.name)
@@ -119,7 +121,7 @@ namespace Dinopostres.CharacterControllers
 
         private void OpenDispacher()
         {
-            ((GameModeINSTAGE)LevelManager._Instance._GameMode).OpenCloseDispacher(!isDispacherOpen);
+            LevelManager._Instance._GameMode.OpenCloseSpecicficMenu(GameMode.MenuDef.dispacher,!isDispacherOpen);
         }
 
         public void SwitchDino(DinoSaveData _newDino)
@@ -133,6 +135,7 @@ namespace Dinopostres.CharacterControllers
             DP_current.transform.localPosition = Vector3.zero;
             DP_current.InitStats(_newDino.Level);
             DP_current.CurrentHealth = _newDino.CurrentHealth;
+            currentData = _newDino;
         }
         
     }

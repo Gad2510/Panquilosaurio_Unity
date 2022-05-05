@@ -10,9 +10,9 @@ namespace Dinopostres.Definitions
         [SerializeField]
         private int int_ID;
         [SerializeField]
-        private int int_currentHealth;
+        private float f_currentHealth;
         [SerializeField]
-        private float float_maxHealth;
+        private float f_maxHealth;
         [SerializeField]
         private int int_Level;
         [SerializeField]
@@ -27,8 +27,8 @@ namespace Dinopostres.Definitions
         public DinoDef.DinoChar Dino { get => enm_Dino; }
         public int Level { get => int_Level; }
         public float Power { get => f_dinoPower; }
-        public int CurrentHealth { get => int_currentHealth; set => int_currentHealth= value; }
-        public float MaxHealth { get => float_maxHealth; set => float_maxHealth = value; }
+        public float CurrentHealth { get => f_currentHealth; set => f_currentHealth= value; }
+        public float MaxHealth { get => f_maxHealth; set => f_maxHealth = value; }
         public bool IsSelected { get => isSelected; set => isSelected=value; }
         public int ID { get => int_ID; }
 
@@ -38,7 +38,9 @@ namespace Dinopostres.Definitions
             isSelected = _selected;
             int_ID = _ID;
             enm_Dino = _dino;
-            float_maxHealth = DinoSpecsDef.Instance().LookForStats(enm_Dino).CalculateCurrentValue(DinoStatsDef.Stats.HP, int_Level);
+            f_maxHealth = DinoSpecsDef.Instance().LookForStats(enm_Dino).CalculateCurrentValue(DinoStatsDef.Stats.HP, int_Level);
+            f_currentHealth = f_maxHealth;
+            f_dinoPower = DinoSpecsDef.Instance().CalculatePower(enm_Dino, int_Level);
             dic_statChanges = new Dictionary<IngredientDef.IngredientType, int>();
             dic_statChanges.Add(IngredientDef.IngredientType.AGRIDULCE, 0);
             dic_statChanges.Add(IngredientDef.IngredientType.AGRIO, 0);
@@ -93,7 +95,13 @@ namespace Dinopostres.Definitions
         {
             int_Level += 1;
             f_dinoPower=DinoSpecsDef.Instance().CalculatePower(enm_Dino, int_Level);
-            float_maxHealth = DinoSpecsDef.Instance().LookForStats(enm_Dino).CalculateCurrentValue(DinoStatsDef.Stats.HP, int_Level);
+            f_maxHealth = DinoSpecsDef.Instance().LookForStats(enm_Dino).CalculateCurrentValue(DinoStatsDef.Stats.HP, int_Level);
+            RestoreDino();
+        }
+
+        public void RestoreDino()
+        {
+            f_currentHealth = f_maxHealth;
         }
     }
 }

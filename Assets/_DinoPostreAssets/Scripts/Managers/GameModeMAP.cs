@@ -33,10 +33,5 @@ namespace Dinopostres.Managers
             enm_rank = _rank;
             trns_descriptionFollow = _follow;
         }
-
-        public void ShowDescriptions(bool _state)
-        {
-            base.dic_menus[MenuDef.decriptions].SetActive(_state);
-        }
     }
 }

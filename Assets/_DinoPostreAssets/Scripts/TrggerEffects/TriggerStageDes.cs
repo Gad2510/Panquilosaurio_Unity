@@ -20,7 +20,7 @@ namespace Dinopostres.TriggerEffects
             if (other.transform.root.CompareTag("Player"))
             {
                 CallStageDes();
-                ((GameModeMAP)LevelManager._Instance._GameMode).ShowDescriptions(true);
+                LevelManager._Instance._GameMode.OpenCloseSpecicficMenu(GameMode.MenuDef.decriptions,true);
             }
         }
 
@@ -28,7 +28,7 @@ namespace Dinopostres.TriggerEffects
         {
             if (other.transform.root.CompareTag("Player"))
             {
-                ((GameModeMAP)LevelManager._Instance._GameMode).ShowDescriptions(false);
+                LevelManager._Instance._GameMode.OpenCloseSpecicficMenu(GameMode.MenuDef.decriptions, false);
             }
         }
 

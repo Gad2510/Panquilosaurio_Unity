@@ -26,7 +26,7 @@ namespace Dinopostres.UIElements
             GameManager._instance.InS_gameActions.DinopostreController.Pause.performed +=PauseGame;
             btn_resume.onClick.AddListener(() => PauseGame());
             btn_exit.onClick.AddListener(() =>ExitStage());
-            btn_inventory.onClick.AddListener(() => ((GameModeINSTAGE)LevelManager._Instance._GameMode).OpenOnventory(true));
+            btn_inventory.onClick.AddListener(() => LevelManager._Instance._GameMode.OpenCloseSpecicficMenu(GameMode.MenuDef.inventory, true));
         }
 
         private void OnEnable()
@@ -36,7 +36,7 @@ namespace Dinopostres.UIElements
 
         private void PauseGame(InputAction.CallbackContext _ctx)
         {
-            if(LevelManager._Instance._GameMode._LatMenu== GameMode.MenuDef.none)
+            if(LevelManager._Instance._GameMode._LatMenu== GameMode.MenuDef.none || LevelManager._Instance._GameMode._LatMenu == GameMode.MenuDef.decriptions)
             {
                 gameObject.SetActive(!gameObject.activeSelf);
 

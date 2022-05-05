@@ -71,8 +71,14 @@ namespace Dinopostres.Managers
 
         private void OnLevelWasLoaded(int level)
         {
-            dic_TelportersInLevel.Clear();
             int_stageCount = 0;
+
+            if(dic_levelStates[SceneManager.GetActiveScene().name]== GameStates.InStage)
+            {
+                Debug.Log("Init Stage");
+                //Invoke(nameof(MovePlayer), 0.1f);
+                MovePlayer();
+            }
         }
 
         public void LoadGameMode(string _levelName)
@@ -98,6 +104,7 @@ namespace Dinopostres.Managers
 
         public void LoadLevel(string _level)
         {
+            dic_TelportersInLevel.Clear();
             SceneManager.LoadScene(_level);
         }
 
@@ -145,7 +152,7 @@ namespace Dinopostres.Managers
             {
                 try
                 {
-                    int ran = Random.Range(0, dic_TelportersInLevel.Count() - 1);
+                    int ran = Random.Range(0, dic_TelportersInLevel.Count());
                     GameObject tel = dic_TelportersInLevel.Where((x) => x.Key != currentTeleporterID).ElementAt(ran).Value;
                     int_stageCount++;
                     return tel;
@@ -158,6 +165,15 @@ namespace Dinopostres.Managers
             }
 
             return go_bossTeleporter;
+        }
+
+        public void MovePlayer()
+        {
+            GameObject pl= GameObject.FindGameObjectWithTag("Player");
+            int ran = Random.Range(0, dic_TelportersInLevel.Count());
+            GameObject tl=  dic_TelportersInLevel.ElementAt(ran).Value;
+
+            pl.transform.position = tl.transform.position;
         }
     }
 }

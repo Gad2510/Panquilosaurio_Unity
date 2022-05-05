@@ -21,10 +21,11 @@ namespace Dinopostres.TriggerEffects
 
         public LocationCount.Area _Area { get => enm_area; }
         public LocationCount.Rank _Rank { get => enm_rank; }
-        private void Start()
+        private void Awake()
         {
             if(!isStage && isLock)
             {
+                Debug.Log("Teleporter register");
                 LevelManager._Instance.RegisterTeleporter(gameObject, this.GetInstanceID(), isBoss);
             }
             
