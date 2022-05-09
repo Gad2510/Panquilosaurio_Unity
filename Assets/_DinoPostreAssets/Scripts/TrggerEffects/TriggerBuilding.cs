@@ -29,7 +29,7 @@ namespace Dinopostres.TriggerEffects
         {
             if (onTrigger)
             {
-                
+                LevelManager._Instance._GameMode.OpenCloseSpecicficMenu(GameMode.MenuDef.oven, true);
             }
         }
     }

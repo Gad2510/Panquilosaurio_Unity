@@ -14,21 +14,23 @@ namespace Dinopostres.UIElements
     {
         [SerializeField]
         private Transform trns_DescriptionParent;
+        [Header("Dispacher - Texts")]
         [SerializeField]
         private TextMeshProUGUI txt_DescriptionName;
         [SerializeField]
         private TextMeshProUGUI txt_DescriptionPower;
         [SerializeField]
-        private TextMeshProUGUI txt_DescriptionPS;
+        protected TextMeshProUGUI txt_DescriptionPS;
+        [Header("Dispacher - Sliders")]
         [SerializeField]
-        private Slider sl_healthRef;
+        protected Slider sl_healthRef;
 
         private UIDinoDes [] arr_UIDinoDescriptions;
-        private int int_lastIndex;
-        public int int_currentIndex;
+        protected int int_lastIndex;
+        protected int int_currentIndex;
 
         // Start is called before the first frame update
-        void Start()
+        protected void Start()
         {
             arr_UIDinoDescriptions = trns_DescriptionParent.GetComponentsInChildren<UIDinoDes>();
             arr_UIDinoDescriptions = arr_UIDinoDescriptions.OrderBy((x) => x.name).ToArray();
@@ -40,7 +42,7 @@ namespace Dinopostres.UIElements
             InitUIVisuals();
         }
 
-        private void OnEnable()
+        protected void OnEnable()
         {
             if (arr_UIDinoDescriptions != null)
             {
@@ -66,18 +68,22 @@ namespace Dinopostres.UIElements
             Player.PL_Instance.IsDispacheOpen = true;
         }
 
-        private void InitBtnEvents()
+        protected void InitBtnEvents()
         {
             foreach(UIDinoDes label in arr_UIDinoDescriptions)
             {
-                label.AddBtnClicEvent(() => gameObject.SetActive(false));
-                label.AddBtnSelectedEvent(() => { 
-                    UpdateDescription(label.ReturnStoreData());
-                    MoveDinoUI(label._ParentIndex);
-                    int_lastIndex = label._ParentIndex;
-
-                });
+                SetButtonEvent(label);
             }
+        }
+        protected virtual void SetButtonEvent(UIDinoDes _uiDino)
+        {
+            _uiDino.AddBtnClicEvent(() => gameObject.SetActive(false));
+            _uiDino.AddBtnSelectedEvent(() => {
+                UpdateDescription(_uiDino.ReturnStoreData());
+                MoveDinoUI(_uiDino._ParentIndex);
+                int_lastIndex = _uiDino._ParentIndex;
+
+            });
         }
         private void InitUIVisuals()
         {
@@ -90,26 +96,27 @@ namespace Dinopostres.UIElements
             }
             arr_UIDinoDescriptions[int_currentIndex].SetButtonAsSelected();
         }
-        private void InitUiValues()
+        protected void InitUiValues()
         {
             for(int i =0; i< GameManager._instance._GameData.DinoInventory.Count() && i<8; i++)
             {
-                arr_UIDinoDescriptions[i].InitStats(GameManager._instance._GameData.DinoInventory[i]);
+                DinoSaveData saveData = GameManager._instance._GameData.DinoInventory[i];
+                arr_UIDinoDescriptions[i].InitStats(saveData, () => Player.PL_Instance.SwitchDino(saveData));
             }
         }
 
-        private void MoveDinoUI(int _siblingIndex)
+        protected void MoveDinoUI(int _siblingIndex)
         {
-
-            
+            DinoSaveData saveData = null;
             switch (_siblingIndex)
             {
                 case 0:
                     int_currentIndex -= 1;
                     if (int_currentIndex > 0)
                     {
+                        saveData = GameManager._instance._GameData.DinoInventory[int_currentIndex - 1];
                         trns_DescriptionParent.GetChild(7).SetAsFirstSibling();
-                        arr_UIDinoDescriptions[(int_currentIndex-1)%8].InitStats(GameManager._instance._GameData.DinoInventory[int_currentIndex-1]);
+                        arr_UIDinoDescriptions[(int_currentIndex-1)%8].InitStats(saveData,() => Player.PL_Instance.SwitchDino(saveData));
                     }
                     
                     break;
@@ -117,8 +124,9 @@ namespace Dinopostres.UIElements
                     int_currentIndex += 1;
                     if (int_currentIndex< GameManager._instance._GameData.DinoInventory.Count()-1)
                     {
+                        saveData = GameManager._instance._GameData.DinoInventory[int_currentIndex + 1];
                         trns_DescriptionParent.GetChild(0).SetAsLastSibling();
-                        arr_UIDinoDescriptions[(int_currentIndex+1)% 8].InitStats(GameManager._instance._GameData.DinoInventory[int_currentIndex+1]);
+                        arr_UIDinoDescriptions[(int_currentIndex+1)% 8].InitStats(saveData, () => Player.PL_Instance.SwitchDino(saveData));
                     }
                     
                     break;
@@ -129,12 +137,16 @@ namespace Dinopostres.UIElements
             int_currentIndex = Mathf.Clamp(int_currentIndex, 0, GameManager._instance._GameData.DinoInventory.Count() - 1);
         }
 
-        private void UpdateDescription(DinoSaveData _info)
+        protected void UpdateDescription(DinoSaveData _info)
         {
             txt_DescriptionName.text = _info.Dino.ToString();
             txt_DescriptionPower.text=_info.Power.ToString();
 
-            float maxHealth =_info.MaxHealth;
+            UpdateSliders(_info);
+        }
+
+        protected virtual void UpdateSliders(DinoSaveData _info) {
+            float maxHealth = _info.MaxHealth;
             txt_DescriptionPS.text = $"{_info.CurrentHealth} / {maxHealth}";
             sl_healthRef.value = _info.CurrentHealth / maxHealth;
         }

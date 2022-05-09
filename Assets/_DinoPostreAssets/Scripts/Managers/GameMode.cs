@@ -17,6 +17,7 @@ namespace Dinopostres.Managers
             settings,
             load,
             decriptions,
+            oven,
             none
         }
         public MenuDef enm_lastMenu;
@@ -31,6 +32,7 @@ namespace Dinopostres.Managers
             {MenuDef.settings, "" },
             {MenuDef.load, "" },
             {MenuDef.decriptions, "UI_Descriptions" },
+            {MenuDef.oven, "" }
         };
 
         protected Dictionary<MenuDef, GameObject> dic_menus;

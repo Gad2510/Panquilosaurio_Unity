@@ -19,9 +19,11 @@ namespace Dinopostres.UIElements
         TextMeshProUGUI txt_power;
         [SerializeField]
         Slider sl_healthBar;
+        [SerializeField]
+        Image img_dinoImg;
 
         Button btn_ChangeDino;
-        public DinoSaveData dsd_currentData;
+        private DinoSaveData dsd_currentData;
 
         UnityEngine.Events.UnityAction onClick;
         UnityEvent ue_onSelect;
@@ -35,21 +37,27 @@ namespace Dinopostres.UIElements
             ue_onSelect = new UnityEvent();
         }
 
-        public void InitStats(DinoSaveData _dinoData)
+        public void InitStats(DinoSaveData _dinoData, UnityEngine.Events.UnityAction _ev)
         {
             if (onClick != null)
                 RemoveBtnClicEvent(onClick);
-
-            txt_name.text = _dinoData.Dino.ToString();
-            txt_power.text = _dinoData.Power.ToString();
-
-            float maxHealth = _dinoData.MaxHealth;
-            sl_healthBar.value = _dinoData.CurrentHealth /maxHealth;
-
-            onClick = () => { Player.PL_Instance.SwitchDino(_dinoData); };
+            onClick = _ev;
             AddBtnClicEvent(onClick);
-
             dsd_currentData = _dinoData;
+
+            if(txt_name!=null)
+                txt_name.text = dsd_currentData.Dino.ToString();
+            if(txt_power!=null)
+                txt_power.text =string.Format( "CP {0}",dsd_currentData.Power.ToString());
+
+            if (img_dinoImg != null)
+                img_dinoImg.sprite =EnemyStorage._Instance().GetDinoImage(_dinoData.Dino);
+
+            if (sl_healthBar != null)
+            {
+                float maxHealth = dsd_currentData.MaxHealth;
+                sl_healthBar.value = dsd_currentData.CurrentHealth / maxHealth;
+            }
         }
 
         public DinoSaveData ReturnStoreData()
@@ -69,11 +77,6 @@ namespace Dinopostres.UIElements
         public void AddBtnSelectedEvent(UnityEngine.Events.UnityAction _ev)
         {
             ue_onSelect.AddListener(_ev);
-        }
-
-        public void AddBtnSelectEvent(UnityEngine.EventSystems.PointerEventData _ev)
-        {
-            btn_ChangeDino.OnPointerEnter(_ev);
         }
 
         public void SetButtonAsSelected()
