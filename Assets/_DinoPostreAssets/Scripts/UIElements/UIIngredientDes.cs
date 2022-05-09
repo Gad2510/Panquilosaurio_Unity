@@ -35,11 +35,19 @@ namespace Dinopostres.UIElements
             }
         }
 
-        public void UpdateDescriptions(IngredientDef.Sample _type)
+        public void UpdateDescriptions(IngredientDef.Sample _type, int _amount=-1)
         {
             enm_ingredient = _type;
             img_ingredientImg.sprite = Ingredients.Instance().GetIngredientVisual(enm_ingredient);
-            txt_ingredientCount.text =string.Format( "X{0}",GameManager._instance.PD_gameData.GetIngredientCount(enm_ingredient).ToString("00"));
+            if (_amount <1)
+            {
+                txt_ingredientCount.text = string.Format("X{0}", GameManager._instance.PD_gameData.GetIngredientCount(enm_ingredient).ToString("00"));
+            }
+            else
+            {
+                txt_ingredientCount.text = string.Format("X {0}", _amount.ToString("00"));
+            }
+            
             go_ingredientDetails.SetActive(true);
         }
     }

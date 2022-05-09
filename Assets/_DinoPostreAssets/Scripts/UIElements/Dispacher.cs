@@ -13,14 +13,14 @@ namespace Dinopostres.UIElements
     public class Dispacher : MonoBehaviour
     {
         [SerializeField]
-        private Transform trns_DescriptionParent;
+        private Transform trns_dinoDescriptionParent;
         [Header("Dispacher - Texts")]
         [SerializeField]
-        private TextMeshProUGUI txt_DescriptionName;
+        private TextMeshProUGUI txt_descriptionName;
         [SerializeField]
-        private TextMeshProUGUI txt_DescriptionPower;
+        private TextMeshProUGUI txt_descriptionPower;
         [SerializeField]
-        protected TextMeshProUGUI txt_DescriptionPS;
+        protected TextMeshProUGUI txt_descriptionPS;
         [Header("Dispacher - Sliders")]
         [SerializeField]
         protected Slider sl_healthRef;
@@ -30,9 +30,9 @@ namespace Dinopostres.UIElements
         protected int int_currentIndex;
 
         // Start is called before the first frame update
-        protected void Start()
+        protected virtual void Start()
         {
-            arr_UIDinoDescriptions = trns_DescriptionParent.GetComponentsInChildren<UIDinoDes>();
+            arr_UIDinoDescriptions = trns_dinoDescriptionParent.GetComponentsInChildren<UIDinoDes>();
             arr_UIDinoDescriptions = arr_UIDinoDescriptions.OrderBy((x) => x.name).ToArray();
             int_currentIndex = 0;
             int_lastIndex = 0;
@@ -115,7 +115,7 @@ namespace Dinopostres.UIElements
                     if (int_currentIndex > 0)
                     {
                         saveData = GameManager._instance._GameData.DinoInventory[int_currentIndex - 1];
-                        trns_DescriptionParent.GetChild(7).SetAsFirstSibling();
+                        trns_dinoDescriptionParent.GetChild(7).SetAsFirstSibling();
                         arr_UIDinoDescriptions[(int_currentIndex-1)%8].InitStats(saveData,() => Player.PL_Instance.SwitchDino(saveData));
                     }
                     
@@ -125,7 +125,7 @@ namespace Dinopostres.UIElements
                     if (int_currentIndex< GameManager._instance._GameData.DinoInventory.Count()-1)
                     {
                         saveData = GameManager._instance._GameData.DinoInventory[int_currentIndex + 1];
-                        trns_DescriptionParent.GetChild(0).SetAsLastSibling();
+                        trns_dinoDescriptionParent.GetChild(0).SetAsLastSibling();
                         arr_UIDinoDescriptions[(int_currentIndex+1)% 8].InitStats(saveData, () => Player.PL_Instance.SwitchDino(saveData));
                     }
                     
@@ -139,15 +139,15 @@ namespace Dinopostres.UIElements
 
         protected void UpdateDescription(DinoSaveData _info)
         {
-            txt_DescriptionName.text = _info.Dino.ToString();
-            txt_DescriptionPower.text=_info.Power.ToString();
+            txt_descriptionName.text = _info.Dino.ToString();
+            txt_descriptionPower.text=_info.Power.ToString();
 
             UpdateSliders(_info);
         }
 
         protected virtual void UpdateSliders(DinoSaveData _info) {
             float maxHealth = _info.MaxHealth;
-            txt_DescriptionPS.text = $"{_info.CurrentHealth} / {maxHealth}";
+            txt_descriptionPS.text = $"{_info.CurrentHealth} / {maxHealth}";
             sl_healthRef.value = _info.CurrentHealth / maxHealth;
         }
     }

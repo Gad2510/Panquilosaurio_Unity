@@ -4,48 +4,84 @@ using UnityEngine;
 using UnityEngine.UI;
 using TMPro;
 using Dinopostres.Definitions;
+using Dinopostres.Managers;
 namespace Dinopostres.UIElements
 {
     public class UIOven : Dispacher
     {
+        [Header("OVEN - Buttons")]
+        [SerializeField]
+        private Button btn_levelUP;
+        [SerializeField]
+        private Button btn_return;
+        
         [Header("OVEN - Text")]
         [SerializeField]
-        TextMeshProUGUI txt_peso;
+        private TextMeshProUGUI txt_peso;
         [SerializeField]
-        TextMeshProUGUI txt_textura;
+        private TextMeshProUGUI txt_textura;
         [SerializeField]
-        TextMeshProUGUI txt_sabor;
+        private TextMeshProUGUI txt_sabor;
         [SerializeField]
-        TextMeshProUGUI txt_cobertura;
+        private TextMeshProUGUI txt_cobertura;
         [SerializeField]
-        TextMeshProUGUI txt_confite;
-
+        private TextMeshProUGUI txt_confite;
+         
         [Header("OVEN - Sliders")]
         [SerializeField]
-        Slider sl_peso;
+        private Slider sl_peso;
         [SerializeField]
-        Slider sl_textura;
+        private Slider sl_textura;
         [SerializeField]
-        Slider sl_sabor;
+        private Slider sl_sabor;
         [SerializeField]
-        Slider sl_cobertura;
+        private Slider sl_cobertura;
         [SerializeField]
-        Slider sl_confite;
+        private Slider sl_confite;
 
+        [Header("OVEN - Ingredients")]
+        [SerializeField]
+        private Transform trns_ingredientsParent;
+        private UIIngredientDes[] arr_reqIngredients;
+        private List<IngredientCount> lst_ingredients2LUP;
+
+        private UIDinoDes UID_currentDino;
+        protected override void Start()
+        {
+            arr_reqIngredients = trns_ingredientsParent.GetComponentsInChildren<UIIngredientDes>();
+
+            btn_levelUP.onClick.AddListener(() =>
+            {
+                if (UID_currentDino != null )
+                {
+                    UID_currentDino.ReturnStoreData().LevelUP();
+                    UpdateSliders(UID_currentDino.ReturnStoreData());
+                    UID_currentDino.QuickRelodStats();
+                }
+            });
+            btn_return.onClick.AddListener(() => {
+                LevelManager._Instance._GameMode.OpenCloseSpecicficMenu(GameMode.MenuDef.oven,false); 
+            });
+
+
+
+            base.Start();
+        }
         protected override void SetButtonEvent(UIDinoDes _uiDino)
         {
-            _uiDino.AddBtnClicEvent(() => gameObject.SetActive(false));
             _uiDino.AddBtnSelectedEvent(() => {
-                UpdateDescription(_uiDino.ReturnStoreData());
-                MoveDinoUI(_uiDino._ParentIndex);
-                int_lastIndex = _uiDino._ParentIndex;
-
+                UID_currentDino = _uiDino;
+                DinoSaveData _save = UID_currentDino.ReturnStoreData();
+                UpdateDescription(_save);
+                MoveDinoUI(UID_currentDino._ParentIndex);
+                int_lastIndex = UID_currentDino._ParentIndex;
+                UpdateIngredients(_save.Dino, _save.Level);
             });
         }
 
         protected override void UpdateSliders(DinoSaveData _info)
         {
-            UpdateStat(sl_healthRef, txt_DescriptionPS, _info.MaxHealth, true);
+            UpdateStat(sl_healthRef, txt_descriptionPS, _info.MaxHealth, true);
             UpdateStat(sl_peso, txt_peso,DinoSpecsDef.Instance().LookForStats(_info.Dino).CalculateCurrentValue(DinoStatsDef.Stats.PESO,_info.Level));
             UpdateStat(sl_textura, txt_textura, DinoSpecsDef.Instance().LookForStats(_info.Dino).CalculateCurrentValue(DinoStatsDef.Stats.TEXTURA,_info.Level));
             UpdateStat(sl_sabor, txt_sabor, DinoSpecsDef.Instance().LookForStats(_info.Dino).CalculateCurrentValue(DinoStatsDef.Stats.SABOR,_info.Level));
@@ -59,6 +95,23 @@ namespace Dinopostres.UIElements
             _textRef.text = $"{stat}";
             float divide = (_isLife) ? 1000: 500;
             _slporcentage.value = stat / divide;
+        }
+
+        private void UpdateIngredients(DinoDef.DinoChar _dino , int _level)
+        {
+            lst_ingredients2LUP = RecipeBook._Instance().Look4Recipe(_dino).GetIngredientsNextLevel(_level);
+            
+            for(int i =0;i< arr_reqIngredients.Length; i++)
+            {
+                if (i < lst_ingredients2LUP.Count)
+                {
+                    arr_reqIngredients[i].UpdateDescriptions(lst_ingredients2LUP[i]._Ingredient, lst_ingredients2LUP[i]._Count);
+                }
+                else
+                {
+                    arr_reqIngredients[i].UpdateDescriptions(IngredientDef.Sample.none);
+                }
+            }
         }
     }
 }

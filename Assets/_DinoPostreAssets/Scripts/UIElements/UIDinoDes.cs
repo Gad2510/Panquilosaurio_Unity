@@ -45,13 +45,18 @@ namespace Dinopostres.UIElements
             AddBtnClicEvent(onClick);
             dsd_currentData = _dinoData;
 
-            if(txt_name!=null)
+            QuickRelodStats();
+        }
+
+        public void QuickRelodStats()
+        {
+            if (txt_name != null)
                 txt_name.text = dsd_currentData.Dino.ToString();
-            if(txt_power!=null)
-                txt_power.text =string.Format( "CP {0}",dsd_currentData.Power.ToString());
+            if (txt_power != null)
+                txt_power.text = string.Format("CP {0}", dsd_currentData.Power.ToString());
 
             if (img_dinoImg != null)
-                img_dinoImg.sprite =EnemyStorage._Instance().GetDinoImage(_dinoData.Dino);
+                img_dinoImg.sprite = EnemyStorage._Instance().GetDinoImage(dsd_currentData.Dino);
 
             if (sl_healthBar != null)
             {

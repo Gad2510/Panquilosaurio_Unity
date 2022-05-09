@@ -68,6 +68,11 @@ namespace Dinopostres.Definitions
             lst_dinoInventory.Add(new DinoSaveData(_dino,GenerateID()));
         }
 
+        public void Purchase (List<IngredientCount> _coins)
+        {
+
+        }
+
         public int GetIngredientCount(IngredientDef.Sample _type)
         {
             try
