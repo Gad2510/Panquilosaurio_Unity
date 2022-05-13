@@ -38,8 +38,6 @@ namespace Dinopostres.Definitions
         private List<DinoSaveData> lst_dinoInventory;
         [SerializeField]
         private List<int> lst_unlockRecepies;
-        [SerializeField]
-        private List<int> lst_lockRecepies;
         public int _Migas { get => int_migas; }
         public int RecolectedMigas { get => int_recolectedMigas; }
         public int DinoChanges { get => int_dinoChanges; }
@@ -47,6 +45,7 @@ namespace Dinopostres.Definitions
         public int TotalDinoDefeted { get => int_totalDefeatDinos; }
         public List<IngredientCount> Inventory { get => lst_ingredientes; }
         public List<DinoSaveData> DinoInventory { get => lst_dinoInventory; }
+        public List<int> UnlockRecipies { get => lst_unlockRecepies; }
 
         public PlayerData()
         {
@@ -55,35 +54,73 @@ namespace Dinopostres.Definitions
             lst_ingredientes = new List<IngredientCount>();
             lst_dinoInventory = new List<DinoSaveData>();
             lst_unlockRecepies = new List<int>();
-            lst_lockRecepies = new List<int>();
+            lst_unlockRecepies.Add((int)DinoDef.DinoChar.Agujaceratops);
 
             lst_dinoInventory.Add(new DinoSaveData(DinoDef.DinoChar.Agujaceratops, GenerateID(), true));
         }
 
         public void RegisterNewDino(DinoDef.DinoChar _dino)
         {
-            if (lst_dinoInventory != null)
+            if (lst_dinoInventory == null)
                 lst_dinoInventory = new List<DinoSaveData>();
 
             lst_dinoInventory.Add(new DinoSaveData(_dino,GenerateID()));
+            lst_dinoInventory.Count();
         }
 
-        public void Purchase (List<IngredientCount> _coins)
+        public bool CanBePurchase (List<IngredientCount> _coins)
         {
+            bool canBuy = true;
+            for(int i=0; i<_coins.Count() && canBuy; i++)
+            {
+                if(_coins[i]._Ingredient== IngredientDef.Sample.MIGAS)
+                {
+                    canBuy = _coins[i]._Count <= int_migas;
+                }
+                else
+                {
+                    canBuy = lst_ingredientes.Any((x) => x._Ingredient == _coins[i]._Ingredient && x._Count >= _coins[i]._Count);
+                    
+                }
+            }
+            return canBuy;
+        }
 
+        public void MakePurchase(List<IngredientCount> _coins)
+        {
+            for (int i = 0; i < _coins.Count(); i++)
+            {
+                if (_coins[i]._Ingredient == IngredientDef.Sample.MIGAS)
+                {
+                    int_migas -= _coins[i]._Count;
+                }
+                else
+                {
+                    IngredientCount ingre= lst_ingredientes.First((x) => x._Ingredient == _coins[i]._Ingredient);
+                    ingre._Count = -_coins[i]._Count;
+                }
+            }
         }
 
         public int GetIngredientCount(IngredientDef.Sample _type)
         {
             try
             {
-                return lst_ingredientes.First((x) => x._Ingredient == _type)._Count;
+                if (_type != IngredientDef.Sample.MIGAS)
+                    return lst_ingredientes.First((x) => x._Ingredient == _type)._Count;
+                else
+                    return int_migas;
             }
             catch (System.Exception e)
             {
-                Debug.LogError($"Ingrdient {_type} not found in the player data");
-                return -1;
+                Debug.LogWarning($"Ingrdient {_type} not found in the player data");
+                return 0;
             }
+        }
+
+        public bool GetRecipeUnlock(int _index)
+        {
+            return lst_unlockRecepies.Any((x) => x == _index);
         }
         public DinoSaveData GetActive()
         {
@@ -109,11 +146,11 @@ namespace Dinopostres.Definitions
             id= System.Convert.ToInt32(DateTime.Today.ToString("ddMMyyyy"))+ uniqueCode;
 
             Debug.Log(id);
-
-            if(lst_dinoInventory!= null)
+            bool isSet = lst_dinoInventory.Where((x) => x.ID == id).Any();
+            while(isSet)
             {
-                if (lst_dinoInventory.Where((x) => x.ID == id).Any())
-                    id = GenerateID();
+                id++;
+                isSet = lst_dinoInventory.Where((x) => x.ID == id).Any();
             }
 
             return id;

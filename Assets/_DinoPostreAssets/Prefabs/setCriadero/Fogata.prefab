@@ -13,6 +13,8 @@ GameObject:
   - component: {fileID: 8596238500589482834}
   - component: {fileID: 8596238500589482833}
   - component: {fileID: 8596238500589482832}
+  - component: {fileID: 8443970298035627205}
+  - component: {fileID: 3985974119789518993}
   m_Layer: 0
   m_Name: Fogata
   m_TagString: Untagged
@@ -27,7 +29,7 @@ Transform:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 8596238500589482847}
-  m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
   m_LocalPosition: {x: -2.0343103, y: 4.5219636, z: -4.9108357}
   m_LocalScale: {x: 0.47457, y: 0.47457, z: 0.47457}
   m_Children: []
@@ -859,3 +861,30 @@ MeshCollider:
   m_Convex: 0
   m_CookingOptions: 30
   m_Mesh: {fileID: 0}
+--- !u!135 &8443970298035627205
+SphereCollider:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 8596238500589482847}
+  m_Material: {fileID: 0}
+  m_IsTrigger: 1
+  m_Enabled: 1
+  serializedVersion: 2
+  m_Radius: 1.5
+  m_Center: {x: -0.69000006, y: 0.0036674072, z: 0}
+--- !u!114 &3985974119789518993
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 8596238500589482847}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: b01bac8e8f40ce34a868208f35be6df6, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  enm_openMenu: 9
+  str_buildingName: Horno

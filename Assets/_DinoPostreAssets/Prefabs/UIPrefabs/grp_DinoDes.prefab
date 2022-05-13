@@ -746,8 +746,10 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   txt_name: {fileID: 579444748070113751}
+  btn_executer: {fileID: 579444748781282608}
   txt_power: {fileID: 579444747657300594}
   sl_healthBar: {fileID: 579444748037884906}
+  img_dinoImg: {fileID: 0}
 --- !u!1 &579444749367758595
 GameObject:
   m_ObjectHideFlags: 0

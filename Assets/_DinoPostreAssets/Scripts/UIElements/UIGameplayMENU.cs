@@ -27,7 +27,18 @@ namespace Dinopostres.UIElements
             GameManager._instance.OnDead += LoseLife;
         }
 
-        private void OnLevelWasLoaded(int level)
+
+        private void OnEnable()
+        {
+            LevelManager._Instance.SetLoadEvent(OnLoadLevel, true);
+        }
+
+        private void OnDisable()
+        {
+            LevelManager._Instance.SetLoadEvent(OnLoadLevel, false);
+        }
+
+        private void OnLoadLevel(UnityEngine.SceneManagement.Scene _scene, UnityEngine.SceneManagement.LoadSceneMode _mode)
         {
             ResetLifes();
         }

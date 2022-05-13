@@ -20,6 +20,8 @@ namespace Dinopostres.UIElements
         private GameObject go_PauseMenu;
         [SerializeField]
         private GameObject go_InventoryMenu;
+
+        private const int int_mask = (int)GameMode.MenuDef.decriptions | (int)GameMode.MenuDef.none | (int)GameMode.MenuDef.pause;
         // Start is called before the first frame update
         void Awake()
         {
@@ -36,9 +38,15 @@ namespace Dinopostres.UIElements
 
         private void PauseGame(InputAction.CallbackContext _ctx)
         {
-            if(LevelManager._Instance._GameMode._LatMenu== GameMode.MenuDef.none || LevelManager._Instance._GameMode._LatMenu == GameMode.MenuDef.decriptions)
+            //Debug.Log(LevelManager._Instance._GameMode._LastMenu);
+            //Debug.Log(System.Convert.ToString((int)LevelManager._Instance._GameMode._LastMenu,2));
+            //Debug.Log(System.Convert.ToString(int_mask,2));
+            //Debug.Log(System.Convert.ToString((int)LevelManager._Instance._GameMode._LastMenu & int_mask, 2));
+            //Debug.Log((int)LevelManager._Instance._GameMode._LastMenu & mask);
+            //if(LevelManager._Instance._GameMode._LastMenu== GameMode.MenuDef.pause || LevelManager._Instance._GameMode._LastMenu == GameMode.MenuDef.decriptions)
+            if(((int)LevelManager._Instance._GameMode._LastMenu & int_mask) >=1 )
             {
-                gameObject.SetActive(!gameObject.activeSelf);
+                LevelManager._Instance._GameMode.OpenCloseSpecicficMenu(GameMode.MenuDef.pause,!gameObject.activeSelf);
 
                 GameManager._instance.PauseGame(this.gameObject.activeSelf);
             }
@@ -47,7 +55,7 @@ namespace Dinopostres.UIElements
 
         private void PauseGame()
         {
-            gameObject.SetActive(!gameObject.activeSelf);
+            LevelManager._Instance._GameMode.OpenCloseSpecicficMenu(GameMode.MenuDef.pause, !gameObject.activeSelf);
 
             GameManager._instance.PauseGame(this.gameObject.activeSelf);
         }
@@ -56,7 +64,7 @@ namespace Dinopostres.UIElements
         {
             gameObject.SetActive(false);
             PauseGame();
-            Debug.Log("Resegra al criadero");
+            LevelManager._Instance.LoadLevel((LevelManager._Instance._Stage != LevelManager.GameStates.Map)?"Criadero":"Menu");
         }
 
         

@@ -1386,73 +1386,12 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 0446be6e9732b034ead6253f3d6c49f8, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  trns_DescriptionParent: {fileID: 5313580181508996949}
-  txt_DescriptionName: {fileID: 5313580181130220455}
-  txt_DescriptionPower: {fileID: 5313580181757236595}
-  txt_DescriptionPS: {fileID: 5313580180645470294}
+  trns_itemParents: {fileID: 5313580181508996949}
+  trns_dinoDescriptionParent: {fileID: 5313580181508996949}
+  txt_descriptionName: {fileID: 5313580181130220455}
+  txt_descriptionPower: {fileID: 5313580181757236595}
+  txt_descriptionPS: {fileID: 5313580180645470294}
   sl_healthRef: {fileID: 5313580181708183984}
-  test:
-    int_recolectedMigas: 0
-    int_dinoChanges: 0
-    int_defetedDinoStage: 0
-    int_totalDefeatDinos: 0
-    lst_defetedPerDino: []
-    lst_clearLcation: []
-    int_migas: 0
-    lst_ingredientes: []
-    lst_dinoInventory:
-    - int_ID: 1
-      int_currentHealth: 100
-      int_Level: 1
-      enm_Dino: 0
-      isSelected: 0
-    - int_ID: 2
-      int_currentHealth: 100
-      int_Level: 1
-      enm_Dino: 1
-      isSelected: 0
-    - int_ID: 3
-      int_currentHealth: 100
-      int_Level: 1
-      enm_Dino: 2
-      isSelected: 0
-    - int_ID: 4
-      int_currentHealth: 100
-      int_Level: 1
-      enm_Dino: 3
-      isSelected: 0
-    - int_ID: 5
-      int_currentHealth: 100
-      int_Level: 1
-      enm_Dino: 0
-      isSelected: 0
-    - int_ID: 6
-      int_currentHealth: 100
-      int_Level: 1
-      enm_Dino: 1
-      isSelected: 0
-    - int_ID: 7
-      int_currentHealth: 100
-      int_Level: 1
-      enm_Dino: 2
-      isSelected: 0
-    - int_ID: 8
-      int_currentHealth: 100
-      int_Level: 1
-      enm_Dino: 3
-      isSelected: 0
-    - int_ID: 9
-      int_currentHealth: 100
-      int_Level: 20
-      enm_Dino: 0
-      isSelected: 0
-    - int_ID: 10
-      int_currentHealth: 20
-      int_Level: 1
-      enm_Dino: 1
-      isSelected: 0
-    lst_unlockRecepies: 
-    lst_lockRecepies: 
 --- !u!1 &5313580182498420115
 GameObject:
   m_ObjectHideFlags: 0

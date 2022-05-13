@@ -28,7 +28,7 @@ namespace Dinopostres.Definitions
             {
                 return lst_bossStageDef.First((x) => x._Area == _area && x._Rank == _rank).GetAllBossesDef();
             }
-            catch (System.Exception e)
+            catch
             {
                 Debug.LogError("No Boss in the current stage");
                 return null;

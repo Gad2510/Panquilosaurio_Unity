@@ -9,27 +9,46 @@ namespace Dinopostres.TriggerEffects
     {
         [SerializeField]
         private GameMode.MenuDef enm_openMenu;
+        [SerializeField]
+        private string str_buildingName;
         private bool onTrigger;
 
-        private void Awake()
+        private void Start()
         {
-            GameManager._instance.InS_gameActions.DinopostreController.AttackA.performed += OpenMenu;
+            GameManager._instance.InS_gameActions.DinopostreController.Interaction.performed += OpenMenu;
         }
         private void OnDestroy()
         {
-            GameManager._instance.InS_gameActions.DinopostreController.AttackA.performed -= OpenMenu;
+            GameManager._instance.InS_gameActions.DinopostreController.Interaction.performed -= OpenMenu;
         }
 
         private void OnTriggerEnter(Collider other)
         {
             onTrigger = other.transform.root.CompareTag("Player");
+            if (onTrigger && LevelManager._Instance._GameMode._LastMenu != enm_openMenu)
+            {
+                ((GameModeMAP)LevelManager._Instance._GameMode)._BuildingName = str_buildingName;
+                ((GameModeMAP)LevelManager._Instance._GameMode).SetDescripcionFollow(transform);
+                LevelManager._Instance._GameMode.OpenCloseSpecicficMenu(GameMode.MenuDef.decriptions, true);
+            }
+        }
+
+        private void OnTriggerExit(Collider other)
+        {
+            if (other.transform.root.CompareTag("Player"))
+            {
+                ((GameModeMAP)LevelManager._Instance._GameMode)._BuildingName = "";
+                LevelManager._Instance._GameMode.OpenCloseSpecicficMenu(GameMode.MenuDef.decriptions, false);
+                onTrigger = false;
+            }
         }
 
         private void OpenMenu(InputAction.CallbackContext _ctx)
         {
-            if (onTrigger)
+            int mask = (int)GameMode.MenuDef.decriptions;
+            if (onTrigger && ((int)LevelManager._Instance._GameMode._LastMenu & mask) >=1)
             {
-                LevelManager._Instance._GameMode.OpenCloseSpecicficMenu(GameMode.MenuDef.oven, true);
+                LevelManager._Instance._GameMode.OpenCloseSpecicficMenu(enm_openMenu, true);
             }
         }
     }

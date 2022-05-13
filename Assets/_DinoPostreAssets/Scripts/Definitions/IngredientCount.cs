@@ -8,9 +8,9 @@ namespace Dinopostres.Definitions
     public class IngredientCount
     {
         [SerializeField]
-        IngredientDef.Sample enm_Ingredient;
+        private IngredientDef.Sample enm_Ingredient;
         [SerializeField]
-        int int_Count;
+        private int int_Count;
 
         public IngredientDef.Sample _Ingredient { get => enm_Ingredient; }
         public int _Count { get => int_Count; set => int_Count += value; }
@@ -26,5 +26,7 @@ namespace Dinopostres.Definitions
             enm_Ingredient = _type;
             int_Count = 0;
         }
+
+
     }
 }

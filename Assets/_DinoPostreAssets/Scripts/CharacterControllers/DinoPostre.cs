@@ -10,9 +10,6 @@ namespace Dinopostres.CharacterControllers
 {
     public class DinoPostre : MonoBehaviour
     {
-
-        [SerializeField]
-        int int_ID;
         [SerializeField]
         DinoDef.DinoChar enm_Dino;
         [SerializeField]
@@ -134,7 +131,6 @@ namespace Dinopostres.CharacterControllers
         public void GetRewards()
         {
             DinoDef dino = EnemyStorage._Instance().Look4DinoDef(enm_Dino);
-            IngredientDef.Sample _ing;
             int i=0;
             int max = dino._Rewards.Sum((x) => x._Count);
             int ran = Random.Range(0, max);

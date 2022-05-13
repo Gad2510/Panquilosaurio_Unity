@@ -12,11 +12,16 @@ namespace Dinopostres.UIElements
     public class UIStageDes : MonoBehaviour
     {
         [SerializeField]
-        private Transform go_description;
+        private Transform trns_descriptionStage;
+        [SerializeField]
+        private Transform trns_descriptionBuilding;
+
         [SerializeField]
         private GameObject go_parentImages;
         [SerializeField]
         private TextMeshProUGUI txt_stageName;
+        [SerializeField]
+        private TextMeshProUGUI txt_buildingName;
 
         private Image[] arr_dinoImages;
 
@@ -27,18 +32,30 @@ namespace Dinopostres.UIElements
 
         private void OnEnable()
         {
-            if (LevelManager._Instance._GameMode!=null && !((GameModeMAP)LevelManager._Instance._GameMode).hasChangeCheck)
+            if(LevelManager._Instance._GameMode != null)
             {
-                UpdateDescriptions();
+                bool isBuilding = ((GameModeMAP)LevelManager._Instance._GameMode)._HasTriggerBuilding;
+                trns_descriptionBuilding.gameObject.SetActive(isBuilding);
+                trns_descriptionStage.gameObject.SetActive(!isBuilding);
+                if (isBuilding)
+                {
+                    UpdateDescriptionBuilding();
+                }
+                else
+                {
+                    if(!((GameModeMAP)LevelManager._Instance._GameMode)._HasChangeCheckArea)
+                        UpdateDescriptionsStage();
+                }
             }
         }
 
         private void Update()
         {
-            go_description.position= Camera.main.WorldToScreenPoint(((GameModeMAP)LevelManager._Instance._GameMode).GetObjectPos());
+            Transform object2move = (((GameModeMAP)LevelManager._Instance._GameMode)._HasTriggerBuilding) ?trns_descriptionBuilding :trns_descriptionStage;
+            object2move.position= Camera.main.WorldToScreenPoint(((GameModeMAP)LevelManager._Instance._GameMode).GetObjectPos());
         }
 
-        private void UpdateDescriptions()
+        private void UpdateDescriptionsStage()
         {
             GameModeMAP temp = (GameModeMAP)LevelManager._Instance._GameMode;
             Debug.Log(temp.gameObject);
@@ -57,6 +74,11 @@ namespace Dinopostres.UIElements
                     arr_dinoImages[i].sprite = dinos[i]._DinoImage;
                 }
             }
+        }
+
+        private void UpdateDescriptionBuilding()
+        {
+            txt_buildingName.text = ((GameModeMAP)LevelManager._Instance._GameMode)._BuildingName;
         }
     }
 }

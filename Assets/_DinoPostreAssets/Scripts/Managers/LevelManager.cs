@@ -2,6 +2,7 @@ using System.Collections;
 using System.Collections.Generic;
 using System.Linq;
 using UnityEngine;
+using UnityEngine.Events;
 using UnityEngine.SceneManagement;
 using Dinopostres.Definitions;
 
@@ -9,7 +10,7 @@ namespace Dinopostres.Managers
 {
     public class LevelManager : MonoBehaviour
     {
-        private enum GameStates
+        public enum GameStates
         {
             Menu,
             Map,
@@ -44,7 +45,7 @@ namespace Dinopostres.Managers
         public GameMode _GameMode { get => GM_currentMode; }
         public EnemyManager _EnemyManager { get => EM_EnemyManager; }
         public RewardManager _RewardManager { get => RM_RewardManger; }
-
+        public GameStates _Stage { get => dic_levelStates[SceneManager.GetActiveScene().name]; }
         public static LevelManager _Instance { get => LM_instance; }
         // Start is called before the first frame update
         void Awake()
@@ -69,7 +70,25 @@ namespace Dinopostres.Managers
             int_stageCount = 0;
         }
 
-        private void OnLevelWasLoaded(int level)
+        private void OnEnable()
+        {
+            SetLoadEvent(OnLoadLevel, true);
+        }
+
+        private void OnDisable()
+        {
+            SetLoadEvent(OnLoadLevel, false);
+        }
+
+        public void SetLoadEvent(UnityAction<Scene,LoadSceneMode> _ev, bool _toSet)
+        {
+            if(_toSet)
+                SceneManager.sceneLoaded += _ev;
+            else
+                SceneManager.sceneLoaded -= _ev;
+        }
+
+        protected void OnLoadLevel(Scene _scene, LoadSceneMode _mode)
         {
             int_stageCount = 0;
 
@@ -157,7 +176,7 @@ namespace Dinopostres.Managers
                     int_stageCount++;
                     return tel;
                 }
-                catch (System.Exception e)
+                catch
                 {
                     Debug.LogError("No teleporter register");
                     return go_bossTeleporter;

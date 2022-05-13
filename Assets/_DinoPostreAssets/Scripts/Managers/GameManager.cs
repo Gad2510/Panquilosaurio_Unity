@@ -33,19 +33,12 @@ namespace Dinopostres.Managers
         // Start is called before the first frame update
         void Awake()
         {
-            PlayerPrefs.DeleteAll();
-            //MemoryManager.NewGame("GaboTest");
-            PD_gameData = MemoryManager.LoadGame("GaboTest");
+            PD_gameData = MemoryManager.NewGame("GaboTest");
+            //PD_gameData = MemoryManager.LoadGame("GaboTest");
 
             InS_gameActions = new DinoPostreAction();
 
             int_lives = int_maxLives;
-        }
-
-        // Update is called once per frame
-        void Update()
-        {
-
         }
 
         private void OnEnable()

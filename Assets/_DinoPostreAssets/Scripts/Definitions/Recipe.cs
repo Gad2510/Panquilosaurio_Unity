@@ -18,27 +18,29 @@ namespace Dinopostres.Definitions {
         private List<IngredientCount> lst_ingredientBase;
 
         public DinoDef.DinoChar _Dino { get => enm_dino; }
-
-        public List<IngredientCount> GetIngredientsNextLevel(int _level)
+        public List<IngredientCount> _Ingredients { get => lst_ingredientBase; }
+        public List<IngredientCount>  GetIngredientsNextLevel(int _level)
         {
-            List<IngredientCount> nextLevelIngr= lst_ingredientBase;
-            foreach (IngredientCount ing in nextLevelIngr)
+            List<IngredientCount> nextLevelIngr = new List<IngredientCount>();
+            for (int i =0;i<lst_ingredientBase.Count;i++)
             {
-                CalculateIngredienteAmount(ing._Count,_level);
+                int count = CalculateIngredienteAmount(lst_ingredientBase[i]._Count,_level);
+                nextLevelIngr.Add(new IngredientCount(lst_ingredientBase[i]._Ingredient, count));
             }
             return nextLevelIngr;
         }
 
         private int CalculateIngredienteAmount(int _countBase, int _level)
         {
+            Debug.Log($"Nivel sube cuenta base {_countBase} con nivel {_level}");
             switch (emn_rate)
             {
                 case GrowRate.corto:
-                    return (int)(((_countBase / 5) + 1) * _level);
+                    return (int)(((_level / 5) + 1) * _countBase);
                 case GrowRate.mediano:
-                    return (int)((((Mathf.Pow(_countBase, 2)*4)/500) + 1) * _level);
+                    return (int)((((Mathf.Pow(_level, 2)*4)/500) + 1) * _countBase);
                 case GrowRate.largo:
-                    return (int)(((Mathf.Pow(_countBase, 3) / 5000) + 1) * _level);
+                    return (int)(((Mathf.Pow(_level, 3) / 5000) + 1) * _countBase);
                 default:
                     return 1;
             }

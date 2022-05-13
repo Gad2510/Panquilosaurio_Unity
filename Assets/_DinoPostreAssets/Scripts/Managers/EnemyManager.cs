@@ -23,7 +23,15 @@ namespace Dinopostres.Managers
         {
         }
 
-        private void OnLevelWasLoaded(int level)
+        private void OnEnable()
+        {
+            LevelManager._Instance.SetLoadEvent(OnLoadedLevel, true);
+        }
+        private void OnDisable()
+        {
+            LevelManager._Instance.SetLoadEvent(OnLoadedLevel, false);
+        }
+        private void OnLoadedLevel(UnityEngine.SceneManagement.Scene _scene, UnityEngine.SceneManagement.LoadSceneMode _mode)
         {
             lst_EnemyInLevel.Clear();
         }

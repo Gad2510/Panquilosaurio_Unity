@@ -1,5 +1,6 @@
 using System.Collections;
 using System.Collections.Generic;
+using System.Linq;
 using UnityEngine;
 using UnityEngine.UI;
 using TMPro;
@@ -14,7 +15,15 @@ namespace Dinopostres.UIElements
         private Button btn_levelUP;
         [SerializeField]
         private Button btn_return;
-        
+
+        [Header("Migas - Text")]
+        [SerializeField]
+        private Image img_dinoImg;
+
+        [Header("Migas - Text")]
+        [SerializeField]
+        private TextMeshProUGUI txt_migas;
+
         [Header("OVEN - Text")]
         [SerializeField]
         private TextMeshProUGUI txt_peso;
@@ -43,39 +52,48 @@ namespace Dinopostres.UIElements
         [SerializeField]
         private Transform trns_ingredientsParent;
         private UIIngredientDes[] arr_reqIngredients;
-        private List<IngredientCount> lst_ingredients2LUP;
+        public List<IngredientCount> lst_ingredients2LUP;
 
         private UIDinoDes UID_currentDino;
         protected override void Start()
         {
-            arr_reqIngredients = trns_ingredientsParent.GetComponentsInChildren<UIIngredientDes>();
+            arr_reqIngredients = trns_ingredientsParent.GetComponentsInChildren<UIIngredientDes>(true);
 
             btn_levelUP.onClick.AddListener(() =>
             {
-                if (UID_currentDino != null )
+
+            if (UID_currentDino != null && GameManager._instance.PD_gameData.CanBePurchase(lst_ingredients2LUP))
                 {
-                    UID_currentDino.ReturnStoreData().LevelUP();
-                    UpdateSliders(UID_currentDino.ReturnStoreData());
+                    DinoSaveData _save = UID_currentDino.ReturnStoreData();
+                    GameManager._instance.PD_gameData.MakePurchase(lst_ingredients2LUP);
+                    _save.LevelUP();
+                    UpdateSliders(_save);
                     UID_currentDino.QuickRelodStats();
+                    UpdateDescription(_save);
+                    UpdateIngredients(_save.Dino, _save.Level);
+                    Debug.Log($"Dino levelUp {_save.Level}");
+                    txt_migas.text = GameManager._instance.PD_gameData._Migas.ToString("00000");
                 }
             });
             btn_return.onClick.AddListener(() => {
                 LevelManager._Instance._GameMode.OpenCloseSpecicficMenu(GameMode.MenuDef.oven,false); 
             });
 
-
+            txt_migas.text = GameManager._instance.PD_gameData._Migas.ToString("00000");
 
             base.Start();
         }
-        protected override void SetButtonEvent(UIDinoDes _uiDino)
+        protected override void SetButtonEvent(UIDescriptions<DinoSaveData> _uiDino)
         {
-            _uiDino.AddBtnSelectedEvent(() => {
-                UID_currentDino = _uiDino;
+            UIDinoDes _uiDinoDes = (UIDinoDes)_uiDino;
+            _uiDinoDes.AddBtnSelectedEvent(() => {
+                UID_currentDino = _uiDinoDes;
                 DinoSaveData _save = UID_currentDino.ReturnStoreData();
                 UpdateDescription(_save);
                 MoveDinoUI(UID_currentDino._ParentIndex);
                 int_lastIndex = UID_currentDino._ParentIndex;
                 UpdateIngredients(_save.Dino, _save.Level);
+                img_dinoImg.sprite = EnemyStorage._Instance().GetDinoImage(_save.Dino);
             });
         }
 
@@ -100,8 +118,8 @@ namespace Dinopostres.UIElements
         private void UpdateIngredients(DinoDef.DinoChar _dino , int _level)
         {
             lst_ingredients2LUP = RecipeBook._Instance().Look4Recipe(_dino).GetIngredientsNextLevel(_level);
-            
-            for(int i =0;i< arr_reqIngredients.Length; i++)
+
+            for (int i =0;i< arr_reqIngredients.Length; i++)
             {
                 if (i < lst_ingredients2LUP.Count)
                 {

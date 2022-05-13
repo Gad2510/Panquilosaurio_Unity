@@ -1,4 +1,3 @@
-using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 namespace Dinopostres.Managers
@@ -34,25 +33,5 @@ namespace Dinopostres.Managers
             dic_menus.Add(MenuDef.status, LoadGameMenu(dic_menuRef[MenuDef.status],true));
             dic_menus.Add(MenuDef.gameplay, LoadGameMenu(dic_menuRef[MenuDef.gameplay],true));
         }
-
-        /*public void OpenCloseDispacher(bool _state)
-        {
-            if (enm_lastMenu == MenuDef.none)
-                dic_menus[MenuDef.dispacher].SetActive(_state);
-        }
-
-        public void OpenOnventory(bool fromPause = false)
-        {
-            enm_lastMenu = (fromPause) ? MenuDef.pause : MenuDef.none;
-            dic_menus[MenuDef.pause].SetActive(false);
-            dic_menus[MenuDef.inventory].SetActive(true);
-        }
-
-        public void CloseInventory()
-        {
-            dic_menus[MenuDef.inventory].SetActive(false);
-            if (enm_lastMenu == MenuDef.pause)
-                dic_menus[MenuDef.pause].SetActive(true);
-        }*/
     }
 }

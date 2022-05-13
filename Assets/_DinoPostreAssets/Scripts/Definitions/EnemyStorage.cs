@@ -29,7 +29,7 @@ namespace Dinopostres.Definitions
                 List<DinoDef> enemies = lst_Definitions.Where((x) => x.HasLocation(_area, _rank) > 0).ToList();
                 return enemies;
             }
-            catch(System.Exception e)
+            catch
             {
                 Debug.Log("An error occur while getting enemies in level");
                 return null;
@@ -43,7 +43,7 @@ namespace Dinopostres.Definitions
                 DinoDef def = lst_Definitions.Where((x) => x._Dino == _dino).First();
                 return def;
             }
-            catch (System.Exception e)
+            catch
             {
                 Debug.LogWarning("Dino not define");
                 return null;
@@ -56,7 +56,7 @@ namespace Dinopostres.Definitions
                 DinoDef def =lst_Definitions.Where((x) => x._Dino == _dino).First();
                 return def._DefaultSkill;
             }
-            catch(System.Exception e)
+            catch
             {
                 Debug.LogWarning("Default attack not define");
                 return "";
@@ -70,7 +70,7 @@ namespace Dinopostres.Definitions
                 DinoDef def = lst_Definitions.Where((x) => x._Dino == _dino).First();
                 return def._DinoImage;
             }
-            catch (System.Exception e)
+            catch
             {
                 Debug.LogWarning("Dino image not found");
                 return null;

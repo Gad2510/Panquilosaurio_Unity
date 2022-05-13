@@ -17,6 +17,7 @@ namespace Dinopostres.Definitions
             if(RB_instance == null)
             {
                 RB_instance = Resources.Load<RecipeBook>("ScriptableObjects/RecipeBook");
+
             }
 
             return RB_instance;
@@ -34,5 +35,20 @@ namespace Dinopostres.Definitions
                 return null;
             }
         }
+
+        public void SortRecipies(List<int> unlockRecipies)
+        {
+            try
+            {
+                lst_Recetas = lst_Recetas.OrderBy((x) => !unlockRecipies.Any((y) => y == (int)x._Dino)).ToList();
+            }
+            catch
+            {
+                Debug.LogError("An error occur while sorting recipes");
+            }
+            
+        }
+
+        public Recipe this[int i] { get => lst_Recetas[i]; }
     }
 }

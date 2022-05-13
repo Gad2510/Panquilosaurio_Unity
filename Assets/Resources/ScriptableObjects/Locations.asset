@@ -13,6 +13,10 @@ MonoBehaviour:
   m_Name: Locations
   m_EditorClassIdentifier: 
   lst_locationDef:
+  - enm_area: 5
+    enm_rank: 1
+    str_levelName: Criadero
+    clp_backgroundMusic: {fileID: 0}
   - enm_area: 0
     enm_rank: 1
     str_levelName: PanquilosaurioTest

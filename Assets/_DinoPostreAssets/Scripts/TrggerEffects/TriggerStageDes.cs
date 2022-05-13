@@ -34,7 +34,9 @@ namespace Dinopostres.TriggerEffects
 
         private void CallStageDes()
         {
-            ((GameModeMAP)LevelManager._Instance._GameMode).UpdateStageUIDescription(tp_parentTeleporter._Area, tp_parentTeleporter._Rank, transform);
+            ((GameModeMAP)LevelManager._Instance._GameMode)._BuildingName="";
+            ((GameModeMAP)LevelManager._Instance._GameMode).UpdateStageUIDescription(tp_parentTeleporter._Area, tp_parentTeleporter._Rank);
+            ((GameModeMAP)LevelManager._Instance._GameMode).SetDescripcionFollow(transform);
         }
     }
 }

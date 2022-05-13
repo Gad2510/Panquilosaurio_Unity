@@ -8,7 +8,7 @@ namespace Dinopostres.Managers
 {
     public class MemoryManager : MonoBehaviour
     {
-        public static void NewGame(string _gameName)
+        public static PlayerData NewGame(string _gameName)
         {
             //Path pesistente del sistema en el que se guardan los datos del juego
             string pathCombined = Path.Combine(
@@ -16,9 +16,12 @@ namespace Dinopostres.Managers
                 _gameName + ".data");
             BinaryFormatter bf = new BinaryFormatter();
             FileStream file = File.Create(pathCombined);
-            bf.Serialize(file, new PlayerData());
+            PlayerData newGameData = new PlayerData();
+            bf.Serialize(file, newGameData);
             file.Close();
             Debug.Log(pathCombined);
+
+            return newGameData;
         }
 
         public static void SaveGame(string _gameName,PlayerData _data)
