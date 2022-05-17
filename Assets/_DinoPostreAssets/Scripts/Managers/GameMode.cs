@@ -1,5 +1,6 @@
 using System.Collections;
 using System.Collections.Generic;
+using System.Linq;
 using UnityEngine;
 namespace Dinopostres.Managers
 {
@@ -52,7 +53,6 @@ namespace Dinopostres.Managers
         // Start is called before the first frame update
         protected virtual void Awake()
         {
-            Debug.Log((int)MenuDef.pause);
             InitMenus();
             stk_lastMenu = new Stack<MenuDef>();
         }
@@ -66,6 +66,15 @@ namespace Dinopostres.Managers
         private void OnDisable()
         {
             LevelManager._Instance.SetLoadEvent(OnLoadLevel, false);
+        }
+
+        protected virtual void OnDestroy()
+        {
+            MenuDef[] keys = dic_menus.Keys.ToArray();
+            foreach(MenuDef key in keys)
+            {
+                Destroy(dic_menus[key]);
+            }
         }
 
         protected void OnLoadLevel(UnityEngine.SceneManagement.Scene _scene, UnityEngine.SceneManagement.LoadSceneMode _mode)
@@ -87,8 +96,11 @@ namespace Dinopostres.Managers
 
         public void OpenCloseSpecicficMenu(MenuDef _menu, bool _state)
         {
-            Debug.Log($"Menu {_menu} | state {_state}");
-            if (stk_lastMenu.Count>0 && !_state)
+            Debug.Log(_menu);
+            if (!dic_menus.ContainsKey(_menu))
+                return;
+            Debug.Log($"{stk_lastMenu.Count} || CurrentMenu");
+            if (stk_lastMenu.Count>0 &&  !_state)
             {
                 stk_lastMenu.Pop();
                 if(stk_lastMenu.Count > 0)
@@ -98,9 +110,15 @@ namespace Dinopostres.Managers
 
             if (_state)
             {
-                if (stk_lastMenu.Count > 0)
+                if (stk_lastMenu.Count > 0 && stk_lastMenu.Peek() != _menu)
+                {
                     dic_menus[stk_lastMenu.Peek()].SetActive(false);
-                stk_lastMenu.Push(_menu);
+                    stk_lastMenu.Push(_menu);
+                }
+                if(stk_lastMenu.Count == 0)
+                {
+                    stk_lastMenu.Push(_menu);
+                }
             }
         }
     }

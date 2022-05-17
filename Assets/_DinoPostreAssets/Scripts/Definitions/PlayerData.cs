@@ -38,6 +38,7 @@ namespace Dinopostres.Definitions
         private List<DinoSaveData> lst_dinoInventory;
         [SerializeField]
         private List<int> lst_unlockRecepies;
+        private List<int> lst_unlockTriggers;
         public int _Migas { get => int_migas; }
         public int RecolectedMigas { get => int_recolectedMigas; }
         public int DinoChanges { get => int_dinoChanges; }
@@ -54,6 +55,7 @@ namespace Dinopostres.Definitions
             lst_ingredientes = new List<IngredientCount>();
             lst_dinoInventory = new List<DinoSaveData>();
             lst_unlockRecepies = new List<int>();
+            lst_unlockTriggers = new List<int>();
             lst_unlockRecepies.Add((int)DinoDef.DinoChar.Agujaceratops);
 
             lst_dinoInventory.Add(new DinoSaveData(DinoDef.DinoChar.Agujaceratops, GenerateID(), true));
@@ -145,7 +147,6 @@ namespace Dinopostres.Definitions
             int uniqueCode = UnityEngine.Random.Range(0, 50)*10000000;
             id= System.Convert.ToInt32(DateTime.Today.ToString("ddMMyyyy"))+ uniqueCode;
 
-            Debug.Log(id);
             bool isSet = lst_dinoInventory.Where((x) => x.ID == id).Any();
             while(isSet)
             {
@@ -156,17 +157,50 @@ namespace Dinopostres.Definitions
             return id;
         }
 
+        public bool CheckForUnlock(UnlockDef _lock)
+        {
+            if(lst_unlockTriggers.Any((x)=> _lock._ID == x))
+            {
+                return true;
+            }
+
+            bool isUnLock = true;
+            if(_lock._TotalEnemies>0)
+                isUnLock=isUnLock && _lock._TotalEnemies <= int_totalDefeatDinos;
+            if (_lock._TotalLocation > 0)
+                isUnLock =isUnLock && _lock._TotalLocation <= lst_clearLcation.Sum((x) => x._Value);
+            if (_lock._TotalMigas > 0)
+                isUnLock = isUnLock && _lock._TotalMigas <= int_recolectedMigas;
+            if (_lock._RequireChanges > 0)
+                isUnLock = isUnLock && _lock._RequireChanges <= int_dinoChanges;
+
+            foreach (DinoCount dc in _lock._EnemyCount)
+            {
+                isUnLock = isUnLock && lst_defetedPerDino.Any((x) => dc.Value < x.Value && dc.Dino==x.Dino );
+            }
+            foreach (LocationCount loc in _lock._LocationCount)
+            {
+                isUnLock = isUnLock && lst_clearLcation.Any((x) => loc._Value < x._Value && x._Area==loc._Area && x._Rank==loc._Rank);
+            }
+
+            if (isUnLock)
+                lst_unlockTriggers.Add(_lock._ID);
+
+            return isUnLock;
+        }
+
         public void Colectable(Events.Event _ev)
         {
             Events.RecordEvent ev = (Events.RecordEvent)_ev;
-            string s = ev.Selector.ToString()[0].ToString();
-            Debug.Log($"EVENT Trigger {(RecordID)(Convert.ToInt32(s))}");
-            switch ((RecordID)(Convert.ToInt32(s)))
+            string record = ev.Selector.ToString()[0].ToString();
+            string nfoRef = (ev.Selector.ToString().Substring(1));
+            Debug.Log($"EVENT Trigger {(RecordID)(Convert.ToInt32(record))}");
+            switch ((RecordID)(Convert.ToInt32(record)))
             {
                 case RecordID.INGREDIENTS:
-                    string v = (ev.Selector.ToString().Substring(1));
-                    IngredientDef.Sample type=(IngredientDef.Sample)(Convert.ToInt32(v));
-                    Debug.Log($"Register sample {type} from {v}");
+                    
+                    IngredientDef.Sample type=(IngredientDef.Sample)(Convert.ToInt32(nfoRef));
+                    Debug.Log($"Register sample {type} from {nfoRef}");
                     if(type != IngredientDef.Sample.MIGAS)
                     {
                         if (lst_ingredientes.Any((x) => x._Ingredient == type))
@@ -185,6 +219,38 @@ namespace Dinopostres.Definitions
                         int_migas += 1;
                     }
                     
+                    break;
+                case RecordID.LOCATION:
+                    LocationCount.Area _area=(LocationCount.Area)Convert.ToInt32(nfoRef.Substring(0,2));
+                    LocationCount.Rank _rank = (LocationCount.Rank)Convert.ToInt32(nfoRef.Substring(3));
+
+                    if(lst_clearLcation.Any((x) => x._Area==_area && x._Rank == _rank))
+                    {
+                        lst_clearLcation.First((x) => x._Area == _area && x._Rank == _rank)._Value=1;
+                    }
+                    else
+                    {
+                        lst_clearLcation.Add(new LocationCount(_area,_rank,1));
+                    }
+                    int_defetedDinoStage = 0;
+                    break;
+                case RecordID.DINODEFEAT:
+                    int_defetedDinoStage ++;
+                    int_totalDefeatDinos++;
+                    DinoDef.DinoChar _dino= (DinoDef.DinoChar)Convert.ToInt32(nfoRef);
+
+                    if (lst_defetedPerDino.Any((x) => x.Dino == _dino))
+                    {
+                        lst_defetedPerDino.First((x) => x.Dino == _dino).Value++;
+                    }
+                    else
+                    {
+                        lst_defetedPerDino.Add(new DinoCount(_dino, 1));
+                    }
+
+                    break;
+                case RecordID.CHANGE:
+                    int_dinoChanges++;
                     break;
             }
         }

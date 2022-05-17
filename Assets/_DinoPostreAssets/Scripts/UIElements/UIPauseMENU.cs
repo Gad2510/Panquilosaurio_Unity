@@ -35,7 +35,10 @@ namespace Dinopostres.UIElements
         {
             btn_resume.Select();
         }
-
+        private void OnDestroy()
+        {
+            GameManager._instance.InS_gameActions.DinopostreController.Pause.performed -= PauseGame;
+        }
         private void PauseGame(InputAction.CallbackContext _ctx)
         {
             //Debug.Log(LevelManager._Instance._GameMode._LastMenu);
@@ -46,6 +49,7 @@ namespace Dinopostres.UIElements
             //if(LevelManager._Instance._GameMode._LastMenu== GameMode.MenuDef.pause || LevelManager._Instance._GameMode._LastMenu == GameMode.MenuDef.decriptions)
             if(((int)LevelManager._Instance._GameMode._LastMenu & int_mask) >=1 )
             {
+                Debug.Log(LevelManager._Instance._GameMode.gameObject.name);
                 LevelManager._Instance._GameMode.OpenCloseSpecicficMenu(GameMode.MenuDef.pause,!gameObject.activeSelf);
 
                 GameManager._instance.PauseGame(this.gameObject.activeSelf);
@@ -62,7 +66,6 @@ namespace Dinopostres.UIElements
 
         private void ExitStage()
         {
-            gameObject.SetActive(false);
             PauseGame();
             LevelManager._Instance.LoadLevel((LevelManager._Instance._Stage != LevelManager.GameStates.Map)?"Criadero":"Menu");
         }

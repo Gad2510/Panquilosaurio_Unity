@@ -23,13 +23,12 @@ namespace Dinopostres.UIElements
         {
             base.Awake();
             //costomNav = new Navigation();
-            arr_ingredients = trns_parentIngredients.GetComponentsInChildren<UIIngredientDes>();
+            arr_ingredients = trns_parentIngredients.GetComponentsInChildren<UIIngredientDes>(true);
         }
 
         public override void InitStats(Recipe _data, UnityAction _ev)
         {
             base.InitStats(_data, _ev);
-
             if (img_dinoImg != null)
                 img_dinoImg.sprite = EnemyStorage._Instance().GetDinoImage(storeData._Dino);
             if (base.txt_name != null)
@@ -46,6 +45,7 @@ namespace Dinopostres.UIElements
 
         private void LoadIngredientes() 
         {
+            Debug.Log($"Num ingredientes in recipe {storeData._Ingredients.Count}");
             for (int i =0; i < arr_ingredients.Length; i++){
                 if(i< storeData._Ingredients.Count)
                 {

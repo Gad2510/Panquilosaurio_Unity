@@ -69,6 +69,7 @@ namespace Dinopostres.UIElements
         public void SetButtonAsSelected()
         {
             btn_executer.Select();
+            InvokeSelect();
         }
         public void OnSelect(BaseEventData eventData)
         {

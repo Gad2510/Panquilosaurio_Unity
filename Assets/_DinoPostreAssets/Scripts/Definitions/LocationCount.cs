@@ -28,10 +28,17 @@ namespace Dinopostres.Definitions
         Rank enm_Rank;
         [SerializeField]
         [Range (0,100)]
-        float int_Value;
+        float f_Value;
 
         public Area _Area { get => enm_Area; }
         public Rank _Rank { get => enm_Rank; }
-        public float _Value { get => int_Value; }
+        public float _Value { get => f_Value; set => f_Value += value; }
+
+        public LocationCount (Area _area, Rank _rank, float _value)
+        {
+            enm_Area = _area;
+            enm_Rank = _rank;
+            f_Value = _value;
+        }
     }
 }

@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.AI;
 using Dinopostres.Definitions;
+using Dinopostres.Events;
 using Dinopostres.Managers;
 
 namespace Dinopostres.CharacterControllers
@@ -128,6 +129,8 @@ namespace Dinopostres.CharacterControllers
             isAttacking = false;
             if (isDead)
             {
+                RecordEvent ev = new RecordEvent(6, "Enemy defeted", 3000 + (int)DP_current._DinoChar);
+                GameManager._instance.OnRecordEvent(ev);
                 StartCoroutine(SpawnReward());
             }
         }

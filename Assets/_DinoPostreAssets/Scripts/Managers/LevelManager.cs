@@ -27,8 +27,8 @@ namespace Dinopostres.Managers
         };
 
         public LocationCount.Area enm_lastArea;
-        public LocationCount.Rank enm_lastRank;
-        public List<DinoDef> lst_enemiesInLevel;
+        private LocationCount.Rank enm_lastRank;
+        private List<DinoDef> lst_enemiesInLevel;
 
         private EnemyStorage ES_EnemyStorage;
         private BossStageStorage BSS_BossStageStorage;
@@ -45,6 +45,8 @@ namespace Dinopostres.Managers
         public GameMode _GameMode { get => GM_currentMode; }
         public EnemyManager _EnemyManager { get => EM_EnemyManager; }
         public RewardManager _RewardManager { get => RM_RewardManger; }
+        public LocationCount.Area _Area { get => enm_lastArea; }
+        public LocationCount.Rank _Rank { get => enm_lastRank; }
         public GameStates _Stage { get => dic_levelStates[SceneManager.GetActiveScene().name]; }
         public static LevelManager _Instance { get => LM_instance; }
         // Start is called before the first frame update
@@ -91,8 +93,8 @@ namespace Dinopostres.Managers
         protected void OnLoadLevel(Scene _scene, LoadSceneMode _mode)
         {
             int_stageCount = 0;
-
-            if(dic_levelStates[SceneManager.GetActiveScene().name]== GameStates.InStage)
+            LoadGameMode(SceneManager.GetActiveScene().name);
+            if (dic_levelStates[SceneManager.GetActiveScene().name]== GameStates.InStage)
             {
                 Debug.Log("Init Stage");
                 //Invoke(nameof(MovePlayer), 0.1f);

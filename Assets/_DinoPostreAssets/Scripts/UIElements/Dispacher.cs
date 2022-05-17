@@ -13,8 +13,6 @@ namespace Dinopostres.UIElements
 {
     public class Dispacher : CarruselBehavior <DinoSaveData>
     {
-        [SerializeField]
-        private Transform trns_dinoDescriptionParent;
         [Header("Dispacher - Texts")]
         [SerializeField]
         private TextMeshProUGUI txt_descriptionName;
@@ -29,7 +27,7 @@ namespace Dinopostres.UIElements
         protected override void SetButtonEvent(UIDescriptions<DinoSaveData> _uiDino)
         {
             _uiDino = (UIDinoDes)_uiDino;
-            _uiDino.AddBtnClicEvent(() => gameObject.SetActive(false));
+            _uiDino.AddBtnClicEvent(() => GetDesciptionEvent(_uiDino.StoreData));
             _uiDino.AddBtnSelectedEvent(() => {
                 UpdateDescription(_uiDino.ReturnStoreData());
                 MoveDinoUI(_uiDino._ParentIndex);
@@ -39,21 +37,21 @@ namespace Dinopostres.UIElements
         }
         protected override void InitUIVisuals()
         {
-            if (GameManager._instance._GameData.DinoInventory.Count() < 8)
+            if (GameManager._instance._GameData.DinoInventory.Count() < arr_items.Length)
             {
-                for (int i = arr_items.Length - 1; i >= GameManager._instance._GameData.DinoInventory.Count(); i--)
+                for (int i = arr_items.Length - 1;i>=0; i--)
                 {
-                    arr_items[i].gameObject.SetActive(false);
+                    arr_items[i].gameObject.SetActive(i < GameManager._instance._GameData.DinoInventory.Count());
                 }
             }
             arr_items[int_currentIndex].SetButtonAsSelected();
         }
         protected override void InitUiValues()
         {
-            for(int i =0; i< GameManager._instance._GameData.DinoInventory.Count() && i<8; i++)
+            for(int i =0; i< GameManager._instance._GameData.DinoInventory.Count() && i< arr_items.Length; i++)
             {
                 DinoSaveData saveData = GameManager._instance._GameData.DinoInventory[i];
-                arr_items[i].InitStats(saveData, () => Player.PL_Instance.SwitchDino(saveData));
+                arr_items[i].InitStats(saveData, GetDesciptionEvent(saveData));
             }
         }
         protected void UpdateDescription(DinoSaveData _info)
@@ -77,7 +75,10 @@ namespace Dinopostres.UIElements
 
         protected override UnityAction GetDesciptionEvent(DinoSaveData _item)
         {
-            return () => Player.PL_Instance.SwitchDino(_item);
+            return () => {
+                Player.PL_Instance.SwitchDino(_item);
+                LevelManager._Instance._GameMode.OpenCloseSpecicficMenu(GameMode.MenuDef.dispacher, false);
+            };
         }
     }
 }

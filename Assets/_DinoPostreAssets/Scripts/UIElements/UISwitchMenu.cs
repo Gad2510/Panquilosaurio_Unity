@@ -3,25 +3,26 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.InputSystem;
 using Dinopostres.Managers;
+using Dinopostres.Interfeces;
 using Dinopostres.CharacterControllers;
 namespace Dinopostres.UIElements
 {
     public class UISwitchMenu : MonoBehaviour
     {
         [SerializeField]
-        private List<GameObject> lst_menus;
+        private List<UIMenu> lst_menus;
 
         private int int_index = 0;
 
         private IEnumerator Start()
         {
             yield return null;
-            foreach(GameObject go in lst_menus)
+            foreach(UIMenu go in lst_menus)
             {
-                go.SetActive(false);
+                go.SetObjectActive=false;
             }
 
-            lst_menus[int_index].SetActive(true);
+            lst_menus[int_index].SetObjectActive=true;
         }
 
         // Start is called before the first frame update
@@ -29,28 +30,58 @@ namespace Dinopostres.UIElements
         {
             GameManager._instance.InS_gameActions.DinopostreController.AttackA.performed += MoveMenu;
             GameManager._instance.InS_gameActions.DinopostreController.AttackB.performed += MoveMenu;
+            Player.PL_Instance.IsDispacheOpen = true;
         }
         private void OnDisable()
         {
             GameManager._instance.InS_gameActions.DinopostreController.AttackA.performed -= MoveMenu;
             GameManager._instance.InS_gameActions.DinopostreController.AttackB.performed -= MoveMenu;
+            Player.PL_Instance.IsDispacheOpen = false;
         }
         public void MoveMenu(InputAction.CallbackContext _ctx)
         {
-            lst_menus[int_index].SetActive(false);
+            lst_menus[int_index].SetObjectActive=false;
 
-            int_index = (_ctx.action.name == "Attack A") ? int_index - 1: int_index + 1;
-
-            if(int_index>= lst_menus.Count)
+            switch (_ctx.action.name)
             {
-                int_index = 0;
-            }
-            else if (int_index < 0)
-            {
-                int_index = lst_menus.Count - 1;
+                case "Attack A":
+                    int_index--;
+                    if (int_index < 0)
+                    {
+                        int_index = lst_menus.Count - 1;
+                    }
+                    break;
+                case "Attack B":
+                    int_index++;
+                    if (int_index >= lst_menus.Count)
+                    {
+                        int_index = 0;
+                    }
+                    break;
             }
 
-            lst_menus[int_index].SetActive(true);
+            lst_menus[int_index].SetObjectActive=true;
+        }
+    }
+    [System.Serializable]
+    public class UIMenu
+    {
+        [SerializeField]
+        GameObject go_menu;
+        [SerializeField]
+        Sprite img_label;
+        IUIMultipleMenu UI_carrusselBH;
+
+        public bool SetObjectActive { 
+            set {
+                go_menu.SetActive(value);
+
+                if (UI_carrusselBH == null)
+                    UI_carrusselBH= go_menu.GetComponent<IUIMultipleMenu>();
+
+                if(value)
+                    UI_carrusselBH.SetFirstButtonSelected();
+            }
         }
     }
 }

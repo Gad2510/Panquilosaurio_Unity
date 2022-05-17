@@ -6,6 +6,8 @@ using UnityEngine.UI;
 using TMPro;
 using Dinopostres.Definitions;
 using Dinopostres.Managers;
+using UnityEngine.Events;
+
 namespace Dinopostres.UIElements
 {
     public class UIOven : Dispacher
@@ -130,6 +132,11 @@ namespace Dinopostres.UIElements
                     arr_reqIngredients[i].UpdateDescriptions(IngredientDef.Sample.none);
                 }
             }
+        }
+
+        protected override UnityAction GetDesciptionEvent(DinoSaveData _item)
+        {
+            return () => { };
         }
     }
 }

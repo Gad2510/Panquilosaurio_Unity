@@ -4,6 +4,7 @@ using UnityEngine;
 using UnityEngine.InputSystem;
 using Dinopostres.Managers;
 using Dinopostres.Definitions;
+using Dinopostres.Events;
 
 namespace Dinopostres.CharacterControllers
 {
@@ -43,9 +44,6 @@ namespace Dinopostres.CharacterControllers
             //init camera
             Camera.main.gameObject.AddComponent<CameraController>();
 
-            //Bind movement action
-            GameManager._instance.InS_gameActions.DinopostreController.Movement.performed += ctx => direction = ctx.ReadValue<Vector2>();
-            GameManager._instance.InS_gameActions.DinopostreController.Movement.canceled += ctx => direction = ctx.ReadValue<Vector2>();
             //Bind Attacks
             GameManager._instance.InS_gameActions.DinopostreController.AttackA.performed += Controllers;
             GameManager._instance.InS_gameActions.DinopostreController.AttackB.performed += Controllers;
@@ -80,7 +78,7 @@ namespace Dinopostres.CharacterControllers
 
             if (direction.magnitude > 0 && GameManager._instance._TimeScale>0)
                 ChangeDirection();
-
+            direction = GameManager._instance.InS_gameActions.DinopostreController.Movement.ReadValue<Vector2>();
             velocity.x = direction.x;
             velocity.z = direction.y;
 
@@ -136,6 +134,11 @@ namespace Dinopostres.CharacterControllers
             DP_current.InitStats(_newDino.Level);
             DP_current.CurrentHealth = _newDino.CurrentHealth;
             currentData = _newDino;
+
+            isDispacherOpen = false;
+
+            RecordEvent ev = new RecordEvent(1, "Switch dino", 2);
+            GameManager._instance.OnRecordEvent(ev);
         }
         
     }

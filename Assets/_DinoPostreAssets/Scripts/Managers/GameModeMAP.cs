@@ -25,6 +25,11 @@ namespace Dinopostres.Managers
                 hasTriggerBuilding = !string.IsNullOrEmpty(value);
             } 
         }
+
+        protected override void Awake()
+        {
+            base.Awake();
+        }
         protected override void InitMenus()
         {
             base.InitMenus();

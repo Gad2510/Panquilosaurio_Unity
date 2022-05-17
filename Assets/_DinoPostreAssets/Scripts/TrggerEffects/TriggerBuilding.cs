@@ -11,7 +11,7 @@ namespace Dinopostres.TriggerEffects
         private GameMode.MenuDef enm_openMenu;
         [SerializeField]
         private string str_buildingName;
-        private bool onTrigger;
+        public bool onTrigger;
 
         private void Start()
         {
@@ -24,7 +24,7 @@ namespace Dinopostres.TriggerEffects
 
         private void OnTriggerEnter(Collider other)
         {
-            onTrigger = other.transform.root.CompareTag("Player");
+            onTrigger = other.transform.root.CompareTag("Player") && !other.CompareTag("Attack");
             if (onTrigger && LevelManager._Instance._GameMode._LastMenu != enm_openMenu)
             {
                 ((GameModeMAP)LevelManager._Instance._GameMode)._BuildingName = str_buildingName;
@@ -33,9 +33,14 @@ namespace Dinopostres.TriggerEffects
             }
         }
 
+        private void OnTriggerStay(Collider other)
+        {
+            onTrigger = other.transform.root.CompareTag("Player") && !other.CompareTag("Attack");
+        }
+
         private void OnTriggerExit(Collider other)
         {
-            if (other.transform.root.CompareTag("Player"))
+            if (other.transform.root.CompareTag("Player") && !other.CompareTag("Attack"))
             {
                 ((GameModeMAP)LevelManager._Instance._GameMode)._BuildingName = "";
                 LevelManager._Instance._GameMode.OpenCloseSpecicficMenu(GameMode.MenuDef.decriptions, false);
@@ -46,6 +51,7 @@ namespace Dinopostres.TriggerEffects
         private void OpenMenu(InputAction.CallbackContext _ctx)
         {
             int mask = (int)GameMode.MenuDef.decriptions;
+            Debug.Log($"{LevelManager._Instance._GameMode._LastMenu} RESULT {(int)LevelManager._Instance._GameMode._LastMenu & mask}");
             if (onTrigger && ((int)LevelManager._Instance._GameMode._LastMenu & mask) >=1)
             {
                 LevelManager._Instance._GameMode.OpenCloseSpecicficMenu(enm_openMenu, true);

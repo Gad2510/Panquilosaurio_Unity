@@ -6,9 +6,11 @@ using UnityEngine.Events;
 using UnityEngine.EventSystems;
 using Dinopostres.CharacterControllers;
 using Dinopostres.Managers;
+using Dinopostres.Interfeces;
+
 namespace Dinopostres.UIElements
 {
-    public abstract class CarruselBehavior<T> : MonoBehaviour
+    public abstract class CarruselBehavior<T> : MonoBehaviour, IUIMultipleMenu
     {
         [SerializeField]
         Transform trns_itemParents;
@@ -63,6 +65,12 @@ namespace Dinopostres.UIElements
                 arr_items[int_currentIndex].SetButtonAsSelected();
         }
 
+        public void SetFirstButtonSelected()
+        {
+            Debug.Log($"First Button set {gameObject.name}");
+            arr_items[0].SetButtonAsSelected();
+        }
+
         protected void InitBtnEvents()
         {
             foreach (UIDescriptions<T> label in arr_items)
@@ -81,7 +89,7 @@ namespace Dinopostres.UIElements
                 {
                     saveData = SetItemValue(int_currentIndex - 1);
                     trns_itemParents.GetChild(7).SetAsFirstSibling();
-                    arr_items[(int_currentIndex - 1) % 8].InitStats(saveData, GetDesciptionEvent(saveData));
+                    arr_items[(int_currentIndex - 1) % arr_items.Length].InitStats(saveData, GetDesciptionEvent(saveData));
                 }
 
             }
@@ -92,7 +100,7 @@ namespace Dinopostres.UIElements
                 {
                     saveData = SetItemValue(int_currentIndex + 1);
                     trns_itemParents.GetChild(0).SetAsLastSibling();
-                    arr_items[(int_currentIndex + 1) % 8].InitStats(saveData, GetDesciptionEvent(saveData));
+                    arr_items[(int_currentIndex + 1) % arr_items.Length].InitStats(saveData, GetDesciptionEvent(saveData));
                 }
             }
             else

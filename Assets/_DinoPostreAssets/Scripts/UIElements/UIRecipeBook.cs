@@ -15,7 +15,6 @@ namespace Dinopostres.UIElements
 
         private UIRecipeDes UIR_currentRecipe;
         private List<IngredientCount> lst_ingredients;
-
         protected override void Start()
         {
             txt_migas.text = GameManager._instance.PD_gameData._Migas.ToString("00000");
@@ -24,7 +23,17 @@ namespace Dinopostres.UIElements
 
         protected override UnityAction GetDesciptionEvent(Recipe _item)
         {
-            throw new System.NotImplementedException();
+            return () => {
+                Debug.Log("Create adino");
+                Debug.Log($"conditions {UIR_currentRecipe != null} and {GameManager._instance.PD_gameData.CanBePurchase(UIR_currentRecipe.StoreData._Ingredients)}");
+                if (UIR_currentRecipe != null && GameManager._instance.PD_gameData.CanBePurchase(UIR_currentRecipe.StoreData._Ingredients))
+                {
+                    GameManager._instance.PD_gameData.MakePurchase(UIR_currentRecipe.StoreData._Ingredients);
+                    GameManager._instance._GameData.RegisterNewDino(_item._Dino);
+                    UpdateRecepeeDes();
+                    txt_migas.text = GameManager._instance.PD_gameData._Migas.ToString("00000");
+                }
+            };
         }
 
         protected override void InitUiValues()
@@ -33,17 +42,8 @@ namespace Dinopostres.UIElements
             for(int i = 0; i < arr_items.Length; i++)
             {
                 Recipe rep= RecipeBook._Instance()[i];
-                arr_items[i].InitStats(rep, () => {
-                    if (UIR_currentRecipe != null && GameManager._instance.PD_gameData.CanBePurchase(UIR_currentRecipe.StoreData._Ingredients))
-                    {
-                        GameManager._instance.PD_gameData.MakePurchase(UIR_currentRecipe.StoreData._Ingredients);
-                        GameManager._instance._GameData.RegisterNewDino(rep._Dino);
-                        UpdateRecepeeDes();
-                        txt_migas.text = GameManager._instance.PD_gameData._Migas.ToString("00000");
-                    }
-                });
+                arr_items[i].InitStats(rep,GetDesciptionEvent(rep));
             }
-            arr_items[0].SetButtonAsSelected();
         }
 
         protected override void InitUIVisuals()//Define cuales items son visibles

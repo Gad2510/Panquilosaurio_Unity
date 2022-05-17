@@ -59,7 +59,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 94932c6a3daa06f439e0c0860370e9a6, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  int_ID: 0
   enm_Dino: 0
   lst_SkillList:
   - str_SkillName: Tackle
@@ -233,7 +232,7 @@ GameObject:
   - component: {fileID: 2900804542269629480}
   m_Layer: 6
   m_Name: Cylinder
-  m_TagString: Untagged
+  m_TagString: Attack
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0

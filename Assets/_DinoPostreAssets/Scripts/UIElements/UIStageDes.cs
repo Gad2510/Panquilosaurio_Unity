@@ -58,8 +58,7 @@ namespace Dinopostres.UIElements
         private void UpdateDescriptionsStage()
         {
             GameModeMAP temp = (GameModeMAP)LevelManager._Instance._GameMode;
-            Debug.Log(temp.gameObject);
-            Debug.Log($"{temp._Area} | {temp._Rank}");
+
             txt_stageName.text= Locations.Instance().LookForLevelName(temp._Area, temp._Rank);
 
             List<DinoDef> dinos= EnemyStorage._Instance().GetEnemiesPerLevel(temp._Area, temp._Rank);

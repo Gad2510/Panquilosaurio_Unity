@@ -20,6 +20,14 @@ MonoBehaviour:
       int_Count: 5
     - enm_Ingredient: 3
       int_Count: 1
+    UD_requirements:
+      int_id: 0
+      lst_dinoCount: []
+      lst_locCount: []
+      int_migasRequire: -1
+      int_totalLocations: -1
+      int_totalEnemies: -1
+      int_changesRequire: -1
   - enm_dino: 1
     emn_rate: 0
     lst_ingredientBase:
@@ -27,6 +35,14 @@ MonoBehaviour:
       int_Count: 2
     - enm_Ingredient: 4
       int_Count: 1
+    UD_requirements:
+      int_id: 0
+      lst_dinoCount: []
+      lst_locCount: []
+      int_migasRequire: -1
+      int_totalLocations: 1
+      int_totalEnemies: -1
+      int_changesRequire: -1
   - enm_dino: 2
     emn_rate: 2
     lst_ingredientBase:
@@ -36,6 +52,14 @@ MonoBehaviour:
       int_Count: 1
     - enm_Ingredient: 2
       int_Count: 2
+    UD_requirements:
+      int_id: 0
+      lst_dinoCount: []
+      lst_locCount: []
+      int_migasRequire: -1
+      int_totalLocations: -1
+      int_totalEnemies: -1
+      int_changesRequire: 10
   - enm_dino: 3
     emn_rate: 1
     lst_ingredientBase:
@@ -43,3 +67,11 @@ MonoBehaviour:
       int_Count: 7
     - enm_Ingredient: 4
       int_Count: 1
+    UD_requirements:
+      int_id: 0
+      lst_dinoCount: []
+      lst_locCount: []
+      int_migasRequire: 100
+      int_totalLocations: -1
+      int_totalEnemies: -1
+      int_changesRequire: -1

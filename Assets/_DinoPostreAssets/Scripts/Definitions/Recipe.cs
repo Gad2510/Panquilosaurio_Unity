@@ -16,9 +16,12 @@ namespace Dinopostres.Definitions {
         private GrowRate emn_rate;
         [SerializeField]
         private List<IngredientCount> lst_ingredientBase;
+        [SerializeField]
+        private UnlockDef UD_requirements;
 
         public DinoDef.DinoChar _Dino { get => enm_dino; }
         public List<IngredientCount> _Ingredients { get => lst_ingredientBase; }
+        public UnlockDef _Requirements => UD_requirements;
         public List<IngredientCount>  GetIngredientsNextLevel(int _level)
         {
             List<IngredientCount> nextLevelIngr = new List<IngredientCount>();

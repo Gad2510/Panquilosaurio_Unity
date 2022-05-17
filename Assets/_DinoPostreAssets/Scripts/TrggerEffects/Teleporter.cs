@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using UnityEngine;
 using Dinopostres.Definitions;
 using Dinopostres.Managers;
+using Dinopostres.Events;
 namespace Dinopostres.TriggerEffects
 {
     public class Teleporter : MonoBehaviour
@@ -47,7 +48,14 @@ namespace Dinopostres.TriggerEffects
             if (isStage)
             {
                 string lvlName = Locations.Instance().LookForLevelName(enm_area, enm_rank);
-                Debug.Log($"Loading scen {lvlName}");
+                LevelManager._Instance._GameMode.OpenCloseSpecicficMenu(GameMode.MenuDef.decriptions, false);
+                if (lvlName.Equals("Criadero"))
+                {
+
+                    RecordEvent ev = new RecordEvent(7, "Call from Teleporter", 40000 + ((int)LevelManager._Instance._Area * 100) + (int)LevelManager._Instance._Rank);
+                    GameManager._instance.OnRecordEvent(ev);
+                }
+
                 LevelManager._Instance.LoadLevel(lvlName);
             }
             else
