@@ -49,6 +49,29 @@ namespace Dinopostres.Definitions
             
         }
 
+        public void CheckForUnlockRecipies(PlayerData _plData)
+        {
+            try
+            {
+                List<Recipe> recepies2Check=lst_Recetas;
+
+                if (_plData!= null && _plData.UnlockRecipies.Count > 0)
+                {
+                    recepies2Check = lst_Recetas.Where((x) => _plData.UnlockRecipies.Any((y) => (int)x._Dino != y)).ToList();
+                }
+
+                foreach (Recipe r in recepies2Check)
+                {
+                    bool getNew=_plData.CheckForUnlock(r._Requirements,(int)r._Dino);
+                    Debug.Log($"Se debloqueo {getNew} {r._Dino}{(int)r._Dino}");
+                }
+            }
+            catch
+            {
+                Debug.LogError("Erro while trying to unlock recipies");
+            }
+        }
+
         public Recipe this[int i] { get => lst_Recetas[i]; }
     }
 }

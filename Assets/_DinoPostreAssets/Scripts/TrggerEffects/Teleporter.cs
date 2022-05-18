@@ -47,6 +47,7 @@ namespace Dinopostres.TriggerEffects
         {
             if (isStage)
             {
+                LevelManager._Instance.LoadStage(enm_area, enm_rank);
                 string lvlName = Locations.Instance().LookForLevelName(enm_area, enm_rank);
                 LevelManager._Instance._GameMode.OpenCloseSpecicficMenu(GameMode.MenuDef.decriptions, false);
                 if (lvlName.Equals("Criadero"))

@@ -41,12 +41,6 @@ namespace Dinopostres.UIElements
         }
         private void PauseGame(InputAction.CallbackContext _ctx)
         {
-            //Debug.Log(LevelManager._Instance._GameMode._LastMenu);
-            //Debug.Log(System.Convert.ToString((int)LevelManager._Instance._GameMode._LastMenu,2));
-            //Debug.Log(System.Convert.ToString(int_mask,2));
-            //Debug.Log(System.Convert.ToString((int)LevelManager._Instance._GameMode._LastMenu & int_mask, 2));
-            //Debug.Log((int)LevelManager._Instance._GameMode._LastMenu & mask);
-            //if(LevelManager._Instance._GameMode._LastMenu== GameMode.MenuDef.pause || LevelManager._Instance._GameMode._LastMenu == GameMode.MenuDef.decriptions)
             if(((int)LevelManager._Instance._GameMode._LastMenu & int_mask) >=1 )
             {
                 Debug.Log(LevelManager._Instance._GameMode.gameObject.name);

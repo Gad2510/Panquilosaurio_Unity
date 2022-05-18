@@ -70,6 +70,9 @@ namespace Dinopostres.Managers
 
         protected virtual void OnDestroy()
         {
+            if (dic_menus==null || dic_menus.Count == 0)
+                return;
+
             MenuDef[] keys = dic_menus.Keys.ToArray();
             foreach(MenuDef key in keys)
             {

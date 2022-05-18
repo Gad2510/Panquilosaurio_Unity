@@ -33,7 +33,7 @@ namespace Dinopostres.Managers
         // Start is called before the first frame update
         void Awake()
         {
-            PD_gameData = MemoryManager.NewGame("GaboTest");
+            //PD_gameData = MemoryManager.NewGame("GaboTest");
             //PD_gameData = MemoryManager.LoadGame("GaboTest");
 
             InS_gameActions = new DinoPostreAction();
@@ -44,16 +44,12 @@ namespace Dinopostres.Managers
         private void OnEnable()
         {
             InS_gameActions.Enable();
-
-            InS_gameActions.DinopostreController.Pause.performed +=(ctx)=> MemoryManager.SaveGame("GaboTest", PD_gameData);
-
-            OnRecordEvent += PD_gameData.Colectable;
         }
         private void OnDisable()
         {
             InS_gameActions.Disable();
-
-            OnRecordEvent -= PD_gameData.Colectable;
+            if(PD_gameData!= null)
+                OnRecordEvent -= PD_gameData.Colectable;
         }
 
         [RuntimeInitializeOnLoadMethod]
@@ -63,6 +59,18 @@ namespace Dinopostres.Managers
             _instance = go.AddComponent<GameManager>();
             _instance.LM_LevelManager = go.AddComponent<LevelManager>();
             DontDestroyOnLoad(go);
+        }
+
+        public void LoadGame (string _index)
+        {
+            PD_gameData = MemoryManager.LoadGame(_index);
+
+            if (PD_gameData == null)
+            {
+                MemoryManager.NewGame(_index);
+            }
+
+            OnRecordEvent += PD_gameData.Colectable;
         }
 
         public void LoseLive()

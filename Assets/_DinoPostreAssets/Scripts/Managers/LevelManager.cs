@@ -66,8 +66,6 @@ namespace Dinopostres.Managers
             ES_EnemyStorage = EnemyStorage._Instance();
             BSS_BossStageStorage = BossStageStorage._Instance();
 
-            LoadStage(LocationCount.Area.demo, LocationCount.Rank.none);
-
             dic_TelportersInLevel = new Dictionary<int, GameObject>();
             int_stageCount = 0;
         }
@@ -96,9 +94,12 @@ namespace Dinopostres.Managers
             LoadGameMode(SceneManager.GetActiveScene().name);
             if (dic_levelStates[SceneManager.GetActiveScene().name]== GameStates.InStage)
             {
-                Debug.Log("Init Stage");
-                //Invoke(nameof(MovePlayer), 0.1f);
                 MovePlayer();
+            }
+            else if(dic_levelStates[SceneManager.GetActiveScene().name] == GameStates.Map)
+            {
+                RecipeBook._Instance().CheckForUnlockRecipies(GameManager._instance.PD_gameData);
+                MemoryManager.SaveGame(GameManager._instance.PD_gameData);
             }
         }
 
