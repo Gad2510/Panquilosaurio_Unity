@@ -88,6 +88,24 @@ namespace Dinopostres.Definitions
             return lst_dinoInventory.Select((x)=>x.Dino).Distinct().Count();
         }
 
+        public void RestoreHP()
+        {
+            List<DinoSaveData> lst_dino2Restore;
+            try
+            {
+                lst_dino2Restore = lst_dinoInventory.Where((x) => x.CurrentHealth < x.MaxHealth).ToList();
+
+                foreach(DinoSaveData dsd in lst_dino2Restore)
+                {
+                    dsd.CurrentHealth = dsd.MaxHealth;
+                }
+            }
+            catch
+            {
+                Debug.Log("No dino to restore");
+            }
+        }
+
         public bool IsBoosDefeated(LocationCount.Rank _rank)
         {
             return lst_clearLcation.Any((x) => x._Value > 0 && x._Area == LocationCount.Area.volcan && x._Rank == _rank);

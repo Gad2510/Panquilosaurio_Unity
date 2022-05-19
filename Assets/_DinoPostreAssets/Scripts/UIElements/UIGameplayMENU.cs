@@ -1,10 +1,10 @@
 using System.Collections;
 using System.Collections.Generic;
+using System.Linq;
 using UnityEngine;
 using UnityEngine.UI;
 using TMPro;
 using Dinopostres.Managers;
-using Dinopostres.Events;
 namespace Dinopostres.UIElements
 {
     public class UIGameplayMENU : MonoBehaviour
@@ -21,6 +21,7 @@ namespace Dinopostres.UIElements
         private void Awake()
         {
             arr_lifes = go_lifesParent.GetComponentsInChildren<Image>();
+            arr_lifes = arr_lifes.OrderBy((x) => x.transform.GetSiblingIndex()).ToArray();
             UpdateMigas(null);
 
             GameManager._instance.OnRecordEvent += UpdateMigas;

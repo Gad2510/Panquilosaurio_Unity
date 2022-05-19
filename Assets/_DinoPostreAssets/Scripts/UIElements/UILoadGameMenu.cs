@@ -1,6 +1,7 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.UI;
 using Dinopostres.Definitions;
 using Dinopostres.Managers;
 namespace Dinopostres.UIElements
@@ -9,7 +10,8 @@ namespace Dinopostres.UIElements
     {
         [SerializeField]
         private Transform trns_loadBtnsParnet;
-
+        [SerializeField]
+        private Button btn_back;
 
         private UILoadGameBtn[] arr_LoadBtns;
         private int int_CurrentIndex;
@@ -18,6 +20,11 @@ namespace Dinopostres.UIElements
         {
             arr_LoadBtns = GetComponentsInChildren<UILoadGameBtn>();
             UpdateLoadBtns();
+
+            btn_back.onClick.AddListener(() => {
+                LevelManager._Instance._GameMode.OpenCloseSpecicficMenu(GameMode.MenuDef.load, false);
+                LevelManager._Instance._GameMode.OpenCloseSpecicficMenu(GameMode.MenuDef.menu, true);
+            });
         }
 
         private void OnEnable()

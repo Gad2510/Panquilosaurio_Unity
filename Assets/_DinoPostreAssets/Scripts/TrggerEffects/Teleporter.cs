@@ -27,7 +27,14 @@ namespace Dinopostres.TriggerEffects
             if(!isStage && isLock)
             {
                 Debug.Log("Teleporter register");
-                LevelManager._Instance.RegisterTeleporter(gameObject, this.GetInstanceID(), isBoss);
+                if (LevelManager._Instance != null)
+                {
+                    RegisterTeleporter();
+                }
+                else
+                {
+                    Invoke(nameof(RegisterTeleporter), 0.1f);
+                }
             }
             
         }
@@ -42,7 +49,10 @@ namespace Dinopostres.TriggerEffects
                 }
             }
         }
-
+        private void RegisterTeleporter()
+        {
+            LevelManager._Instance.RegisterTeleporter(gameObject, this.GetInstanceID(), isBoss);
+        }
         private void ChangeLocation(Transform _player)
         {
             if (isStage)

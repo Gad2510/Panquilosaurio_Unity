@@ -19,6 +19,7 @@ namespace Dinopostres.Managers
             load = 1 << 8,
             decriptions = 1 << 9,
             oven = 1 << 10,
+            newGame= 1<<11,
             none = 1<< 0
         }
         [SerializeField]
@@ -32,11 +33,12 @@ namespace Dinopostres.Managers
             {MenuDef.dispacher, "UI_Dispacher" },
             {MenuDef.status, "UI_ControllersStatus" },
             {MenuDef.gameplay, "UI_Gameplay" },
-            {MenuDef.menu, "" },
-            {MenuDef.settings, "" },
-            {MenuDef.load, "" },
+            {MenuDef.menu, "CV_MainMenu" },
+            {MenuDef.settings, "CV_Settings" },
+            {MenuDef.load, "CV_LoadGame" },
             {MenuDef.decriptions, "UI_Descriptions" },
-            {MenuDef.oven, "UI_Oven" }
+            {MenuDef.oven, "UI_Oven" },
+            {MenuDef.newGame, "CV_NewGame" },
         };
 
         protected Dictionary<MenuDef, GameObject> dic_menus;

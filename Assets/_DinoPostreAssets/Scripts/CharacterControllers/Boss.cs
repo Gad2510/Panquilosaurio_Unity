@@ -24,6 +24,8 @@ namespace Dinopostres.CharacterControllers
 
             isStaticHealthBar = true;
             transform.localScale = Vector3.one * 3f;
+
+            ShockWave();
         }
 
         protected override void Update()
@@ -69,8 +71,9 @@ namespace Dinopostres.CharacterControllers
         {
             RaycastHit hit;
             if(Physics.SphereCast(transform.position,10f,transform.forward,out hit, 10f,LayerMask.NameToLayer("Player"))){
+                Debug.Log(hit.collider.gameObject.name,hit.collider.gameObject);
                 Vector3 dir = (hit.transform.position - transform.position).normalized;
-                hit.transform.root.GetComponent<Rigidbody>().AddForce(dir * 10f);
+                //hit.transform.root.GetComponent<Rigidbody>().AddForce(dir * 10f);
             }
         }
         private void OnCollisionEnter(Collision collision)

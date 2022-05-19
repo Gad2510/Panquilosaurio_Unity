@@ -77,8 +77,32 @@ namespace Dinopostres.Managers
                         games.Add(gm);
                 }
             }
-            
+
             return games;
+        }
+
+        public static int GamesCount()
+        {
+            //Path pesistente del sistema en el que se guardan los datos del juego
+            List<PlayerData> games = new List<PlayerData>();
+            string pathCombined = Application.persistentDataPath;
+            string[] gameNames = Directory.GetFiles(pathCombined);
+
+            foreach (string str in gameNames)
+            {
+                pathCombined = Path.Combine(Application.persistentDataPath, str);
+                if (File.Exists(pathCombined))
+                {
+                    BinaryFormatter bf = new BinaryFormatter();
+                    FileStream file = File.Open(pathCombined, FileMode.Open);
+                    PlayerData gm = (PlayerData)bf.Deserialize(file);
+                    file.Close();
+                    if (!string.IsNullOrEmpty(gm.ID))
+                        games.Add(gm);
+                }
+            }
+
+            return games.Count;
         }
 
         public static  string [] GetGameName()

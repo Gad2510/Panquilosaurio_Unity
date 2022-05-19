@@ -26,8 +26,8 @@ namespace Dinopostres.Managers
             {"PanquilosaurioTest",GameStates.InStage },
         };
 
-        public LocationCount.Area enm_lastArea;
-        private LocationCount.Rank enm_lastRank;
+        public LocationCount.Area enm_lastArea= LocationCount.Area.demo;
+        private LocationCount.Rank enm_lastRank= LocationCount.Rank.none;
         private List<DinoDef> lst_enemiesInLevel;
 
         private EnemyStorage ES_EnemyStorage;
@@ -68,6 +68,8 @@ namespace Dinopostres.Managers
 
             dic_TelportersInLevel = new Dictionary<int, GameObject>();
             int_stageCount = 0;
+
+            LoadStage(_Area, _Rank);
         }
 
         private void OnEnable()
@@ -99,6 +101,7 @@ namespace Dinopostres.Managers
             else if(dic_levelStates[SceneManager.GetActiveScene().name] == GameStates.Map)
             {
                 RecipeBook._Instance().CheckForUnlockRecipies(GameManager._instance.PD_gameData);
+                GameManager._instance.PD_gameData.RestoreHP();
                 MemoryManager.SaveGame(GameManager._instance.PD_gameData);
             }
         }
@@ -132,6 +135,9 @@ namespace Dinopostres.Managers
 
         public void LoadStage(LocationCount.Area _area, LocationCount.Rank _rank)
         {
+            if (_Stage != GameStates.InStage)
+                return;
+
             enm_lastArea = _area;
             enm_lastRank = _rank;
             lst_enemiesInLevel = ES_EnemyStorage.GetEnemiesPerLevel(_area, _rank);

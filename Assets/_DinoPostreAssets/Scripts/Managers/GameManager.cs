@@ -29,12 +29,22 @@ namespace Dinopostres.Managers
 
         public int _Lives { get => int_lives; }
         public int _TimeScale { get => int_timeScale; }
-        public PlayerData _GameData { get => PD_gameData; }
+        public PlayerData _GameData
+        {
+            get
+            {
+                if (PD_gameData == null)
+                {
+                    PD_gameData = new PlayerData("");
+                }
+                return PD_gameData;
+            }
+        }
         // Start is called before the first frame update
         void Awake()
         {
             //PD_gameData = MemoryManager.NewGame("GaboTest");
-            //PD_gameData = MemoryManager.LoadGame("GaboTest");
+            PD_gameData = MemoryManager.LoadGame("GaboTest");
 
             InS_gameActions = new DinoPostreAction();
 
