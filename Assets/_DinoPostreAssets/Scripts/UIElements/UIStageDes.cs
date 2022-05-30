@@ -37,11 +37,11 @@ namespace Dinopostres.UIElements
                 bool isBuilding = ((GameModeMAP)LevelManager._Instance._GameMode)._HasTriggerBuilding;
                 trns_descriptionBuilding.gameObject.SetActive(isBuilding);
                 trns_descriptionStage.gameObject.SetActive(!isBuilding);
-                if (isBuilding)
+                if (isBuilding)//Name of structures
                 {
                     UpdateDescriptionBuilding();
                 }
-                else
+                else//Name of the teleporter stages
                 {
                     if(!((GameModeMAP)LevelManager._Instance._GameMode)._HasChangeCheckArea)
                         UpdateDescriptionsStage();

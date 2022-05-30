@@ -17,12 +17,19 @@ namespace Dinopostres.CharacterControllers
 
         Object obj_companionRef;
         WaitForSeconds w4s_timerboss = new WaitForSeconds(10f);
+        Collider coll_selfCol;
         float f_colliderRadius;
         public static int StartLevel { set => startLevel = value; }
 
         private void Awake()
         {
             f_colliderRadius = GetComponent<SphereCollider>().radius/2;
+            coll_selfCol = GetComponent<Collider>();
+        }
+
+        private void OnEnable()
+        {
+            coll_selfCol.enabled = true;
         }
 
         private void OnTriggerEnter(Collider other)
@@ -37,7 +44,8 @@ namespace Dinopostres.CharacterControllers
                 {
                     GetBossAndAllies();
                 }
-                gameObject.SetActive(false);
+                coll_selfCol.enabled = false;
+                LevelManager._Instance._Spawners = gameObject;
             }
         }
 
@@ -68,7 +76,7 @@ namespace Dinopostres.CharacterControllers
                 }
             }
 
-            OrderEnemies(enemies);
+            StartCoroutine(OrderEnemies(enemies));
         }
         private void GetBossAndAllies()
         {
@@ -87,14 +95,16 @@ namespace Dinopostres.CharacterControllers
             }
         }
 
-        private void OrderEnemies(Dictionary<float, Object> enemies)
+        private IEnumerator OrderEnemies(Dictionary<float, Object> enemies)
         {
             List<Object> ens = enemies.OrderBy((x) => x.Key).Select((x) => x.Value).ToList();
             
             for (int i = 0; i < ens.Count(); i++)
             {
                 SpawnMinions(ens[i], ens.Count(), i);
+                yield return null;
             }
+            gameObject.SetActive(false);
         }
 
         private void SpawnMinions(Object pref,int count, int pos, float angleOfseet = 0, bool isBoss=false)

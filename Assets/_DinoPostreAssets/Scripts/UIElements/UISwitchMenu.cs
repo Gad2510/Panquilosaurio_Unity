@@ -2,6 +2,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.InputSystem;
+using UnityEngine.UI;
 using Dinopostres.Managers;
 using Dinopostres.Interfeces;
 using Dinopostres.CharacterControllers;
@@ -28,6 +29,14 @@ namespace Dinopostres.UIElements
         // Start is called before the first frame update
         private void OnEnable()
         {
+            int_index = 0;
+            foreach (UIMenu go in lst_menus)
+            {
+                go.SetObjectActive = false;
+            }
+
+            lst_menus[int_index].SetObjectActive = true;
+
             GameManager._instance.InS_gameActions.DinopostreController.AttackA.performed += MoveMenu;
             GameManager._instance.InS_gameActions.DinopostreController.AttackB.performed += MoveMenu;
             Player.PL_Instance.IsDispacheOpen = true;
@@ -67,9 +76,9 @@ namespace Dinopostres.UIElements
     public class UIMenu
     {
         [SerializeField]
-        GameObject go_menu;
+        private GameObject go_menu;
         [SerializeField]
-        Sprite img_label;
+        private Image img_label;
         IUIMultipleMenu UI_carrusselBH;
 
         public bool SetObjectActive { 
@@ -79,8 +88,12 @@ namespace Dinopostres.UIElements
                 if (UI_carrusselBH == null)
                     UI_carrusselBH= go_menu.GetComponent<IUIMultipleMenu>();
 
-                if(value)
-                    UI_carrusselBH.SetFirstButtonSelected();
+                if (value)
+                {
+                    UI_carrusselBH.SetFirstButtonSelected(); 
+                }
+                img_label.rectTransform.localScale = (value)?Vector2.one * 1.1f: Vector2.one;
+                img_label.color = (value)?Color.gray * 1.1f: Color.white;
             }
         }
     }

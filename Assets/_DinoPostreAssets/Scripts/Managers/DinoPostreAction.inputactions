@@ -43,12 +43,20 @@
                     "id": "990f0b32-9c78-46c0-b7fe-6fc1e2b874b4",
                     "expectedControlType": "Button",
                     "processors": "",
-                    "interactions": ""
+                    "interactions": "Press"
                 },
                 {
                     "name": "Pause",
                     "type": "Button",
                     "id": "82aef0bd-1f03-43c3-92e1-1c6748c9f2ac",
+                    "expectedControlType": "Button",
+                    "processors": "",
+                    "interactions": ""
+                },
+                {
+                    "name": "Return",
+                    "type": "Button",
+                    "id": "fdd87c64-b9f0-4a26-b765-7f05164d1a2f",
                     "expectedControlType": "Button",
                     "processors": "",
                     "interactions": ""
@@ -283,6 +291,28 @@
                     "processors": "",
                     "groups": "",
                     "action": "Pause",
+                    "isComposite": false,
+                    "isPartOfComposite": false
+                },
+                {
+                    "name": "",
+                    "id": "36a5b75a-60b2-486e-b390-fca022f4fbf3",
+                    "path": "<XInputController>/buttonSouth",
+                    "interactions": "",
+                    "processors": "",
+                    "groups": "",
+                    "action": "Return",
+                    "isComposite": false,
+                    "isPartOfComposite": false
+                },
+                {
+                    "name": "",
+                    "id": "6d60b216-7eb5-40f4-b4a2-a5f2b89084e6",
+                    "path": "<Keyboard>/r",
+                    "interactions": "",
+                    "processors": "",
+                    "groups": "",
+                    "action": "Return",
                     "isComposite": false,
                     "isPartOfComposite": false
                 }

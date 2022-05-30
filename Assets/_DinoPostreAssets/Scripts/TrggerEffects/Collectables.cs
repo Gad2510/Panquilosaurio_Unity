@@ -12,8 +12,9 @@ namespace Dinopostres.TriggerEffects
         IngredientDef.Sample enm_Type;
         Rigidbody selfRigid;
         MeshRenderer mhr_selfRenderer;
+        protected const float f_couldDown = 5f;
 
-        WaitForSeconds w4s_CouldDown = new WaitForSeconds(5f);
+        bool hasTaken = false;
         // Start is called before the first frame update
         void Awake()
         {
@@ -25,24 +26,25 @@ namespace Dinopostres.TriggerEffects
         void OnBecameVisible()
         {
             gameObject.layer = LayerMask.NameToLayer("Colectables");
-            //StartCoroutine(TimerActiveValues());
-        }
-
-        private void OnBecameInvisible()
-        {
-            gameObject.layer = LayerMask.NameToLayer("Ignore");
+            hasTaken = false;
         }
 
         private IEnumerator TimerActiveValues()
         {
-            yield return w4s_CouldDown;
+            float counter=0;
+            while (counter <= f_couldDown)
+            {
+                counter += GameManager._TimeScale;
+                yield return null;
+            }
             Unspawn();
         }
 
         private void OnTriggerEnter(Collider other)
         {
-            if (other.transform.root.CompareTag("Player"))
+            if (other.transform.root.CompareTag("Player") && !hasTaken)
             {
+                hasTaken = true;
                 RegisterCount();
                 Unspawn();
             }
@@ -52,6 +54,7 @@ namespace Dinopostres.TriggerEffects
         private void Unspawn()
         {
             mhr_selfRenderer.enabled = false;
+            gameObject.layer = LayerMask.NameToLayer("Ignore");
             LevelManager._Instance._RewardManager.RegisterUnspawn(selfRigid, enm_Type);
         }
 
@@ -63,7 +66,6 @@ namespace Dinopostres.TriggerEffects
             Events.RecordEvent ev = new Events.RecordEvent(0, "Envio de ingredientes", 10 + (int)enm_Type);
             GameManager._instance.OnRecordEvent(ev);
 
-            Debug.Log($"Ingredient send {enm_Type}");
         }
     }
 }

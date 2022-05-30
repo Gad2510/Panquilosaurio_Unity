@@ -44,7 +44,7 @@ namespace Dinopostres.Managers
 
         public void UpdateStageUIDescription(LocationCount.Area _area, LocationCount.Rank _rank)
         {
-            hasChangeCheckArea = enm_area != _area && enm_rank != _rank;
+            hasChangeCheckArea = enm_area == _area && enm_rank == _rank;
             enm_area = _area;
             enm_rank = _rank;
         }

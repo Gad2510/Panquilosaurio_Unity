@@ -30,7 +30,7 @@ namespace Dinopostres.UIElements
             _uiDino.AddBtnClicEvent(() => GetDesciptionEvent(_uiDino.StoreData));
             _uiDino.AddBtnSelectedEvent(() => {
                 UpdateDescription(_uiDino.ReturnStoreData());
-                MoveDinoUI(_uiDino._ParentIndex);
+                MoveDinoUI(_uiDino._ParentIndex, GameManager._instance._GameData.DinoInventory.Count() - 1);
                 int_lastIndex = _uiDino._ParentIndex;
 
             });
@@ -76,8 +76,11 @@ namespace Dinopostres.UIElements
         protected override UnityAction GetDesciptionEvent(DinoSaveData _item)
         {
             return () => {
-                Player.PL_Instance.SwitchDino(_item);
-                LevelManager._Instance._GameMode.OpenCloseSpecicficMenu(GameMode.MenuDef.dispacher, false);
+                if (_item.CurrentHealth > 0)
+                {
+                    Player.PL_Instance.SwitchDino(_item);
+                    LevelManager._Instance._GameMode.OpenCloseSpecicficMenu(GameMode.MenuDef.dispacher, false);
+                }
             };
         }
     }

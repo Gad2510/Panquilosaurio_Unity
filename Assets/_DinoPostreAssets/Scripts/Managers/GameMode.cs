@@ -84,7 +84,6 @@ namespace Dinopostres.Managers
 
         protected void OnLoadLevel(UnityEngine.SceneManagement.Scene _scene, UnityEngine.SceneManagement.LoadSceneMode _mode)
         {
-            Debug.Log("Init menus");
             InitMenus();
         }
 
@@ -101,10 +100,9 @@ namespace Dinopostres.Managers
 
         public void OpenCloseSpecicficMenu(MenuDef _menu, bool _state)
         {
-            Debug.Log(_menu);
             if (!dic_menus.ContainsKey(_menu))
                 return;
-            Debug.Log($"{stk_lastMenu.Count} || CurrentMenu");
+
             if (stk_lastMenu.Count>0 &&  !_state)
             {
                 stk_lastMenu.Pop();

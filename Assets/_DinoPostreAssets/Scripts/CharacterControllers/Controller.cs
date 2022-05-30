@@ -14,11 +14,42 @@ namespace Dinopostres.CharacterControllers
         protected Rigidbody selfRigid;
         protected bool isInvincible;
         protected bool isDead;
+        protected bool isInmovilize = false;
 
-        private WaitForSeconds w4s_InvincibleColddown= new WaitForSeconds(0.2f);
+        protected const float f_invinibleCoulddown = 0.3f;
+        protected WaitWhile ww_InmovilizeByLunch;
         private Vector3 v3_Offset = new Vector3(0f,50f,0f);
-
+        public float f_Speed;
         protected bool isStaticHealthBar=false;
+
+        protected Vector3 v3_lastVel;
+
+        protected void Awake()
+        {
+            ww_InmovilizeByLunch= new WaitWhile(InmovilizeInAir);
+        }
+
+        private bool InmovilizeInAir()
+        {
+            bool check = selfRigid.velocity.magnitude > 0.5f;
+            if (GameManager._TimeScale > 0)
+            {
+                v3_lastVel = selfRigid.velocity;
+                selfRigid.constraints = RigidbodyConstraints.FreezePositionY & RigidbodyConstraints.FreezeRotationX & RigidbodyConstraints.FreezeRotationZ;
+                selfRigid.velocity -= (selfRigid.velocity * (Time.deltaTime * 10));
+            }
+            else
+            {
+                selfRigid.constraints = RigidbodyConstraints.FreezeAll;
+                selfRigid.velocity = v3_lastVel;
+            }
+
+            if (isDead)
+            {
+                check &= transform.localScale.magnitude > 0.05f;
+            }
+            return  check;
+        }
 
         protected virtual void Start()
         {
@@ -33,7 +64,8 @@ namespace Dinopostres.CharacterControllers
                 //index 0= cantidad , 1= posicion
                 Managers.EnemyManager._OnDamage += ExecuteAction;
             }
-
+            f_Speed = (100 / DP_current._Peso);
+            
             CreateHealthBar();
         }
 
@@ -51,7 +83,7 @@ namespace Dinopostres.CharacterControllers
         // Update is called once per frame
         protected virtual void Update()
         {
-            if(!isDead)
+            if(!isDead && !isInmovilize)
                 Movement();
         }
 
@@ -69,33 +101,51 @@ namespace Dinopostres.CharacterControllers
         {
             if (ev.ID != transform.GetInstanceID())
                 return;
-
             switch (ev._Action)
             {
                 case Events.ActionEvent.GameActions.HIT:
                     if (!isInvincible)
                     {
-                        StartCoroutine(InvinsibleCouldown(w4s_InvincibleColddown));
+                        StartCoroutine(InvinsibleCouldown(f_invinibleCoulddown));
                         DP_current.GetDamage((float)ev.GetParameterByIndex(0));
-                        sl_healthVisual.value = DP_current.GetHeath();
-
-                        if (selfRigid != null)
-                        {
-                            float intensity = 1;
-                            if (sl_healthVisual.value <= 0)
-                            {
-                                GetDead();
-                                intensity = 5;
-                            }
-
-                            selfRigid.velocity = (transform.position - (Vector3)ev.GetParameterByIndex(1)).normalized * intensity;
-                        }
-                        GetHIT();
+                        UpdateHealthBar();
+                        StartCoroutine(StopMovement());
+                        FallBack((transform.position-(Vector3)ev.GetParameterByIndex(1)).normalized);
+                        
+                        
                     }
+                    break;
+                case ActionEvent.GameActions.REPEL:
+                   
+                    if (gameObject.CompareTag("Player"))
+                    {
+                        FallBack((transform.position-(Vector3)ev.GetParameterByIndex(0)).normalized, 300f);
+                        StartCoroutine(StopMovement());
+                    }
+                       
                     break;
                 default:
                     Debug.LogWarning("Action not found");
                     break;
+            }
+        }
+        protected void UpdateHealthBar()
+        {
+            sl_healthVisual.value = DP_current.GetHeath();
+        }
+        protected virtual void FallBack(Vector3 _dir,float _intensity=100f)
+        {
+            if (sl_healthVisual.value <= 0)
+            {
+                GetDead();
+                _intensity = 200f;
+            }
+
+            GetHIT();
+
+            if (selfRigid != null)
+            {
+                selfRigid.AddForce(_dir* _intensity);
             }
         }
 
@@ -107,11 +157,33 @@ namespace Dinopostres.CharacterControllers
 
         protected abstract void GetDead();
         protected abstract void GetHIT();
-        protected IEnumerator InvinsibleCouldown(WaitForSeconds _time)
+        protected IEnumerator InvinsibleCouldown(float _time)
         {
             isInvincible = true;
+            float counter = 0;
+            while (counter < _time)
+            {
+                counter += GameManager._TimeScale;
+                yield return null;
+            }
             yield return _time;
             isInvincible = false;
+        }
+
+        protected virtual IEnumerator StopMovement()
+        {
+            isInmovilize = true;
+            float counter = 0;
+            while (counter < f_invinibleCoulddown)
+            {
+                v3_lastVel = selfRigid.velocity;
+                counter += GameManager._TimeScale;
+                yield return null;
+            }
+            yield return ww_InmovilizeByLunch;
+
+            isInmovilize = false;
+
         }
     }
 }

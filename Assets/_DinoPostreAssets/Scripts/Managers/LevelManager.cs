@@ -26,9 +26,9 @@ namespace Dinopostres.Managers
             {"PanquilosaurioTest",GameStates.InStage },
         };
 
-        public LocationCount.Area enm_lastArea= LocationCount.Area.demo;
-        private LocationCount.Rank enm_lastRank= LocationCount.Rank.none;
-        private List<DinoDef> lst_enemiesInLevel;
+        public LocationCount.Area enm_lastArea= LocationCount.Area.praderaCriadero;
+        private LocationCount.Rank enm_lastRank= LocationCount.Rank.F;
+        public List<DinoDef> lst_enemiesInLevel;
 
         private EnemyStorage ES_EnemyStorage;
         private BossStageStorage BSS_BossStageStorage;
@@ -40,7 +40,9 @@ namespace Dinopostres.Managers
 
         private int int_stageCount;
         private Dictionary<int, GameObject> dic_TelportersInLevel;
+        private List<GameObject> lst_spawnersUsed;
         private GameObject go_bossTeleporter;
+        private GameObject go_homeTeleporter;
 
         public GameMode _GameMode { get => GM_currentMode; }
         public EnemyManager _EnemyManager { get => EM_EnemyManager; }
@@ -49,6 +51,8 @@ namespace Dinopostres.Managers
         public LocationCount.Rank _Rank { get => enm_lastRank; }
         public GameStates _Stage { get => dic_levelStates[SceneManager.GetActiveScene().name]; }
         public static LevelManager _Instance { get => LM_instance; }
+        public GameObject _Spawners { set => lst_spawnersUsed.Add(value); }
+
         // Start is called before the first frame update
         void Awake()
         {
@@ -57,6 +61,7 @@ namespace Dinopostres.Managers
                 LM_instance = this;
             }
 
+            PlayerData pl = GameManager._instance._GameData;
             string levelName=SceneManager.GetActiveScene().name;
             LoadGameMode(levelName);
 
@@ -67,9 +72,11 @@ namespace Dinopostres.Managers
             BSS_BossStageStorage = BossStageStorage._Instance();
 
             dic_TelportersInLevel = new Dictionary<int, GameObject>();
+            lst_spawnersUsed = new List<GameObject>();
             int_stageCount = 0;
 
-            LoadStage(_Area, _Rank);
+            if (_Stage == GameStates.InStage)
+                LoadStage(_Area, _Rank);
         }
 
         private void OnEnable()
@@ -96,14 +103,17 @@ namespace Dinopostres.Managers
             LoadGameMode(SceneManager.GetActiveScene().name);
             if (dic_levelStates[SceneManager.GetActiveScene().name]== GameStates.InStage)
             {
+                RM_RewardManger.ClearReferences();
                 MovePlayer();
             }
             else if(dic_levelStates[SceneManager.GetActiveScene().name] == GameStates.Map)
             {
-                RecipeBook._Instance().CheckForUnlockRecipies(GameManager._instance.PD_gameData);
-                GameManager._instance.PD_gameData.RestoreHP();
-                MemoryManager.SaveGame(GameManager._instance.PD_gameData);
+                RecipeBook._Instance().CheckForUnlockRecipies(GameManager._instance._GameData);
+                GameManager._instance._GameData.RestoreHP();
+                MemoryManager.SaveGame(GameManager._instance._GameData);
             }
+
+            
         }
 
         public void LoadGameMode(string _levelName)
@@ -129,15 +139,13 @@ namespace Dinopostres.Managers
 
         public void LoadLevel(string _level)
         {
+            lst_spawnersUsed.Clear();
             dic_TelportersInLevel.Clear();
             SceneManager.LoadScene(_level);
         }
 
         public void LoadStage(LocationCount.Area _area, LocationCount.Rank _rank)
         {
-            if (_Stage != GameStates.InStage)
-                return;
-
             enm_lastArea = _area;
             enm_lastRank = _rank;
             lst_enemiesInLevel = ES_EnemyStorage.GetEnemiesPerLevel(_area, _rank);
@@ -147,7 +155,16 @@ namespace Dinopostres.Managers
 
         public Object GetEnemiesFromLevel(out float _rarety)
         {
-            float max = lst_enemiesInLevel.Sum((x) => x.HasLocation(enm_lastArea, enm_lastRank));
+            float max;
+            try
+            {
+                max= lst_enemiesInLevel.Sum((x) => x.HasLocation(enm_lastArea, enm_lastRank));
+            }
+            catch
+            {
+                max = 0;
+            }
+            
             _rarety = Random.Range(0f, max);
             int i = 0;
 
@@ -155,7 +172,6 @@ namespace Dinopostres.Managers
             {
                 count += lst_enemiesInLevel[i].HasLocation(enm_lastArea, enm_lastRank);
             }
-            Debug.Log($"Rarety = {_rarety} | index = {i-1}");
             return lst_enemiesInLevel[i-1]._Prefab;
         }
 
@@ -169,14 +185,31 @@ namespace Dinopostres.Managers
         public void RegisterTeleporter(GameObject _go, int _id, bool isBoss=false)
         {
             if (!isBoss)
+            {
                 dic_TelportersInLevel.Add(_id, _go);
+            }
             else
+            {
                 go_bossTeleporter = _go;
+            }
+                
+        }
+
+        public void SetHomeTeleporter(GameObject _go)
+        {
+            go_homeTeleporter = _go;
+            go_homeTeleporter.SetActive(false);
         }
 
         public GameObject SelectNextTeleporter(int currentTeleporterID)
         {
-            if (int_stageCount < 3)
+            foreach(GameObject go in lst_spawnersUsed)
+            {
+                go.SetActive(true);
+            }
+            lst_spawnersUsed.Clear();
+            EM_EnemyManager.KillRemindEnemiesInLastFloor();
+            if (int_stageCount < 2)
             {
                 try
                 {
@@ -191,8 +224,14 @@ namespace Dinopostres.Managers
                     return go_bossTeleporter;
                 }
             }
-
+            int_stageCount = 0;
             return go_bossTeleporter;
+        }
+
+        public void SpawnExitTeleporter()
+        {
+            if(go_homeTeleporter!= null)
+                go_homeTeleporter.SetActive(true);
         }
 
         public void MovePlayer()
@@ -200,8 +239,9 @@ namespace Dinopostres.Managers
             GameObject pl= GameObject.FindGameObjectWithTag("Player");
             int ran = Random.Range(0, dic_TelportersInLevel.Count());
             GameObject tl=  dic_TelportersInLevel.ElementAt(ran).Value;
-
-            pl.transform.position = tl.transform.position;
+            Vector3 pos = tl.transform.position;
+            pos.y = pl.transform.position.y;
+            pl.transform.position = pos;
         }
     }
 }

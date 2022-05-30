@@ -1,5 +1,6 @@
 using System.Collections;
 using System.Collections.Generic;
+using System.Linq;
 using TMPro;
 using UnityEngine;
 using UnityEngine.Events;
@@ -15,23 +16,23 @@ namespace Dinopostres.UIElements
 
         private UIRecipeDes UIR_currentRecipe;
         private List<IngredientCount> lst_ingredients;
+        public UIDescriptions<Recipe> [] test;
         protected override void Start()
         {
-            txt_migas.text = GameManager._instance.PD_gameData._Migas.ToString("00000");
+            txt_migas.text = GameManager._instance._GameData._Migas.ToString("00000");
             base.Start();
         }
 
         protected override UnityAction GetDesciptionEvent(Recipe _item)
         {
             return () => {
-                Debug.Log("Create adino");
-                Debug.Log($"conditions {UIR_currentRecipe != null} and {GameManager._instance.PD_gameData.CanBePurchase(UIR_currentRecipe.StoreData._Ingredients)}");
-                if (UIR_currentRecipe != null && GameManager._instance.PD_gameData.CanBePurchase(UIR_currentRecipe.StoreData._Ingredients))
+                if (UIR_currentRecipe != null && GameManager._instance._GameData.CanBePurchase(UIR_currentRecipe.StoreData._Ingredients))
                 {
-                    GameManager._instance.PD_gameData.MakePurchase(UIR_currentRecipe.StoreData._Ingredients);
+                    GameManager._instance._GameData.MakePurchase(UIR_currentRecipe.StoreData._Ingredients);
                     GameManager._instance._GameData.RegisterNewDino(_item._Dino);
+                    GameManager._instance.OnRecordEvent(null);
                     UpdateRecepeeDes();
-                    txt_migas.text = GameManager._instance.PD_gameData._Migas.ToString("00000");
+                    txt_migas.text = GameManager._instance._GameData._Migas.ToString("00000");
                 }
             };
         }
@@ -48,7 +49,13 @@ namespace Dinopostres.UIElements
 
         protected override void InitUIVisuals()//Define cuales items son visibles
         {
-
+            if(arr_items!= null)
+            {
+                arr_items = arr_items.OrderBy((x) => x.transform.parent.GetSiblingIndex()).ToArray();
+                test = arr_items;
+                arr_items[0].SetButtonAsSelected();
+            }
+                
         }
 
         protected override void SetButtonEvent(UIDescriptions<Recipe> _info)//Se aplica en el Start
@@ -60,8 +67,7 @@ namespace Dinopostres.UIElements
             });
             _info.AddBtnSelectedEvent(() =>
             {
-                Debug.Log("ButtonSelected");
-                MoveDinoUI(_info._ParentIndex);
+                MoveDinoUI(_info._ParentIndex, RecipeBook._Instance()._RecepeCount-1);
                 int_lastIndex = _info._ParentIndex;
                 UIR_currentRecipe = (UIRecipeDes)_info;
             });

@@ -15,7 +15,12 @@ namespace Dinopostres.Managers
             inactiveObjects = new Dictionary<IngredientDef.Sample, Queue<Rigidbody>>();
         }
 
-        public void SpawnRewards(Vector3 _pos, IngredientDef.Sample _type)
+        public void ClearReferences()
+        {
+            inactiveObjects.Clear();
+        }
+
+        public void SpawnRewards(Vector3 _pos, IngredientDef.Sample _type, bool isRandom=false)
         {
             Rigidbody go;
             if (inactiveObjects.ContainsKey(_type) && inactiveObjects[_type].Count > 0)
@@ -32,8 +37,15 @@ namespace Dinopostres.Managers
                 go = (Instantiate(rewardTemplate, _pos +offset, Quaternion.identity) as GameObject).GetComponent<Rigidbody>();
             }
             go.gameObject.GetComponent<MeshRenderer>().enabled = true;
-        }
 
+            if (isRandom)
+            {
+                float angle = Random.Range(0f, 360f)*Mathf.Deg2Rad;
+                float impulse = Random.Range(0.5f, 2f);
+                Vector3 direction = new Vector3(Mathf.Sin(angle), 1f, Mathf.Cos(angle)) * impulse;
+                go.AddForce(direction, ForceMode.VelocityChange);
+            }
+        }
         public void RegisterUnspawn(Rigidbody go, IngredientDef.Sample _type)
         {
             if(!inactiveObjects.ContainsKey(_type) || inactiveObjects[_type]==null )

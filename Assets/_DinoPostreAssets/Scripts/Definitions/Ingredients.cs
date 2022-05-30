@@ -28,7 +28,7 @@ namespace Dinopostres.Definitions
             {
                 return lst_Ingredients.Where((x) => x._Ingredient == _sample).First()._Type;
             }
-            catch(System.Exception e)
+            catch
             {
                 Debug.LogWarning("Ingredient not found");
                 return IngredientDef.IngredientType.none;

@@ -7,7 +7,7 @@ namespace Dinopostres.Events
     {
         public enum GameActions
         {
-            HIT, none
+            HIT,REPEL, none
         };
 
         List<object> lst_Parameter;

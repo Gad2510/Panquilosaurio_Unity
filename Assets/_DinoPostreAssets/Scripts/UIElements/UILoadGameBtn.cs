@@ -43,13 +43,17 @@ namespace Dinopostres.UIElements
                 bool isDeafeted = true;
                 for (int i =0;i<arr_bossImg.Length; i++)
                 {
-                    isDeafeted = storeData.IsBoosDefeated((LocationCount.Rank)i);
+                    isDeafeted = storeData.IsBossDefeated((LocationCount.Rank)i);
                     if (isDeafeted)
                     {
                         arr_bossImg[i].sprite = BossStageStorage._Instance().GetAllBossesInStage(LocationCount.Area.volcan, (LocationCount.Rank)i)[0]._DinoImage;
                     }
                     
                 }
+            }
+            else
+            {
+                txt_name.text = string.Format("Slot {0}", transform.GetSiblingIndex());
             }
         }
 

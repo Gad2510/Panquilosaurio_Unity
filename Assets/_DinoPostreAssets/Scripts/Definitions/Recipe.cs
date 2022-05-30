@@ -35,7 +35,6 @@ namespace Dinopostres.Definitions {
 
         private int CalculateIngredienteAmount(int _countBase, int _level)
         {
-            Debug.Log($"Nivel sube cuenta base {_countBase} con nivel {_level}");
             switch (emn_rate)
             {
                 case GrowRate.corto:

@@ -32,7 +32,7 @@ MonoBehaviour:
     emn_rate: 0
     lst_ingredientBase:
     - enm_Ingredient: 0
-      int_Count: 2
+      int_Count: 5
     - enm_Ingredient: 4
       int_Count: 1
     UD_requirements:
@@ -48,10 +48,10 @@ MonoBehaviour:
     lst_ingredientBase:
     - enm_Ingredient: 0
       int_Count: 5
+    - enm_Ingredient: 2
+      int_Count: 1
     - enm_Ingredient: 1
       int_Count: 1
-    - enm_Ingredient: 2
-      int_Count: 2
     UD_requirements:
       int_id: 0
       lst_dinoCount: []
@@ -64,9 +64,9 @@ MonoBehaviour:
     emn_rate: 1
     lst_ingredientBase:
     - enm_Ingredient: 0
-      int_Count: 7
+      int_Count: 10
     - enm_Ingredient: 4
-      int_Count: 1
+      int_Count: 2
     UD_requirements:
       int_id: 0
       lst_dinoCount: []

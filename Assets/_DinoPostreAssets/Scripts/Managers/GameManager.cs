@@ -17,18 +17,19 @@ namespace Dinopostres.Managers
         public static GameManager _instance;
         private LevelManager LM_LevelManager;
 
-        public PlayerData PD_gameData;
-        private int int_timeScale = 1;
+        private PlayerData PD_gameData;
+        private static int int_timeScale = 1;
         private float f_musicVolume;
         private float f_FXVolume;
 
         public DinoPostreAction InS_gameActions;
-
         public const int int_maxLives= 3;
         private int int_lives;
 
         public int _Lives { get => int_lives; }
-        public int _TimeScale { get => int_timeScale; }
+        public int _LivesInverse { get => int_maxLives-int_lives; }
+        public static float _TimeScale { get => int_timeScale*Time.deltaTime; }
+        public static float _Time { get => int_timeScale; }
         public PlayerData _GameData
         {
             get
@@ -36,6 +37,8 @@ namespace Dinopostres.Managers
                 if (PD_gameData == null)
                 {
                     PD_gameData = new PlayerData("");
+                    //PD_gameData = MemoryManager.LoadGame("");
+                    OnRecordEvent += PD_gameData.Colectable;
                 }
                 return PD_gameData;
             }
@@ -43,8 +46,6 @@ namespace Dinopostres.Managers
         // Start is called before the first frame update
         void Awake()
         {
-            //PD_gameData = MemoryManager.NewGame("GaboTest");
-            PD_gameData = MemoryManager.LoadGame("GaboTest");
 
             InS_gameActions = new DinoPostreAction();
 
@@ -87,8 +88,7 @@ namespace Dinopostres.Managers
         {
             int_lives--;
             OnDead.Invoke(null);
-
-            if(int_lives<= 0)
+            if(int_lives<= 0 ||(_GameData.DinoInventory.Count - _LivesInverse) <= 0)
             {
                 LM_LevelManager.LoadLevel("Criadero");
             }
@@ -97,7 +97,6 @@ namespace Dinopostres.Managers
         public void PauseGame(bool _state)
         {
             int_timeScale = (_state) ? 0 : 1;
-            Debug.Log($"TimeScale = {int_timeScale}");
         }
 
         public DinoSaveData GetActiveDino()

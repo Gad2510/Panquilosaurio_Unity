@@ -17,6 +17,8 @@ namespace Dinopostres.CharacterControllers
         [SerializeField]
         string[] lst_skills = new string[5];
 
+        private Animator anim_dino;
+
         int int_Level=1;
         bool isAttacking=false;
         bool isPlayer;
@@ -41,6 +43,7 @@ namespace Dinopostres.CharacterControllers
         // Start is called before the first frame update
         void Awake()
         {
+            anim_dino = GetComponentInChildren<Animator>();
             lst_skills[4]=EnemyStorage._Instance().GetDeafultEnemyAttack(enm_Dino);
         }
 
@@ -77,7 +80,7 @@ namespace Dinopostres.CharacterControllers
 
         public void ExecuteAttack(int index)
         {
-            if (isAttacking)
+            if (isAttacking || string.IsNullOrEmpty(lst_skills[index]))
                 return;
 
             string skill = lst_skills[index];
@@ -114,33 +117,44 @@ namespace Dinopostres.CharacterControllers
         {
             dic_Stats[DinoStatsDef.Stats.HP] -= damage;
             f_TestHP = dic_Stats[DinoStatsDef.Stats.HP];
-            if (dic_Stats[DinoStatsDef.Stats.HP] <= 0)
-            {
-                
-                if (!isPlayer)
-                {
-                    Destroy(this.gameObject, 2f);
-                }
-            }
         }
 
         public float GetHeath()
         {
             return dic_Stats[DinoStatsDef.Stats.HP] / f_maxHealth;
         }
-        public void GetRewards()
+        public void GetRewards(bool isRandom=false)
         {
             DinoDef dino = EnemyStorage._Instance().Look4DinoDef(enm_Dino);
             int i=0;
             int max = dino._Rewards.Sum((x) => x._Count);
-            int ran = Random.Range(0, max);
+            int ran = Random.Range(1, max);
             for (int count = 0; i < dino._Rewards.Count() && count<ran; i++)
             {
                 count += dino._Rewards[0]._Count;
             }
-            Debug.Log($"Index = {i-1} max = {max} random= {ran}");
-            LevelManager._Instance._RewardManager.SpawnRewards(transform.position, dino._Rewards[i-1]._Ingredient);
+           // Debug.Log($"Index = {i-1} max = {max} random= {ran}");
+            LevelManager._Instance._RewardManager.SpawnRewards(transform.position, dino._Rewards[i-1]._Ingredient, isRandom);
 
+        }
+
+        public void SetAnimationVariable(string _name, float _value = -1, int _state=-1)
+        {
+            if (anim_dino == null)
+                return;
+
+            if (_value>=0)
+            {
+                anim_dino.SetFloat(_name, _value);
+            }
+            else if (_state >= 0)
+            {
+                anim_dino.SetBool(_name, _state == 1);
+            }
+            else
+            {
+                anim_dino.SetTrigger(_name);
+            }
         }
     }
 }

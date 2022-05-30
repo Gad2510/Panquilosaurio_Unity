@@ -28,7 +28,7 @@ namespace Dinopostres.Definitions
             {
                 return lst_DinoStats.Where((x) => x._Dino == _dino).First();
             }
-            catch (System.Exception e)
+            catch
             {
                 Debug.LogError("Definition not found in the scriptable object");
                 return null;

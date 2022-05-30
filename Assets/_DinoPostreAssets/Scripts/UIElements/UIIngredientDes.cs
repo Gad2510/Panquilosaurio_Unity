@@ -36,7 +36,7 @@ namespace Dinopostres.UIElements
 
             enm_ingredient = _type;
             img_ingredientImg.sprite = Ingredients.Instance().GetIngredientVisual(enm_ingredient);
-            int inInventory = GameManager._instance.PD_gameData.GetIngredientCount(enm_ingredient);
+            int inInventory = GameManager._instance._GameData.GetIngredientCount(enm_ingredient);
             if (_amount <1)
             {
                 txt_ingredientCount.text = string.Format("X{0}", inInventory.ToString("00"));

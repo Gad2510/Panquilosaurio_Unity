@@ -51,7 +51,6 @@ namespace Dinopostres.TriggerEffects
         private void OpenMenu(InputAction.CallbackContext _ctx)
         {
             int mask = (int)GameMode.MenuDef.decriptions;
-            Debug.Log($"{LevelManager._Instance._GameMode._LastMenu} RESULT {(int)LevelManager._Instance._GameMode._LastMenu & mask}");
             if (onTrigger && ((int)LevelManager._Instance._GameMode._LastMenu & mask) >=1)
             {
                 LevelManager._Instance._GameMode.OpenCloseSpecicficMenu(enm_openMenu, true);

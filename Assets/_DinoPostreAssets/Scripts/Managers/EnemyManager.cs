@@ -36,6 +36,16 @@ namespace Dinopostres.Managers
             lst_EnemyInLevel.Clear();
         }
 
+        public void KillRemindEnemiesInLastFloor()
+        {
+            foreach(GameObject go in lst_EnemyInLevel)
+            {
+                Destroy(go);
+            }
+
+            lst_EnemyInLevel.Clear();
+        }
+
         // Update is called once per frame
         void Update()
         {

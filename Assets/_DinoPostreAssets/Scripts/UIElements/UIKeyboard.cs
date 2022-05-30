@@ -14,6 +14,10 @@ namespace Dinopostres.UIElements
         [SerializeField]
         private Button btn_spaceBr;
         [SerializeField]
+        private Button btn_createBtn;
+        [SerializeField]
+        private Button btn_returnBtn;
+        [SerializeField]
         private TMP_InputField intxt_name;
 
         UILetter[] arr_letters;
@@ -26,6 +30,18 @@ namespace Dinopostres.UIElements
             str_name = "";
             arr_letters = trns_keysparent.GetComponentsInChildren<UILetter>();
             btn_spaceBr.onClick.AddListener(() => AddLetter2Name(" "));
+            btn_createBtn.onClick.AddListener(() =>
+            {
+                MemoryManager.NewGame(str_name);
+                GameManager._instance.LoadGame(str_name);
+                LevelManager._Instance._GameMode.OpenCloseSpecicficMenu(GameMode.MenuDef.newGame, false);
+                LevelManager._Instance._GameMode.OpenCloseSpecicficMenu(GameMode.MenuDef.menu, true);
+                LevelManager._Instance.LoadLevel("Criadero");
+            });
+            btn_returnBtn.onClick.AddListener(() => {
+                LevelManager._Instance._GameMode.OpenCloseSpecicficMenu(GameMode.MenuDef.newGame, false);
+                LevelManager._Instance._GameMode.OpenCloseSpecicficMenu(GameMode.MenuDef.menu, true);
+            });
             initBtnEvents();
         }
 
@@ -46,6 +62,8 @@ namespace Dinopostres.UIElements
                             case "enter":
                                 MemoryManager.NewGame(str_name);
                                 GameManager._instance.LoadGame(str_name);
+                                LevelManager._Instance._GameMode.OpenCloseSpecicficMenu(GameMode.MenuDef.newGame, false);
+                                LevelManager._Instance._GameMode.OpenCloseSpecicficMenu(GameMode.MenuDef.menu, true);
                                 LevelManager._Instance.LoadLevel("Criadero");
                                 break;
                             case "return":

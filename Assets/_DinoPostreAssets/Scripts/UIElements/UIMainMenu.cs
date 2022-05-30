@@ -13,6 +13,8 @@ namespace Dinopostres.UIElements
         Button btn_loadGame;
         [SerializeField]
         Button btn_settings;
+        [SerializeField]
+        Button btn_exit;
 
         private int int_gameCount;
         // Start is called before the first frame update
@@ -33,8 +35,8 @@ namespace Dinopostres.UIElements
 
                 LevelManager._Instance._GameMode.OpenCloseSpecicficMenu(GameMode.MenuDef.menu, false);
                 LevelManager._Instance._GameMode.OpenCloseSpecicficMenu(GameMode.MenuDef.settings, true); });
-
-            if(int_gameCount < 3)
+            btn_exit.onClick.AddListener(() => Application.Quit());
+            if (int_gameCount < 3)
             {
                 btn_newGame.Select();
             }

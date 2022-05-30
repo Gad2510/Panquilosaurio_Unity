@@ -12,6 +12,7 @@ namespace Dinopostres.Definitions
         [SerializeField]
         private List<Recipe> lst_Recetas;
 
+        public int _RecepeCount => lst_Recetas.Count();
         public static RecipeBook _Instance()
         {
             if(RB_instance == null)
@@ -40,7 +41,7 @@ namespace Dinopostres.Definitions
         {
             try
             {
-                lst_Recetas = lst_Recetas.OrderBy((x) => !unlockRecipies.Any((y) => y == (int)x._Dino)).ToList();
+                lst_Recetas = lst_Recetas.OrderBy((x) =>x._Dino).ThenBy((x)=>!unlockRecipies.Any((y) => y == (int)x._Dino)).ToList();
             }
             catch
             {
@@ -63,7 +64,6 @@ namespace Dinopostres.Definitions
                 foreach (Recipe r in recepies2Check)
                 {
                     bool getNew=_plData.CheckForUnlock(r._Requirements,(int)r._Dino);
-                    Debug.Log($"Se debloqueo {getNew} {r._Dino}{(int)r._Dino}");
                 }
             }
             catch

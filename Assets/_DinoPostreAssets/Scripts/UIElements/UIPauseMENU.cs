@@ -43,7 +43,6 @@ namespace Dinopostres.UIElements
         {
             if(((int)LevelManager._Instance._GameMode._LastMenu & int_mask) >=1 )
             {
-                Debug.Log(LevelManager._Instance._GameMode.gameObject.name);
                 LevelManager._Instance._GameMode.OpenCloseSpecicficMenu(GameMode.MenuDef.pause,!gameObject.activeSelf);
 
                 GameManager._instance.PauseGame(this.gameObject.activeSelf);

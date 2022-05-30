@@ -27,7 +27,7 @@ namespace Dinopostres.Definitions
             {
                 return lst_locationDef.First((x) => x._Area == _area && x._Rank == _rank);
             }
-            catch(System.Exception e)
+            catch
             {
                 Debug.LogError("Location definition not found");
                 return null;

@@ -25,3 +25,7 @@ MonoBehaviour:
     enm_rank: 0
     str_levelName: Pradera Crianza
     clp_backgroundMusic: {fileID: 0}
+  - enm_area: 4
+    enm_rank: 0
+    str_levelName: Volcan
+    clp_backgroundMusic: {fileID: 0}

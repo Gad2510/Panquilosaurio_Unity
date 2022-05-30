@@ -17,7 +17,7 @@ namespace Dinopostres.UIElements
         Sprite img_liveImage;
         [SerializeField]
         Sprite img_lostLiveImage;
-        private Image[] arr_lifes;
+        public Image[] arr_lifes;
         private void Awake()
         {
             arr_lifes = go_lifesParent.GetComponentsInChildren<Image>();
@@ -59,7 +59,7 @@ namespace Dinopostres.UIElements
         }
         public void LoseLife(Events.Event _ev)
         {
-            int index = GameManager.int_maxLives - GameManager._instance._Lives;
+            int index = GameManager.int_maxLives - GameManager._instance._Lives+1;
             if (index >= arr_lifes.Length)
                 return;
 
@@ -67,7 +67,7 @@ namespace Dinopostres.UIElements
         }
         private void UpdateMigas(Events.Event _ev)
         {
-            txt_migas.text= GameManager._instance.PD_gameData._Migas. ToString("0000");
+            txt_migas.text= GameManager._instance._GameData._Migas. ToString("0000");
         }
     }
 }

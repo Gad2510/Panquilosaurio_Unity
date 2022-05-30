@@ -4,6 +4,8 @@ using UnityEngine;
 using System.Runtime.Serialization.Formatters.Binary;
 using System.IO;
 using Dinopostres.Definitions;
+using System.Runtime.Serialization;
+
 namespace Dinopostres.Managers
 {
     public class MemoryManager : MonoBehaviour
@@ -19,9 +21,17 @@ namespace Dinopostres.Managers
             PlayerData newGameData = new PlayerData(_gameName);
             bf.Serialize(file, newGameData);
             file.Close();
-            Debug.Log(pathCombined);
-
             return newGameData;
+        }
+
+        public static void DeleteGame(string _gameName)
+        {
+            //Path pesistente del sistema en el que se guardan los datos del juego
+            string pathCombined = Path.Combine(
+                Application.persistentDataPath,
+                _gameName + ".data");
+
+            File.Delete(pathCombined);
         }
 
         public static void SaveGame(PlayerData _data)
@@ -34,7 +44,7 @@ namespace Dinopostres.Managers
             FileStream file = File.Create(pathCombined);
             bf.Serialize(file, _data);
             file.Close();
-            Debug.Log(pathCombined);
+            //Debug.Log(pathCombined);
         }
 
         public static PlayerData LoadGame(string _gameName)
@@ -50,7 +60,6 @@ namespace Dinopostres.Managers
                 FileStream file = File.Open(pathCombined, FileMode.Open);
                 PlayerData gm = (PlayerData)bf.Deserialize(file);
                 file.Close();
-                //Debug.Log(gm.DinoInventory[0].ID);
 
                 return gm;
             }
@@ -63,18 +72,24 @@ namespace Dinopostres.Managers
             List<PlayerData> games = new List<PlayerData>();
             string pathCombined = Application.persistentDataPath;
             string [] gameNames=Directory.GetFiles(pathCombined);
-            
             foreach(string str in gameNames)
             {
-                pathCombined = Path.Combine(Application.persistentDataPath,str);
-                if (File.Exists(pathCombined))
+                pathCombined = Path.Combine(Application.persistentDataPath, str);
+                try
                 {
-                    BinaryFormatter bf = new BinaryFormatter();
-                    FileStream file = File.Open(pathCombined, FileMode.Open);
-                    PlayerData gm = (PlayerData)bf.Deserialize(file);
-                    file.Close();
-                    if(!string.IsNullOrEmpty(gm.ID))
-                        games.Add(gm);
+                    if (File.Exists(pathCombined))
+                    {
+                        BinaryFormatter bf = new BinaryFormatter();
+                        FileStream file = File.Open(pathCombined, FileMode.Open);
+                        PlayerData gm = (PlayerData)bf.Deserialize(file);
+                        file.Close();
+                        if (!string.IsNullOrEmpty(gm.ID))
+                            games.Add(gm);
+                    }
+                }
+                catch (System.Exception e)
+                {
+                    Debug.LogWarning($"unable to deserialize file {str} because: \n {e.Message}");
                 }
             }
 
@@ -91,14 +106,21 @@ namespace Dinopostres.Managers
             foreach (string str in gameNames)
             {
                 pathCombined = Path.Combine(Application.persistentDataPath, str);
-                if (File.Exists(pathCombined))
+                try
                 {
-                    BinaryFormatter bf = new BinaryFormatter();
-                    FileStream file = File.Open(pathCombined, FileMode.Open);
-                    PlayerData gm = (PlayerData)bf.Deserialize(file);
-                    file.Close();
-                    if (!string.IsNullOrEmpty(gm.ID))
-                        games.Add(gm);
+                    if (File.Exists(pathCombined))
+                    {
+                        BinaryFormatter bf = new BinaryFormatter();
+                        FileStream file = File.Open(pathCombined, FileMode.Open);
+                        PlayerData gm = (PlayerData)bf.Deserialize(file);
+                        file.Close();
+                        if (!string.IsNullOrEmpty(gm.ID))
+                            games.Add(gm);
+                    }
+                }
+                catch (System.Exception e)
+                {
+                    Debug.LogWarning($"unable to deserialize file {str} because: \n {e.Message}");
                 }
             }
 

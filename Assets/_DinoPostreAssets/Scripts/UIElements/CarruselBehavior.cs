@@ -23,7 +23,7 @@ namespace Dinopostres.UIElements
         protected virtual void Start()
         {
             arr_items = trns_itemParents.GetComponentsInChildren<UIDescriptions<T>>();
-            arr_items = arr_items.OrderBy((x) => x.name).ToArray();
+            arr_items = arr_items.OrderBy((x) => x.transform.GetSiblingIndex()).ToArray();
             int_currentIndex = 0;
             int_lastIndex = 0;
 
@@ -37,10 +37,11 @@ namespace Dinopostres.UIElements
         protected abstract void InitUiValues();
         protected abstract T SetItemValue(int _index);
 
-        protected void OnEnable()
+        protected virtual void OnEnable()
         {
             if (arr_items != null)
             {
+                InitBtnEvents();
                 InitUiValues();
                 InitUIVisuals();
             }
@@ -67,7 +68,8 @@ namespace Dinopostres.UIElements
 
         public void SetFirstButtonSelected()
         {
-            Debug.Log($"First Button set {gameObject.name}");
+            if (arr_items == null)
+                return;
             arr_items[0].SetButtonAsSelected();
         }
 
@@ -79,16 +81,17 @@ namespace Dinopostres.UIElements
             }
         }
 
-        protected void MoveDinoUI(int _siblingIndex)
+        protected void MoveDinoUI(int _siblingIndex, int _inventoryCount)
         {
             T saveData;
+            Debug.Log($"Numero de elementos en vision son {_inventoryCount}");
             if (_siblingIndex == 0)
             {
                 int_currentIndex -= 1;
                 if (int_currentIndex > 0)
                 {
                     saveData = SetItemValue(int_currentIndex - 1);
-                    trns_itemParents.GetChild(7).SetAsFirstSibling();
+                    trns_itemParents.GetChild(arr_items.Length-1).SetAsFirstSibling();
                     arr_items[(int_currentIndex - 1) % arr_items.Length].InitStats(saveData, GetDesciptionEvent(saveData));
                 }
 
@@ -96,7 +99,7 @@ namespace Dinopostres.UIElements
             else if (_siblingIndex == arr_items.Length - 1)
             {
                 int_currentIndex += 1;
-                if (int_currentIndex < GameManager._instance._GameData.DinoInventory.Count() - 1)
+                if (int_currentIndex < _inventoryCount)
                 {
                     saveData = SetItemValue(int_currentIndex + 1);
                     trns_itemParents.GetChild(0).SetAsLastSibling();
@@ -108,7 +111,7 @@ namespace Dinopostres.UIElements
                 int_currentIndex += (int_lastIndex > _siblingIndex) ? -1 : 1;
             }
 
-            int_currentIndex = Mathf.Clamp(int_currentIndex, 0, GameManager._instance._GameData.DinoInventory.Count() - 1);
+            int_currentIndex = Mathf.Clamp(int_currentIndex, 0, _inventoryCount);
         }
     }
 }

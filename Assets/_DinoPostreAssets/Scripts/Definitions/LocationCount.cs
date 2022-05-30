@@ -1,10 +1,11 @@
+using System;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
 namespace Dinopostres.Definitions
 {
-    [System.Serializable]
+    [Serializable]
     public class LocationCount
     {
         public enum Area

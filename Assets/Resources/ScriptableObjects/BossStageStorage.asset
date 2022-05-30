@@ -22,15 +22,15 @@ MonoBehaviour:
     - enm_boss: 3
       enm_Companion: 1
       int_value: 50
-  - enm_Area: 4
+  - enm_Area: 3
     enm_Rank: 0
     lst_bosses:
-    - enm_boss: 3
+    - enm_boss: 1
       enm_Companion: 0
       int_value: 100
     - enm_boss: 2
       enm_Companion: 1
-      int_value: 100
+      int_value: 40
   - enm_Area: 4
     enm_Rank: 0
     lst_bosses:

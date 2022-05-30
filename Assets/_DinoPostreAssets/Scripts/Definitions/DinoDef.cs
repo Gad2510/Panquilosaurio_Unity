@@ -41,7 +41,7 @@ namespace Dinopostres.Definitions
                 LocationCount hasLocation = lst_Areas.Where((x) => (x._Area == _ckeakArea) && (x._Rank == _checkRank)).First();
                 return (int)hasLocation._Value;
             }
-            catch(System.Exception e)
+            catch
             {
                 return -1;
             }

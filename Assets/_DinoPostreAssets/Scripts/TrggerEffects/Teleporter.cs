@@ -24,9 +24,8 @@ namespace Dinopostres.TriggerEffects
         public LocationCount.Rank _Rank { get => enm_rank; }
         private void Awake()
         {
-            if(!isStage && isLock)
+            if((!isStage && isLock) || (isStage && isBoss))
             {
-                Debug.Log("Teleporter register");
                 if (LevelManager._Instance != null)
                 {
                     RegisterTeleporter();
@@ -51,23 +50,29 @@ namespace Dinopostres.TriggerEffects
         }
         private void RegisterTeleporter()
         {
-            LevelManager._Instance.RegisterTeleporter(gameObject, this.GetInstanceID(), isBoss);
+            if (isStage && isBoss)
+            {
+                LevelManager._Instance.SetHomeTeleporter(gameObject);
+                isLock = false;
+            }
+            else
+                LevelManager._Instance.RegisterTeleporter(gameObject, this.GetInstanceID(), isBoss);
         }
         private void ChangeLocation(Transform _player)
         {
             if (isStage)
             {
-                LevelManager._Instance.LoadStage(enm_area, enm_rank);
+                
                 string lvlName = Locations.Instance().LookForLevelName(enm_area, enm_rank);
                 LevelManager._Instance._GameMode.OpenCloseSpecicficMenu(GameMode.MenuDef.decriptions, false);
                 if (lvlName.Equals("Criadero"))
                 {
-
                     RecordEvent ev = new RecordEvent(7, "Call from Teleporter", 40000 + ((int)LevelManager._Instance._Area * 100) + (int)LevelManager._Instance._Rank);
                     GameManager._instance.OnRecordEvent(ev);
                 }
-
+                LevelManager._Instance.LoadStage(enm_area, enm_rank);
                 LevelManager._Instance.LoadLevel(lvlName);
+                
             }
             else
             {

@@ -45,7 +45,6 @@ namespace Dinopostres.UIElements
 
         private void LoadIngredientes() 
         {
-            Debug.Log($"Num ingredientes in recipe {storeData._Ingredients.Count}");
             for (int i =0; i < arr_ingredients.Length; i++){
                 if(i< storeData._Ingredients.Count)
                 {

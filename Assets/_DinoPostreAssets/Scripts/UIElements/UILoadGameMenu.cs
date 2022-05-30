@@ -4,6 +4,8 @@ using UnityEngine;
 using UnityEngine.UI;
 using Dinopostres.Definitions;
 using Dinopostres.Managers;
+using UnityEngine.InputSystem;
+
 namespace Dinopostres.UIElements
 {
     public class UILoadGameMenu : MonoBehaviour
@@ -14,7 +16,7 @@ namespace Dinopostres.UIElements
         private Button btn_back;
 
         private UILoadGameBtn[] arr_LoadBtns;
-        private int int_CurrentIndex;
+        private UILoadGameBtn UILBtn_CurrentBtn;
         // Start is called before the first frame update
         void Start()
         {
@@ -25,12 +27,33 @@ namespace Dinopostres.UIElements
                 LevelManager._Instance._GameMode.OpenCloseSpecicficMenu(GameMode.MenuDef.load, false);
                 LevelManager._Instance._GameMode.OpenCloseSpecicficMenu(GameMode.MenuDef.menu, true);
             });
+
+
+            arr_LoadBtns[0].SetButtonAsSelected();
         }
 
         private void OnEnable()
         {
             if(arr_LoadBtns!= null)
                 arr_LoadBtns[0].SetButtonAsSelected();
+
+
+            GameManager._instance.InS_gameActions.DinopostreController.Return.performed += DeleteSaveData;
+        }
+
+        private void OnDisable()
+        {
+            GameManager._instance.InS_gameActions.DinopostreController.Return.performed -= DeleteSaveData;
+        }
+
+        private void DeleteSaveData(InputAction.CallbackContext ctx)
+        {
+            if (UILBtn_CurrentBtn == null)
+                return;
+            PlayerData pl = UILBtn_CurrentBtn.StoreData;
+            MemoryManager.DeleteGame(pl.ID);
+
+            UpdateLoadBtns();
         }
 
         private void UpdateLoadBtns()
@@ -41,10 +64,16 @@ namespace Dinopostres.UIElements
             {
                 if (uiBtn._ParentIndex<games.Count)
                 {
+                    uiBtn.AddBtnSelectedEvent(() => { UILBtn_CurrentBtn = uiBtn; });
                     uiBtn.InitStats(games[uiBtn._ParentIndex], () => {
                         GameManager._instance.LoadGame(games[uiBtn._ParentIndex].ID);
                         LevelManager._Instance.LoadLevel("Criadero");
                     });
+                }
+                else
+                {
+                    uiBtn.AddBtnSelectedEvent(() => { UILBtn_CurrentBtn = null; });
+                    uiBtn.InitStats(null, () => { });
                 }
                 /*else
                 {
@@ -57,7 +86,6 @@ namespace Dinopostres.UIElements
                 
             }
 
-            arr_LoadBtns[0].SetButtonAsSelected();
         }
     }
 }
