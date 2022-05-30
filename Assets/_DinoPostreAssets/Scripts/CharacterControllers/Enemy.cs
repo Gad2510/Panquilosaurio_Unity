@@ -74,6 +74,7 @@ namespace Dinopostres.CharacterControllers
             {
                 nav_MeshAgent.destination = v3_Origin;
                 transform.LookAt(v3_Origin+transform.forward);
+                DP_current.SetAnimationVariable("f_Speed", 0f);
                 return;
             }
             _state = EnemyState.move;
@@ -81,6 +82,8 @@ namespace Dinopostres.CharacterControllers
             selfRigid.velocity -= selfRigid.velocity * (GameManager._TimeScale*4f);
             if (selfRigid.velocity.magnitude < 0)
                 selfRigid.velocity = Vector3.zero;
+
+            DP_current.SetAnimationVariable("f_Speed", 0.5f);
 
             if (f_AttackDistance > f_Distance2Attack) //Movement
             {

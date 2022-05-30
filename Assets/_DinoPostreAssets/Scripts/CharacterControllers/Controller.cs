@@ -11,7 +11,7 @@ namespace Dinopostres.CharacterControllers
     {
         protected Slider sl_healthVisual;
         protected DinoPostre DP_current;
-        protected Rigidbody selfRigid;
+        public Rigidbody selfRigid;
         protected bool isInvincible;
         protected bool isDead;
         protected bool isInmovilize = false;
@@ -26,7 +26,7 @@ namespace Dinopostres.CharacterControllers
 
         protected void Awake()
         {
-            ww_InmovilizeByLunch= new WaitWhile(InmovilizeInAir);
+            ww_InmovilizeByLunch = new WaitWhile(InmovilizeInAir);
         }
 
         private bool InmovilizeInAir()
@@ -55,7 +55,6 @@ namespace Dinopostres.CharacterControllers
         {
             isInvincible = false;
             isDead = false;
-
             selfRigid = GetComponent<Rigidbody>();
             DP_current = GetComponentInChildren<DinoPostre>();
             gameObject.tag = "Controller";

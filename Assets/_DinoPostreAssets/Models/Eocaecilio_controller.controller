@@ -91,7 +91,7 @@ AnimatorController:
     m_DefaultFloat: 0
     m_DefaultInt: 0
     m_DefaultBool: 0
-    m_Controller: {fileID: 0}
+    m_Controller: {fileID: 9100000}
   m_AnimatorLayers:
   - serializedVersion: 5
     m_Name: Base Layer
@@ -114,7 +114,7 @@ BlendTree:
   m_Name: movement
   m_Childs:
   - serializedVersion: 2
-    m_Motion: {fileID: -5381744035998536514, guid: cba9b2663e4d2df4e96c851e5d6d87c0, type: 3}
+    m_Motion: {fileID: -6873996204533230998, guid: 4291a4a1b4741a5419571d65f5606c31, type: 3}
     m_Threshold: 0
     m_Position: {x: 0, y: 0}
     m_TimeScale: 1
@@ -122,7 +122,7 @@ BlendTree:
     m_DirectBlendParameter: f_Speed
     m_Mirror: 0
   - serializedVersion: 2
-    m_Motion: {fileID: -8768864973006278592, guid: cba9b2663e4d2df4e96c851e5d6d87c0, type: 3}
+    m_Motion: {fileID: -1153276423067330339, guid: 4291a4a1b4741a5419571d65f5606c31, type: 3}
     m_Threshold: 1
     m_Position: {x: 0, y: 0}
     m_TimeScale: 1
@@ -182,7 +182,7 @@ AnimatorState:
   m_MirrorParameterActive: 0
   m_CycleOffsetParameterActive: 0
   m_TimeParameterActive: 0
-  m_Motion: {fileID: 1827226128182048838, guid: cba9b2663e4d2df4e96c851e5d6d87c0, type: 3}
+  m_Motion: {fileID: 1827226128182048838, guid: 4291a4a1b4741a5419571d65f5606c31, type: 3}
   m_Tag: 
   m_SpeedParameter: 
   m_MirrorParameter: 

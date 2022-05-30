@@ -136,8 +136,11 @@ namespace Dinopostres.CharacterControllers
         public void SwitchDino(DinoSaveData _newDino)
         {
             if (DP_current != null)
+            {
                 Destroy(DP_current.gameObject);
-
+                currentData.IsSelected = false;
+            }
+                
             DinoPostre dino = (Instantiate(EnemyStorage._Instance().Look4DinoDef(_newDino.Dino)._Prefab, transform) as GameObject).GetComponent<DinoPostre>();
             DP_current = dino;
             DP_current.IsPlayer = true;
@@ -145,9 +148,9 @@ namespace Dinopostres.CharacterControllers
             DP_current.InitStats(_newDino.Level);
             DP_current.CurrentHealth = _newDino.CurrentHealth;
             currentData = _newDino;
+            currentData.IsSelected = true;
             f_Speed = (100 / DP_current._Peso);
             isDispacherOpen = false;
-
             RecordEvent ev = new RecordEvent(1, "Switch dino", 2);
             GameManager._instance.OnRecordEvent(ev);
 

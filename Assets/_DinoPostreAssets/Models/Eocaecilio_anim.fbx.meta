@@ -1,5 +1,5 @@
 fileFormatVersion: 2
-guid: cba9b2663e4d2df4e96c851e5d6d87c0
+guid: 4291a4a1b4741a5419571d65f5606c31
 ModelImporter:
   serializedVersion: 20200
   internalIDToNameTable:
@@ -7,11 +7,11 @@ ModelImporter:
       74: 1827226128182048838
     second: Eocaecilio-IDLE
   - first:
-      74: -5381744035998536514
-    second: Eocaecilio-Walk
-  - first:
-      74: -8768864973006278592
+      74: -1153276423067330339
     second: Eocaecilio-run
+  - first:
+      74: -6873996204533230998
+    second: Eocaecilio-walk
   externalObjects: {}
   materials:
     materialImportMode: 2
@@ -70,11 +70,11 @@ ModelImporter:
       maskSource: {instanceID: 0}
       additiveReferencePoseFrame: 1
     - serializedVersion: 16
-      name: Eocaecilio-Walk
+      name: Eocaecilio-run
       takeName: Take 001
       internalID: 0
-      firstFrame: 28
-      lastFrame: 51
+      firstFrame: 54
+      lastFrame: 65
       wrapMode: 0
       orientationOffsetY: 0
       level: 0
@@ -99,11 +99,11 @@ ModelImporter:
       maskSource: {instanceID: 0}
       additiveReferencePoseFrame: 1
     - serializedVersion: 16
-      name: Eocaecilio-run
+      name: Eocaecilio-walk
       takeName: Take 001
       internalID: 0
-      firstFrame: 54
-      lastFrame: 65
+      firstFrame: 28
+      lastFrame: 51
       wrapMode: 0
       orientationOffsetY: 0
       level: 0
@@ -181,7 +181,7 @@ ModelImporter:
     armStretch: 0.05
     legStretch: 0.05
     feetSpacing: 0
-    globalScale: 10
+    globalScale: 0.099999994
     rootMotionBoneName: Eocaecilio09:jnt_Main
     hasTranslationDoF: 0
     hasExtraRoot: 0
