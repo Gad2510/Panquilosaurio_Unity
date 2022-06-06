@@ -1,6 +1,8 @@
 # Panquilosaurio Unity
 
-## Abstract 
+*	[Abstract] (#Abstract)
+
+<h2 id="Abstract"> Abstract </h2>
   
   El proyecto por el momento del 21 de marzo del 2022 conocido como Panquilosaurio, tienen como función poder comunicar los hallazgos arqueológicos en cuanto a criaturas que se encuentran entre los periodos Triásico al Cretácico de la historia, a niños de entre 10 a 15 años. A través de un juego que también los ayude a relacionar repostería local de sus países con las creaturas encontradas en el país de origen. 
 Introducción
@@ -60,6 +62,8 @@ Introducción
   Una vez solucionado el aspecto de creación de enemigos toco la mecánica de recompensas, una de las primeras ideas que me vino a la mente fue usar el sistema legacy de unity para crear una partícula con trigger para la recolección pero resultaba ser muy pesada, después me propusieron el otro sistema de partículas que viene con el motor, pero no logre terminar de encontrar una manera de generar estas llamadas cuando el jugador entrara en contacto con la partícula, por lo que por última opción decidí spawnear las recompensas.
   
   Para evitar una saturación de memoria, cree un manager de recompensas el cual se encargaba de crear las recompensas y mantener un registro de cada tipo de recompensas, así si algún enemigo dropeaba una recompensa ya creada mandaba solo volverla a activar, por cuestión de que sabía que si desactivaba el gameobject en un juego online tiene el problema que se desincroniza de la red por lo cual en lugar de hacer eso, desactivaba el componente del render y pasaba al objeto a una capa que ignoraba las colisiones con los enemigos y el jugador únicamente así no se caían en el abismo perpetuo y continuaban exigiendo. 
+  
+  ![Texto Alt](/READMEimg/DinoTest.gif)
 
 ### Dispacher
   
@@ -119,8 +123,11 @@ Para la pantalla de carga hace una copia de los archivos de guardado actualizand
   Después de pulir algunos problemas de física, la demo ha quedado decente, no perfecta lamentablemente, pero se ha logrado mucho en el trascurso de estos meses, para terminar con esto decidí cerrar con la texturización de los modelos y empezar a crear animaciones básicas de idle, caminando y corrido para cada uno de los modelos.
 Todo esto con su texturizado especial para que hagan referencia a los diversos postres que han representado en mi imaginación.
 
+![Texto Alt](/READMEimg/Agujaceratops.png)
+![Texto Alt](/READMEimg/Microceratops.png)
+![Texto Alt](/READMEimg/Eicalio.png)
+![Texto Alt](/READMEimg/Proterix.png)
+
 ## Conclusión
   
   Durante estos 5 meses en el que eh estado trabajando en este proyecto han pasado muchas cosas, cosas buenas y cosas malas, pero ante toda adversidad se logra completar un juego que al menos desde mi punto de vista presenta un ciclo completo de juego. Podría decir que, este es el primer juego que eh hecho solo, aunque quisiera haber llegado mas lejos, yo tenía muchas cosas más que dar la meta original era hacer 12 modelos 3 áreas de juego y el área de jefe, pero me tuve que contener para tener lo que tengo ahora, y como dicen es mejor saber cuando rendirse. 
-	
-  Este proyecto es todo lo que soy en el presente el 6 de junio del 2022, y tal vez yo no pueda ver a veces lo mucho que hago, para mi todo e pequeño, como si no fuera suficiente como profesional, y no importa cuanto me lo digan si yo no empiezo a creer que puedo traer magia y emoción a la gente nunca cumpliré mi meta de crear este multiverso de videojuegos. 
