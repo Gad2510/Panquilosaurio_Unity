@@ -130,3 +130,30 @@ Todo esto con su texturizado especial para que hagan referencia a los diversos p
 ## Conclusión
   
   Durante estos 5 meses en el que eh estado trabajando en este proyecto han pasado muchas cosas, cosas buenas y cosas malas, pero ante toda adversidad se logra completar un juego que al menos desde mi punto de vista presenta un ciclo completo de juego. Podría decir que, este es el primer juego que eh hecho solo, aunque quisiera haber llegado mas lejos, yo tenía muchas cosas más que dar la meta original era hacer 12 modelos 3 áreas de juego y el área de jefe, pero me tuve que contener para tener lo que tengo ahora, y como dicen es mejor saber cuando rendirse. 
+  
+ # Referencias
+Autodesk Inc. (2020, April 27). Missing OpenColorIO configuration file. Maya Forum. https://forums.autodesk.com/t5/maya-forum/missing-opencolorio-configuration-file/td-p/9472761
+Korotaev, S. (2020, November 25). Unity Assembly Definition Files Tutorial (.asmdef). Let´s Make a Game. https://letsmakeagame.net/assembly-definition-files-tutorial/#:%7E:text=Assembly%20with%20cyclic%20references%20detected,the%20cycle%20in%20some%20way
+Markdown: Sintaxis. (2014, February 6). GitHub. https://github.com/ricval/Documentacion/blob/master/Markdown/daringfireball/syntax.md#párrafos-y-saltos-de-línea
+Microsoft. (2022a, January 25). Bitwise and shift operators - C# reference. Microsoft Docs. https://docs.microsoft.com/en-us/dotnet/csharp/language-reference/operators/bitwise-and-shift-operators
+Microsoft. (2022b, January 25). char type - C# reference. Microsoft Docs. https://docs.microsoft.com/en-us/dotnet/csharp/language-reference/builtin-types/char
+Microsoft. (2022c, March 28). Directory.GetFiles Method (System.IO). Microsoft Docs. https://docs.microsoft.com/en-us/dotnet/api/system.io.directory.getfiles?view=net-6.0
+Microsoft. (2022d, March 31). File.Delete(String) Method (System.IO). Microsoft Docs. https://docs.microsoft.com/en-us/dotnet/api/system.io.file.delete?view=net-6.0
+Microsoft. (2022e, April 6). Enumerable.Distinct Method (System.Linq). Microsoft Docs. https://docs.microsoft.com/en-us/dotnet/api/system.linq.enumerable.distinct?view=net-6.0
+Microsoft. (2022f, April 6). Enumerable.ToDictionary Method (System.Linq). Microsoft Docs. https://docs.microsoft.com/en-us/dotnet/api/system.linq.enumerable.todictionary?view=net-6.0
+Microsoft. (2022g, April 29). BinaryFormatter Class (System.Runtime.Serialization.Formatters.Binary). Microsoft Docs. https://docs.microsoft.com/en-us/dotnet/api/system.runtime.serialization.formatters.binary.binaryformatter?view=net-6.0
+Microsoft. (2022h, June 2). Array.CopyTo Method (System). Microsoft Docs. https://docs.microsoft.com/en-us/dotnet/api/system.array.copyto?view=net-6.0
+Savage, R. (2017). LeanTween. Dented Pixel. http://dentedpixel.com/LeanTweenDocumentation/classes/LeanTween.html#index
+Scotese, C. (2022). DinosaurPictures.org - Awesome Dinosaur Pictures. The Dinosaur Database. https://dinosaurpictures.org
+Unity Technologies. (2016). MonoBehaviour.OnBecameInvisible. Unity3D. https://docs.unity3d.com/530/Documentation/ScriptReference/MonoBehaviour.OnBecameInvisible.html
+Unity Technologies. (2017). Unity - Scripting API: UI.Selectable.OnSelect. Unity 3D. https://docs.unity3d.com/2017.3/Documentation/ScriptReference/UI.Selectable.OnSelect.html
+Unity Technologies. (2018, December 19). Editing Meshes | ProBuilder | 4.3.1. Unity3D. https://docs.unity3d.com/Packages/com.unity.probuilder@4.3/manual/workflow-edit.html
+Unity Technologies. (2021, August 12). Set Position (Mesh) | Visual Effect Graph | 12.0.0. Unity 3D. https://docs.unity3d.com/Packages/com.unity.visualeffectgraph@12.0/manual/Block-SetPosition(Mesh).html
+Unity Technologies. (2022a, May 27). Grid snapping. Unity3D. https://docs.unity3d.com/Manual/GridSnapping.html
+Unity Technologies. (2022b, May 27). Unity - Manual: Building Height Mesh for Accurate Character Placement. Unity 3D. https://docs.unity3d.com/Manual/nav-HeightMesh.html
+Unity Technologies. (2022c, May 27). Unity - Manual: Script serialization. Unity 3D. https://docs.unity3d.com/Manual/script-Serialization.html
+Unity Technologies. (2022d, May 27). Unity - Scripting API: AnimationCurve. Unity 3D. https://docs.unity3d.com/ScriptReference/AnimationCurve.html
+Unity Technologies. (2022e, May 27). Unity - Scripting API: MonoBehaviour.OnBecameVisible(). Unity 3D. https://docs.unity3d.com/ScriptReference/MonoBehaviour.OnBecameVisible.html
+Unity Technologies. (2022f, May 27). Unity - Scripting API: MonoBehaviour.OnParticleTrigger. Unity 3D. https://docs.unity3d.com/ScriptReference/MonoBehaviour.OnParticleTrigger.html
+Unity Technologies. (2022g, May 27). Unity - Scripting API: Physics.SphereCast. Unity 3D. https://docs.unity3d.com/ScriptReference/Physics.SphereCast.html
+Unity Technologies. (2022h, May 27). Unity - Scripting API: WaitWhile. Unity 3D. https://docs.unity3d.com/ScriptReference/WaitWhile.html
