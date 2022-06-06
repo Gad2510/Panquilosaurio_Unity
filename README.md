@@ -1,8 +1,7 @@
 # Panquilosaurio Unity
 
-*	[Abstract] (#Abstract)
 
-<h2 id="Abstract"> Abstract </h2>
+## Abstract
   
   El proyecto por el momento del 21 de marzo del 2022 conocido como Panquilosaurio, tienen como función poder comunicar los hallazgos arqueológicos en cuanto a criaturas que se encuentran entre los periodos Triásico al Cretácico de la historia, a niños de entre 10 a 15 años. A través de un juego que también los ayude a relacionar repostería local de sus países con las creaturas encontradas en el país de origen. 
 Introducción
@@ -19,8 +18,8 @@ Introducción
 
   Para empezar el proyecto se hizo un documento de diseño tratando de resaltar los aspectos básicos del mismo, donde se manejó el core loop design del juego (el flujo base del juego) y el gameflow (la secuencia de escenas que se va a seguir) ambos en grandes rasgos. También se hizo un desglose en vista general de cada uno de los aspectos principales del juego como el manejo de bosses, los dinopostres, personalización, recompensas etc. 
   
-  ![Texto Alt](/READMEimg/CoreGameLoop.png)
-  ![Texto Alt](/READMEimg/Gameflow.png)
+  ![Core game loop](/READMEimg/CoreGameLoop.png)
+  ![Gameflow](/READMEimg/Gameflow.png)
  
   También fue importante resaltar los aspectos artísticos que e iban a usar para el juego, tomando como referencia un juego llamado Pokémon Rumble, un juego de acción / hack and slash, el cual proporciona una estética simple para la creación de diversas creaturas, tomando eso en cuenta y los aspectos mas resaltantes de la repostería mexicana define las bases del aspecto visual.
   
@@ -28,13 +27,13 @@ Introducción
   
   Una vez definido esto fue importante definir una lista de assets así como empezar a trabajar en los modelos dentro del software Maya para un proceso de creación más fluido. En el lapso de un mes se pudo terminar la creación de las 4 creaturas en los aspectos de modelo, skinning y rig para una futura animación y se exporto al motor de maya.
   
- ![Texto Alt](/READMEimg/Modelos.png)
+ ![Modelos de los dinos](/READMEimg/Modelos.png)
  
   Una vez acabado con eso me dispuse a empezar armar un block mesh de todas las escenas esenciales del juego para poder hacer pruebas a futuro y para que si conseguía el apoyo necesario poder empezar el desarrollo del arte. Cree 3 escenas la principal donde se seleccionan los niveles conocida como CRIADERO, después un área de juego PRADERA DE CRIANZA con dos pisos para pelear con enemigos y uno de boss final, por último, fue el VOLCÁN o la fase de pelea con el boss final de la zona. Todo esto después me permitió desglosar todo los assets que se iban a requerir para la demo, dentro de un archivo de Excel, en conjunto con una carpeta de referencias visuales.
   
-  ![Texto Alt](/READMEimg/Criadero_Pers.png)
-  ![Texto Alt](/READMEimg/Volcan_Image.png)
-  ![Texto Alt](/READMEimg/PrederaCrianza_Top.png)
+  ![Escena credero](/READMEimg/Criadero_Pers.png)
+  ![Preview del volcan con el jefe](/READMEimg/Volcan_Image.png)
+  ![Preview de la estructura de los stage](/READMEimg/PrederaCrianza_Top.png)
 
 ## Empezamos amasar 
 
@@ -63,7 +62,7 @@ Introducción
   
   Para evitar una saturación de memoria, cree un manager de recompensas el cual se encargaba de crear las recompensas y mantener un registro de cada tipo de recompensas, así si algún enemigo dropeaba una recompensa ya creada mandaba solo volverla a activar, por cuestión de que sabía que si desactivaba el gameobject en un juego online tiene el problema que se desincroniza de la red por lo cual en lugar de hacer eso, desactivaba el componente del render y pasaba al objeto a una capa que ignoraba las colisiones con los enemigos y el jugador únicamente así no se caían en el abismo perpetuo y continuaban exigiendo. 
   
-  ![Texto Alt](/READMEimg/DinoTest.gif)
+  ![Preview del gameplay](/READMEimg/DinoTest.gif)
 
 ### Dispacher
   
@@ -123,10 +122,10 @@ Para la pantalla de carga hace una copia de los archivos de guardado actualizand
   Después de pulir algunos problemas de física, la demo ha quedado decente, no perfecta lamentablemente, pero se ha logrado mucho en el trascurso de estos meses, para terminar con esto decidí cerrar con la texturización de los modelos y empezar a crear animaciones básicas de idle, caminando y corrido para cada uno de los modelos.
 Todo esto con su texturizado especial para que hagan referencia a los diversos postres que han representado en mi imaginación.
 
-![Texto Alt](/READMEimg/Agujaceratops.png)
-![Texto Alt](/READMEimg/Microceratops.png)
-![Texto Alt](/READMEimg/Eicalio.png)
-![Texto Alt](/READMEimg/Proterix.png)
+![Texturas Agujaceratops](/READMEimg/Agujaceratops.png)
+![Texturas Microceratops](/READMEimg/Microceratops.png)
+![Texturas Eocaecilio](/READMEimg/Eicalio.png)
+![Texturas Protarchaeopteryx](/READMEimg/Proterix.png)
 
 ## Conclusión
   
