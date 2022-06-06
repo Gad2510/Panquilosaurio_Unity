@@ -20,6 +20,7 @@ namespace Dinopostres.Managers
             decriptions = 1 << 9,
             oven = 1 << 10,
             newGame= 1<<11,
+            controllers= 1<<12,
             none = 1<< 0
         }
         [SerializeField]
@@ -39,6 +40,7 @@ namespace Dinopostres.Managers
             {MenuDef.decriptions, "UI_Descriptions" },
             {MenuDef.oven, "UI_Oven" },
             {MenuDef.newGame, "CV_NewGame" },
+            {MenuDef.controllers, "UI_Controllers" },
         };
 
         protected Dictionary<MenuDef, GameObject> dic_menus;

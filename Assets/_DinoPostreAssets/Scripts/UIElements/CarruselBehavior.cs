@@ -84,7 +84,6 @@ namespace Dinopostres.UIElements
         protected void MoveDinoUI(int _siblingIndex, int _inventoryCount)
         {
             T saveData;
-            Debug.Log($"Numero de elementos en vision son {_inventoryCount}");
             if (_siblingIndex == 0)
             {
                 int_currentIndex -= 1;

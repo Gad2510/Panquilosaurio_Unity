@@ -554,6 +554,10 @@ PrefabInstance:
       propertyPath: m_Layer
       value: 6
       objectReference: {fileID: 0}
+    - target: {fileID: -5541046772241276850, guid: 4291a4a1b4741a5419571d65f5606c31, type: 3}
+      propertyPath: m_Materials.Array.data[0]
+      value: 
+      objectReference: {fileID: 2100000, guid: 0c1a4e6c0a976d24f89ed4aad65c4777, type: 2}
     - target: {fileID: -5465030467190975161, guid: 4291a4a1b4741a5419571d65f5606c31, type: 3}
       propertyPath: m_LocalEulerAnglesHint.y
       value: -2.8172104e-11

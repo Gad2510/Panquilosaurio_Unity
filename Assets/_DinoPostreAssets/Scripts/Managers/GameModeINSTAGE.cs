@@ -30,6 +30,7 @@ namespace Dinopostres.Managers
             dic_menus.Add(MenuDef.inventory, LoadGameMenu(dic_menuRef[MenuDef.inventory]));
             dic_menus.Add(MenuDef.status, LoadGameMenu(dic_menuRef[MenuDef.status],true));
             dic_menus.Add(MenuDef.gameplay, LoadGameMenu(dic_menuRef[MenuDef.gameplay],true));
+            dic_menus.Add(MenuDef.controllers, LoadGameMenu(dic_menuRef[MenuDef.controllers],true));
         }
     }
 }

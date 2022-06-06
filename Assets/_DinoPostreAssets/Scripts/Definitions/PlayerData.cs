@@ -58,7 +58,7 @@ namespace Dinopostres.Definitions
             lst_unlockTriggers = new List<int>();
             lst_unlockRecepies.Add((int)DinoDef.DinoChar.Agujaceratops);
 
-            lst_dinoInventory.Add(new DinoSaveData(DinoDef.DinoChar.Agujaceratops, GenerateID(), true,5));
+            lst_dinoInventory.Add(new DinoSaveData(DinoDef.DinoChar.Protarchaeopteryx, GenerateID(), true,5));
 
             str_ID = _ID;
         }
