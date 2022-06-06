@@ -16,14 +16,23 @@ Introducción
 ## Preparando la masa
 
   Para empezar el proyecto se hizo un documento de diseño tratando de resaltar los aspectos básicos del mismo, donde se manejó el core loop design del juego (el flujo base del juego) y el gameflow (la secuencia de escenas que se va a seguir) ambos en grandes rasgos. También se hizo un desglose en vista general de cada uno de los aspectos principales del juego como el manejo de bosses, los dinopostres, personalización, recompensas etc. 
+  
+  ![Texto Alt](/READMEimg/CoreGameLoop.png)
+  ![Texto Alt](/READMEimg/Gameflow.png)
  
   También fue importante resaltar los aspectos artísticos que e iban a usar para el juego, tomando como referencia un juego llamado Pokémon Rumble, un juego de acción / hack and slash, el cual proporciona una estética simple para la creación de diversas creaturas, tomando eso en cuenta y los aspectos mas resaltantes de la repostería mexicana define las bases del aspecto visual.
   
   Como el proyecto resulto será mas grande de lo que se esperaba, se tuvo que tomar la decisión de reducir las expectativas para los meses de desarrollo. Para lo que se solo se propuso la construcción de una demo funcional con las funciones básicas del juego junto con el desarrollo de 4 creaturas para la jugabilidad con una habilidad como mínimo que sería una básica para presentación. Por lo que dentro de la definición de las creaturas a crear se filtraron solo 4 que representarían una de cada tribu de dinopostres, los frutales, neutros, hojaldre y rellenos, excluyendo la tribu de chocolates y caramelos.
   
   Una vez definido esto fue importante definir una lista de assets así como empezar a trabajar en los modelos dentro del software Maya para un proceso de creación más fluido. En el lapso de un mes se pudo terminar la creación de las 4 creaturas en los aspectos de modelo, skinning y rig para una futura animación y se exporto al motor de maya.
+  
+ ![Texto Alt](/READMEimg/Modelos.png)
  
   Una vez acabado con eso me dispuse a empezar armar un block mesh de todas las escenas esenciales del juego para poder hacer pruebas a futuro y para que si conseguía el apoyo necesario poder empezar el desarrollo del arte. Cree 3 escenas la principal donde se seleccionan los niveles conocida como CRIADERO, después un área de juego PRADERA DE CRIANZA con dos pisos para pelear con enemigos y uno de boss final, por último, fue el VOLCÁN o la fase de pelea con el boss final de la zona. Todo esto después me permitió desglosar todo los assets que se iban a requerir para la demo, dentro de un archivo de Excel, en conjunto con una carpeta de referencias visuales.
+  
+  ![Texto Alt](/READMEimg/Criadero_Pers.png)
+  ![Texto Alt](/READMEimg/Volcan_Image.png)
+  ![Texto Alt](/READMEimg/PrederaCrianza_Top.png)
 
 ## Empezamos amasar 
 
