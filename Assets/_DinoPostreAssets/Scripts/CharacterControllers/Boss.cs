@@ -10,7 +10,7 @@ namespace Dinopostres.CharacterControllers
     public class Boss : Enemy
     {
         private bool isAttackObject;
-        private Dictionary<Attacks,float>  _attackList;
+        private Dictionary<Attacks,float>  dic_attackList;
         private WaitWhile ww_TackleCoulddow;
 
         private Collider[] arr_hitCOlliders;
@@ -21,11 +21,11 @@ namespace Dinopostres.CharacterControllers
         {
             base.Start();
 
-            _attackList = new Dictionary<Attacks, float>();
-            _attackList.Add(base._defaultAttack, f_attackPreparation);
-            _attackList.Add(SuperTackle, 1f);
-            _attackList.Add(ShockWave, 0f);
-            _attackList.Add(ChargeShockWave, 3f);
+            dic_attackList = new Dictionary<Attacks, float>();
+            dic_attackList.Add(base._defaultAttack, f_attackPreparation);
+            dic_attackList.Add(SuperTackle, 1f);
+            dic_attackList.Add(ShockWave, 0f);
+            dic_attackList.Add(ChargeShockWave, 3f);
 
             isStaticHealthBar = true;
             transform.localScale = Vector3.one * 3f;
@@ -35,15 +35,10 @@ namespace Dinopostres.CharacterControllers
             ww_TackleCoulddow = new WaitWhile(() => selfRigid.velocity.magnitude > 0.1f);
         }
 
-        protected override void Update()
-        {
-            base.Update();
-        }
-
         protected override void SetAttack()
         {
-            int choseAttack=Random.Range(0, _attackList.Count);
-            ctn_Attack = StartCoroutine(prepareAttack(_attackList.ElementAt(choseAttack).Key, _attackList.ElementAt(choseAttack).Value, choseAttack==3));
+            int choseAttack=Random.Range(0, dic_attackList.Count);
+            ctn_Attack = StartCoroutine(prepareAttack(dic_attackList.ElementAt(choseAttack).Key, dic_attackList.ElementAt(choseAttack).Value, choseAttack==3));
         }
 
         protected override void CreateHealthBar()
