@@ -8,13 +8,12 @@ namespace Dinopostres.Definitions
     public class DinoCount 
     {
         [SerializeField]
-        DinoDef.DinoChar enm_dino;
+        private DinoDef.DinoChar enm_dino;
         [SerializeField]
-        int int_value;
+        private int int_value;
 
-        public DinoDef.DinoChar Dino { get => enm_dino; }
-
-        public int Value { get => int_value; set => int_value = value; }
+        public DinoDef.DinoChar _Dino { get => enm_dino; }
+        public int _Value { get => int_value; set => int_value = value; }
 
         public DinoCount (DinoDef.DinoChar _dino)
         {

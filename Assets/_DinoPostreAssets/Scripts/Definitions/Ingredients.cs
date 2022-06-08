@@ -7,10 +7,10 @@ namespace Dinopostres.Definitions
     [CreateAssetMenu(fileName = "Ingredients", menuName = "Dinopostre/Ingredients", order = 2)]
     public class Ingredients: ScriptableObject
     {
-        static Ingredients ingre_Instance;
+        private static Ingredients ingre_Instance;
 
         [SerializeField]
-        List<IngredientDef> lst_Ingredients;
+        private List<IngredientDef> lst_Ingredients;
 
         public static Ingredients Instance()
         {

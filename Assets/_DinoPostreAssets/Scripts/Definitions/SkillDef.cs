@@ -6,15 +6,15 @@ namespace Dinopostres.Definitions
     public class SkillDef
     {
         [SerializeField]
-        string str_SkillName;
+        private string str_SkillName;
         [SerializeField]
-        bool isPhysical;
+        private bool isPhysical;
         [SerializeField]
-        GameObject AO_EmitterOrCollider;
+        private GameObject AO_EmitterOrCollider;
         [SerializeField]
-        float f_duration;
+        private float f_duration;
 
-        WaitForSeconds w4s_pauseAction;
+        private WaitForSeconds w4s_pauseAction;
 
         public string _SkillName { get => str_SkillName; }
         public bool _isPhysical { get => isPhysical; }

@@ -10,7 +10,7 @@ namespace Dinopostres.Definitions
     {
         private static EnemyStorage ES_instance;
         [SerializeField]
-        List<DinoDef> lst_Definitions;
+        private List<DinoDef> lst_Definitions;
 
         public static EnemyStorage _Instance()
         {

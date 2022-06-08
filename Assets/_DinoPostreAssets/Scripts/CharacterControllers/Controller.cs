@@ -11,7 +11,7 @@ namespace Dinopostres.CharacterControllers
     {
         protected Slider sl_healthVisual;
         protected DinoPostre DP_current;
-        public Rigidbody selfRigid;
+        protected Rigidbody selfRigid;
         protected bool isInvincible;
         protected bool isDead;
         protected bool isInmovilize = false;

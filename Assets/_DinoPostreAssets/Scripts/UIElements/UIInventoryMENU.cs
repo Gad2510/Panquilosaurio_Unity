@@ -29,9 +29,9 @@ namespace Dinopostres.UIElements
                 arr_Ingredients = arr_Ingredients.OrderBy((x) => x._Ingredient).ToArray();
             }
 
-            if (activeSlots < GameManager._instance._GameData.Inventory.Count)
+            if (activeSlots < GameManager._instance._GameData._Inventory.Count)
             {
-                activeSlots = GameManager._instance._GameData.Inventory.Count;
+                activeSlots = GameManager._instance._GameData._Inventory.Count;
                 UpdateSlots();
             }
             btn_return.Select();
@@ -41,7 +41,7 @@ namespace Dinopostres.UIElements
         {
             for(int i=0; i < activeSlots; i++)
             {
-                arr_Ingredients[i].UpdateDescriptions(GameManager._instance._GameData.Inventory[i]._Ingredient);
+                arr_Ingredients[i].UpdateDescriptions(GameManager._instance._GameData._Inventory[i]._Ingredient);
             }
         }
     }

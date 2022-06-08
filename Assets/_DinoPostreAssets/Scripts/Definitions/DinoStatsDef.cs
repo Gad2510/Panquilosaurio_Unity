@@ -8,7 +8,7 @@ namespace Dinopostres.Definitions
     public class DinoStatsDef
     {
 
-        const int MAX_LEVEL = 100;
+        private const int MAX_LEVEL = 100;
         public enum Stats
         {
             HP,PESO,CONFITE,COBERTURA,SABOR,TEXTURA,none
@@ -18,29 +18,29 @@ namespace Dinopostres.Definitions
         DinoDef.DinoChar enm_Dino;
 
         [SerializeField]
-        float initHP;
+        private float initHP;
         [SerializeField]
-        float endHp;
+        private float endHp;
         [SerializeField]
-        float initPeso;
+        private float initPeso;
         [SerializeField]
-        float endPeso;
+        private float endPeso;
         [SerializeField]
-        float initConfite;
+        private float initConfite;
         [SerializeField]
-        float endConfite;
+        private float endConfite;
         [SerializeField]
-        float initCobertura;
+        private float initCobertura;
         [SerializeField]
-        float endCobertura;
+        private float endCobertura;
         [SerializeField]
-        float initSabor;
+        private float initSabor;
         [SerializeField]
-        float endSabor;
+        private float endSabor;
         [SerializeField]
-        float initTextura;
+        private float initTextura;
         [SerializeField]
-        float endTextura;
+        private float endTextura;
 
         public DinoDef.DinoChar _Dino { get => enm_Dino; }
 

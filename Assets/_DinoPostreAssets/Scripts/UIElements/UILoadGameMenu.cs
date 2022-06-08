@@ -51,7 +51,7 @@ namespace Dinopostres.UIElements
             if (UILBtn_CurrentBtn == null)
                 return;
             PlayerData pl = UILBtn_CurrentBtn.StoreData;
-            MemoryManager.DeleteGame(pl.ID);
+            MemoryManager.DeleteGame(pl._ID);
 
             UpdateLoadBtns();
         }
@@ -66,7 +66,7 @@ namespace Dinopostres.UIElements
                 {
                     uiBtn.AddBtnSelectedEvent(() => { UILBtn_CurrentBtn = uiBtn; });
                     uiBtn.InitStats(games[uiBtn._ParentIndex], () => {
-                        GameManager._instance.LoadGame(games[uiBtn._ParentIndex].ID);
+                        GameManager._instance.LoadGame(games[uiBtn._ParentIndex]._ID);
                         LevelManager._Instance.LoadLevel("Criadero");
                     });
                 }

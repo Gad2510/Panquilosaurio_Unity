@@ -24,12 +24,12 @@ namespace Dinopostres.Definitions
             none
         }
         [SerializeField]
-        Area enm_Area;
+        private Area enm_Area;
         [SerializeField]
-        Rank enm_Rank;
+        private Rank enm_Rank;
         [SerializeField]
         [Range (0,100)]
-        float f_Value;
+        private float f_Value;
 
         public Area _Area { get => enm_Area; }
         public Rank _Rank { get => enm_Rank; }

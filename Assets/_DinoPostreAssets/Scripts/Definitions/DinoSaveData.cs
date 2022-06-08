@@ -17,13 +17,13 @@ namespace Dinopostres.Definitions
 
         private float f_dinoPower;
 
-        public DinoDef.DinoChar Dino { get => enm_Dino; }
-        public int Level { get => int_Level; }
-        public float Power { get => f_dinoPower; }
-        public float CurrentHealth { get => f_currentHealth; set => f_currentHealth= value; }
-        public float MaxHealth { get => f_maxHealth; set => f_maxHealth = value; }
-        public bool IsSelected { get => isSelected; set => isSelected=value; }
-        public int ID { get => int_ID; }
+        public DinoDef.DinoChar _Dino { get => enm_Dino; }
+        public int _Level { get => int_Level; }
+        public float _Power { get => f_dinoPower; }
+        public float _CurrentHealth { get => f_currentHealth; set => f_currentHealth= value; }
+        public float _MaxHealth { get => f_maxHealth; set => f_maxHealth = value; }
+        public bool _IsSelected { get => isSelected; set => isSelected=value; }
+        public int _ID { get => int_ID; }
 
         public DinoSaveData(DinoDef.DinoChar _dino, int _ID, bool _selected=false, int _level=1)
         {
@@ -36,9 +36,6 @@ namespace Dinopostres.Definitions
             f_dinoPower = DinoSpecsDef.Instance().CalculatePower(enm_Dino, int_Level);
             
         }
-
-        
-
         public void LevelUP()
         {
             int_Level += 1;

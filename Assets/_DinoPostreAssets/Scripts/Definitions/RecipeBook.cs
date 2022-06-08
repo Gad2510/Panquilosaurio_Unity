@@ -56,9 +56,9 @@ namespace Dinopostres.Definitions
             {
                 List<Recipe> recepies2Check=lst_Recetas;
 
-                if (_plData!= null && _plData.UnlockRecipies.Count > 0)
+                if (_plData!= null && _plData._UnlockRecipies.Count > 0)
                 {
-                    recepies2Check = lst_Recetas.Where((x) => _plData.UnlockRecipies.Any((y) => (int)x._Dino != y)).ToList();
+                    recepies2Check = lst_Recetas.Where((x) => _plData._UnlockRecipies.Any((y) => (int)x._Dino != y)).ToList();
                 }
 
                 foreach (Recipe r in recepies2Check)

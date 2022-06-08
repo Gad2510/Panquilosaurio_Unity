@@ -6,7 +6,7 @@ namespace Dinopostres.Events
 {
     public class TriggerEvent : Event
     {
-        string str_Function;
+        private string str_Function;
 
         public string Function { get => str_Function; }
 

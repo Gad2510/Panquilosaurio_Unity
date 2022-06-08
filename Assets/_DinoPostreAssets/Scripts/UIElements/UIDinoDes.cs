@@ -22,21 +22,21 @@ namespace Dinopostres.UIElements
             base.InitStats(_dinoData, _ev);
 
             if (txt_name != null)
-                txt_name.text = storeData.Dino.ToString();
+                txt_name.text = storeData._Dino.ToString();
         }
         public override void QuickRelodStats()
         {
             
             if (txt_power != null)
-                txt_power.text = string.Format("CP {0}", storeData.Power.ToString());
+                txt_power.text = string.Format("CP {0}", storeData._Power.ToString());
 
             if (img_dinoImg != null)
-                img_dinoImg.sprite = EnemyStorage._Instance().GetDinoImage(storeData.Dino);
+                img_dinoImg.sprite = EnemyStorage._Instance().GetDinoImage(storeData._Dino);
 
             if (sl_healthBar != null)
             {
-                float maxHealth = storeData.MaxHealth;
-                sl_healthBar.value = storeData.CurrentHealth / maxHealth;
+                float maxHealth = storeData._MaxHealth;
+                sl_healthBar.value = storeData._CurrentHealth / maxHealth;
             }
         }
     }

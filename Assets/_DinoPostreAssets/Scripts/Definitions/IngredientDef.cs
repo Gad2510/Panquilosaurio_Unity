@@ -19,13 +19,13 @@ namespace Dinopostres.Definitions
         }
 
         [SerializeField]
-        Sample enm_Ingredient;
+        private Sample enm_Ingredient;
         [SerializeField]
-        IngredientType enm_IngreType;
+        private IngredientType enm_IngreType;
         [SerializeField]
-        Sprite spt_IngreImage;
+        private Sprite spt_IngreImage;
         [SerializeField]
-        Object obj_Colectable;
+        private Object obj_Colectable;
 
         public Sample _Ingredient { get => enm_Ingredient; }
         public IngredientType _Type { get => enm_IngreType; }
