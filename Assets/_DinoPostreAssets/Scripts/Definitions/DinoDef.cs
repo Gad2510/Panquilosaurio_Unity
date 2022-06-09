@@ -16,19 +16,19 @@ namespace Dinopostres.Definitions
             none
         };
         [SerializeField]
-        DinoChar Dino;
+        private DinoChar enm_dino;
         [SerializeField]
-        List<LocationCount> lst_Areas;
+        private List<LocationCount> lst_Areas;
         [SerializeField]
-        string str_DefaultSkill;
+        private string str_DefaultSkill;
         [SerializeField]
-        Object DP_prefeb;
+        private Object DP_prefeb;
         [SerializeField]
-        Sprite spt_DinoImage;
+        private Sprite spt_DinoImage;
         [SerializeField]
-        List<IngredientCount> lst_Rewards;
+        private List<IngredientCount> lst_Rewards;
 
-        public DinoChar _Dino { get => Dino; }
+        public DinoChar _Dino { get => enm_dino; }
         public string _DefaultSkill { get => str_DefaultSkill; }
         public Object _Prefab { get => DP_prefeb; }
         public Sprite _DinoImage { get => spt_DinoImage; }

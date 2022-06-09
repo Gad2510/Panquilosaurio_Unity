@@ -89,6 +89,7 @@ namespace Dinopostres.Managers
             int_lives--;
             OnPlayerDead.Invoke(null);
             if(int_lives<= 0 ||(_GameData.DinoInventory.Count - _LivesInverse) <= 0)
+
             {
                 LM_LevelManager.LoadLevel("Criadero");
             }

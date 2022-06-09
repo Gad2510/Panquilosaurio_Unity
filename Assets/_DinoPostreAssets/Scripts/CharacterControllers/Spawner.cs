@@ -13,12 +13,12 @@ namespace Dinopostres.CharacterControllers
         private static int startLevel=1;
 
         [SerializeField]
-        bool isBossStage;
+        private bool isBossStage;
 
-        Object obj_companionRef;
-        WaitForSeconds w4s_timerboss = new WaitForSeconds(10f);
-        Collider coll_selfCol;
-        float f_colliderRadius;
+        private Object obj_companionRef;
+        private WaitForSeconds w4s_timerboss = new WaitForSeconds(10f);
+        private Collider coll_selfCol;
+        private float f_colliderRadius;
         public static int StartLevel { set => startLevel = value; }
 
         private void Awake()
@@ -55,7 +55,7 @@ namespace Dinopostres.CharacterControllers
             Gizmos.DrawWireSphere(transform.position, GetComponent<SphereCollider>().radius);
         }
 
-        void GetEnemiesTospawn()
+        private void GetEnemiesTospawn()
         {
             if (int_spwnCount <= 0)
                 return;
@@ -107,12 +107,12 @@ namespace Dinopostres.CharacterControllers
             gameObject.SetActive(false);
         }
 
-        private void SpawnMinions(Object pref,int count, int pos, float angleOfseet = 0, bool isBoss=false)
+        private void SpawnMinions(Object pref,int count, int pos, float angleOffset = 0, bool isBoss=false)
         {
             Vector3 ofsset = Vector3.zero;
             if (pos != 0)
             {
-                float angle = (((360 / (count)) * pos)+angleOfseet)*Mathf.Deg2Rad;
+                float angle = (((360 / (count)) * pos)+angleOffset)*Mathf.Deg2Rad;
                 ofsset.x = Mathf.Sin(angle)*f_colliderRadius;
                 ofsset.z = Mathf.Cos(angle)*f_colliderRadius;
             }

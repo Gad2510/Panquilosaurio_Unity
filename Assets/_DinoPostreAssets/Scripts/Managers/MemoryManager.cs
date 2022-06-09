@@ -39,7 +39,7 @@ namespace Dinopostres.Managers
             //Path pesistente del sistema en el que se guardan los datos del juego
             string pathCombined = Path.Combine(
                 Application.persistentDataPath,
-                _data.ID + ".data");
+                _data._ID + ".data");
             BinaryFormatter bf = new BinaryFormatter();
             FileStream file = File.Create(pathCombined);
             bf.Serialize(file, _data);
@@ -83,7 +83,7 @@ namespace Dinopostres.Managers
                         FileStream file = File.Open(pathCombined, FileMode.Open);
                         PlayerData gm = (PlayerData)bf.Deserialize(file);
                         file.Close();
-                        if (!string.IsNullOrEmpty(gm.ID))
+                        if (!string.IsNullOrEmpty(gm._ID))
                             games.Add(gm);
                     }
                 }
@@ -114,7 +114,7 @@ namespace Dinopostres.Managers
                         FileStream file = File.Open(pathCombined, FileMode.Open);
                         PlayerData gm = (PlayerData)bf.Deserialize(file);
                         file.Close();
-                        if (!string.IsNullOrEmpty(gm.ID))
+                        if (!string.IsNullOrEmpty(gm._ID))
                             games.Add(gm);
                     }
                 }

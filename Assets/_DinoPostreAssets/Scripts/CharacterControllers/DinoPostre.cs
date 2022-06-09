@@ -11,21 +11,20 @@ namespace Dinopostres.CharacterControllers
     public class DinoPostre : MonoBehaviour
     {
         [SerializeField]
-        DinoDef.DinoChar enm_Dino;
+        private DinoDef.DinoChar enm_Dino;
         [SerializeField]
-        List<SkillDef> lst_SkillList;
+        private List<SkillDef> lst_SkillList;
         [SerializeField]
-        string[] lst_skills = new string[5];
+        private string[] lst_skills = new string[5];
 
         private Animator anim_dino;
 
-        int int_Level=1;
-        bool isAttacking=false;
-        bool isPlayer;
-        float f_maxHealth;
-        public float f_TestHP;
+        private int int_Level=1;
+        private bool isAttacking=false;
+        private bool isPlayer;
+        private float f_maxHealth;
 
-        Dictionary<DinoStatsDef.Stats, float> dic_Stats = new Dictionary<DinoStatsDef.Stats, float>
+        private Dictionary<DinoStatsDef.Stats, float> dic_Stats = new Dictionary<DinoStatsDef.Stats, float>
         { 
             {DinoStatsDef.Stats.HP,0 }, 
             {DinoStatsDef.Stats.PESO,0 }, 
@@ -37,11 +36,11 @@ namespace Dinopostres.CharacterControllers
 
         public bool IsPlayer { set => isPlayer = value; }
         public bool IsAttacking { get => isAttacking; }
-        public float CurrentHealth { get => dic_Stats[DinoStatsDef.Stats.HP]; set => dic_Stats[DinoStatsDef.Stats.HP] = value; }
+        public float _CurrentHealth { get => dic_Stats[DinoStatsDef.Stats.HP]; set => dic_Stats[DinoStatsDef.Stats.HP] = value; }
         public float _Peso { get => dic_Stats[DinoStatsDef.Stats.PESO]; }
         public DinoDef.DinoChar _DinoChar { get => enm_Dino; }
         // Start is called before the first frame update
-        void Awake()
+        private void Awake()
         {
             anim_dino = GetComponentInChildren<Animator>();
             lst_skills[4]=EnemyStorage._Instance().GetDeafultEnemyAttack(enm_Dino);
@@ -62,10 +61,10 @@ namespace Dinopostres.CharacterControllers
             }
             f_maxHealth = dic_Stats[DinoStatsDef.Stats.HP];
             if(_def!=null)
-                dic_Stats[DinoStatsDef.Stats.HP] = _def.CurrentHealth;
+                dic_Stats[DinoStatsDef.Stats.HP] = _def._CurrentHealth;
             
 
-            f_TestHP = dic_Stats[DinoStatsDef.Stats.HP];
+            //f_TestHP = dic_Stats[DinoStatsDef.Stats.HP];
         }
 
         private void SetStatByLevel(DinoStatsDef _statDef,DinoStatsDef.Stats _statName, ref float _stat)
@@ -116,7 +115,7 @@ namespace Dinopostres.CharacterControllers
         public void GetDamage(float damage)
         {
             dic_Stats[DinoStatsDef.Stats.HP] -= damage;
-            f_TestHP = dic_Stats[DinoStatsDef.Stats.HP];
+            //f_TestHP = dic_Stats[DinoStatsDef.Stats.HP];
         }
 
         public float GetHeath()

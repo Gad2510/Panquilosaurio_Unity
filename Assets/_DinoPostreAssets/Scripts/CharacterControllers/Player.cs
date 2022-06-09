@@ -39,7 +39,7 @@ namespace Dinopostres.CharacterControllers
             if (base.DP_current)
             {
                 base.DP_current.IsPlayer = true;
-                DP_current.InitStats(currentData.Level,currentData);
+                DP_current.InitStats(currentData._Level,currentData);
             }
             //init camera
             Camera.main.gameObject.AddComponent<CameraController>();
@@ -61,10 +61,10 @@ namespace Dinopostres.CharacterControllers
         }
         protected override void GetDead()
         {
-            Debug.Log($"Inventory {GameManager._instance._GameData.DinoInventory.Count} | LIVES {GameManager._instance._LivesInverse}");
+            Debug.Log($"Inventory {GameManager._instance._GameData._DinoInventory.Count} | LIVES {GameManager._instance._LivesInverse}");
             GameManager._instance.LoseLive();
 
-            if ((GameManager._instance._GameData.DinoInventory.Count-GameManager._instance._LivesInverse) >0)
+            if ((GameManager._instance._GameData._DinoInventory.Count-GameManager._instance._LivesInverse) >0)
             {
                 GameManager._instance.PauseGame(true);
                 OpenDispacher();
@@ -76,7 +76,7 @@ namespace Dinopostres.CharacterControllers
             if(isDispacherOpen && !isDead)
                 LevelManager._Instance._GameMode.OpenCloseSpecicficMenu(GameMode.MenuDef.dispacher,!isDispacherOpen);
 
-            currentData.CurrentHealth = DP_current.CurrentHealth;
+            currentData._CurrentHealth = DP_current._CurrentHealth;
         }
 
         protected override void Movement()
@@ -138,17 +138,17 @@ namespace Dinopostres.CharacterControllers
             if (DP_current != null)
             {
                 Destroy(DP_current.gameObject);
-                currentData.IsSelected = false;
+                currentData._IsSelected = false;
             }
                 
-            DinoPostre dino = (Instantiate(EnemyStorage._Instance().Look4DinoDef(_newDino.Dino)._Prefab, transform) as GameObject).GetComponent<DinoPostre>();
+            DinoPostre dino = (Instantiate(EnemyStorage._Instance().Look4DinoDef(_newDino._Dino)._Prefab, transform) as GameObject).GetComponent<DinoPostre>();
             DP_current = dino;
             DP_current.IsPlayer = true;
             DP_current.transform.localPosition = Vector3.zero;
-            DP_current.InitStats(_newDino.Level);
-            DP_current.CurrentHealth = _newDino.CurrentHealth;
+            DP_current.InitStats(_newDino._Level);
+            DP_current._CurrentHealth = _newDino._CurrentHealth;
             currentData = _newDino;
-            currentData.IsSelected = true;
+            currentData._IsSelected = true;
             f_Speed = (100 / DP_current._Peso);
             isDispacherOpen = false;
             RecordEvent ev = new RecordEvent(1, "Switch dino", 2);

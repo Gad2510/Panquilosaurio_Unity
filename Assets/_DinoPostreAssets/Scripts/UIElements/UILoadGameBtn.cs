@@ -39,7 +39,7 @@ namespace Dinopostres.UIElements
             {
                 txt_migas.text = storeData._Migas.ToString();
                 txt_dinoAmount.text = storeData.CalculateRegisterDinos().ToString();
-                txt_name.text = storeData.ID;
+                txt_name.text = storeData._ID;
                 bool isDeafeted = true;
                 for (int i =0;i<arr_bossImg.Length; i++)
                 {

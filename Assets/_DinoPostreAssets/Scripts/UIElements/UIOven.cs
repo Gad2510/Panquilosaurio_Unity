@@ -74,16 +74,16 @@ namespace Dinopostres.UIElements
                     UpdateSliders(_save);
                     UID_currentDino.QuickRelodStats();
                     UpdateDescription(_save);
-                    UpdateIngredients(_save.Dino, _save.Level);
+                    UpdateIngredients(_save._Dino, _save._Level);
                     GameManager._instance.OnRecordEvent(null);
                     txt_migas.text = GameManager._instance._GameData._Migas.ToString("00000");
                 }
             });
             btn_delete.onClick.AddListener(() => {
-                if (GameManager._instance._GameData.DinoInventory.Count > 1)
+                if (GameManager._instance._GameData._DinoInventory.Count > 1)
                 {
                     DinoSaveData _save = UID_currentDino.ReturnStoreData();
-                    GameManager._instance._GameData.DeleteDino(_save.ID);
+                    GameManager._instance._GameData.DeleteDino(_save._ID);
                     InitBtnEvents();
                     InitUiValues();
                     InitUIVisuals();
@@ -106,21 +106,21 @@ namespace Dinopostres.UIElements
                 UID_currentDino = _uiDinoDes;
                 DinoSaveData _save = UID_currentDino.ReturnStoreData();
                 UpdateDescription(_save);
-                MoveDinoUI(UID_currentDino._ParentIndex, GameManager._instance._GameData.DinoInventory.Count() - 1);
+                MoveDinoUI(UID_currentDino._ParentIndex, GameManager._instance._GameData._DinoInventory.Count() - 1);
                 int_lastIndex = UID_currentDino._ParentIndex;
-                UpdateIngredients(_save.Dino, _save.Level);
-                img_dinoImg.sprite = EnemyStorage._Instance().GetDinoImage(_save.Dino);
+                UpdateIngredients(_save._Dino, _save._Level);
+                img_dinoImg.sprite = EnemyStorage._Instance().GetDinoImage(_save._Dino);
             });
         }
 
         protected override void UpdateSliders(DinoSaveData _info)
         {
-            UpdateStat(sl_healthRef, txt_descriptionPS, _info.MaxHealth, true);
-            UpdateStat(sl_peso, txt_peso,DinoSpecsDef.Instance().LookForStats(_info.Dino).CalculateCurrentValue(DinoStatsDef.Stats.PESO,_info.Level));
-            UpdateStat(sl_textura, txt_textura, DinoSpecsDef.Instance().LookForStats(_info.Dino).CalculateCurrentValue(DinoStatsDef.Stats.TEXTURA,_info.Level));
-            UpdateStat(sl_sabor, txt_sabor, DinoSpecsDef.Instance().LookForStats(_info.Dino).CalculateCurrentValue(DinoStatsDef.Stats.SABOR,_info.Level));
-            UpdateStat(sl_cobertura, txt_cobertura, DinoSpecsDef.Instance().LookForStats(_info.Dino).CalculateCurrentValue(DinoStatsDef.Stats.COBERTURA,_info.Level));
-            UpdateStat(sl_confite, txt_confite, DinoSpecsDef.Instance().LookForStats(_info.Dino).CalculateCurrentValue(DinoStatsDef.Stats.CONFITE,_info.Level));
+            UpdateStat(sl_healthRef, txt_descriptionPS, _info._MaxHealth, true);
+            UpdateStat(sl_peso, txt_peso,DinoSpecsDef.Instance().LookForStats(_info._Dino).CalculateCurrentValue(DinoStatsDef.Stats.PESO,_info._Level));
+            UpdateStat(sl_textura, txt_textura, DinoSpecsDef.Instance().LookForStats(_info._Dino).CalculateCurrentValue(DinoStatsDef.Stats.TEXTURA,_info._Level));
+            UpdateStat(sl_sabor, txt_sabor, DinoSpecsDef.Instance().LookForStats(_info._Dino).CalculateCurrentValue(DinoStatsDef.Stats.SABOR,_info._Level));
+            UpdateStat(sl_cobertura, txt_cobertura, DinoSpecsDef.Instance().LookForStats(_info._Dino).CalculateCurrentValue(DinoStatsDef.Stats.COBERTURA,_info._Level));
+            UpdateStat(sl_confite, txt_confite, DinoSpecsDef.Instance().LookForStats(_info._Dino).CalculateCurrentValue(DinoStatsDef.Stats.CONFITE,_info._Level));
         }
 
         private void UpdateStat(Slider _slporcentage, TextMeshProUGUI _textRef, float _value, bool _isLife=false)

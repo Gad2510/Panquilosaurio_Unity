@@ -38,7 +38,7 @@ namespace Dinopostres.UIElements
 
         protected override void InitUiValues()
         {
-            RecipeBook._Instance().SortRecipies(GameManager._instance._GameData.UnlockRecipies);
+            RecipeBook._Instance().SortRecipies(GameManager._instance._GameData._UnlockRecipies);
             for(int i = 0; i < arr_items.Length; i++)
             {
                 Recipe rep= RecipeBook._Instance()[i];

@@ -30,14 +30,10 @@ namespace Dinopostres.Definitions
         private List<int> lst_unlockRecepies;
         private List<int> lst_unlockTriggers;
         public int _Migas { get => int_migas; }
-        public int RecolectedMigas { get => int_recolectedMigas; }
-        public int DinoChanges { get => int_dinoChanges; }
-        public int DefetedDinoInStage { get => int_defetedDinoStage; }
-        public int TotalDinoDefeted { get => int_totalDefeatDinos; }
-        public List<IngredientCount> Inventory { get => lst_ingredientes; }
-        public List<DinoSaveData> DinoInventory { get => lst_dinoInventory; }
-        public List<int> UnlockRecipies { get => lst_unlockRecepies; }
-        public string ID => str_ID;
+        public List<IngredientCount> _Inventory { get => lst_ingredientes; }
+        public List<DinoSaveData> _DinoInventory { get => lst_dinoInventory; }
+        public List<int> _UnlockRecipies { get => lst_unlockRecepies; }
+        public string _ID => str_ID;
         public PlayerData()
         {
             lst_defetedPerDino = new List<DinoCount>();
@@ -79,9 +75,9 @@ namespace Dinopostres.Definitions
 
             try
             {
-                if(lst_dinoInventory.Any((x)=> x.ID == _ID))
+                if(lst_dinoInventory.Any((x)=> x._ID == _ID))
                 {
-                    lst_dinoInventory.Remove(lst_dinoInventory.First((x) => x.ID == _ID));
+                    lst_dinoInventory.Remove(lst_dinoInventory.First((x) => x._ID == _ID));
                 }
             }
             catch
@@ -92,7 +88,7 @@ namespace Dinopostres.Definitions
 
         public int CalculateRegisterDinos()
         {
-            return lst_dinoInventory.Select((x)=>x.Dino).Distinct().Count();
+            return lst_dinoInventory.Select((x)=>x._Dino).Distinct().Count();
         }
 
         public void RestoreHP()
@@ -100,11 +96,11 @@ namespace Dinopostres.Definitions
             List<DinoSaveData> lst_dino2Restore;
             try
             {
-                lst_dino2Restore = lst_dinoInventory.Where((x) => x.CurrentHealth < x.MaxHealth).ToList();
+                lst_dino2Restore = lst_dinoInventory.Where((x) => x._CurrentHealth < x._MaxHealth).ToList();
 
                 foreach(DinoSaveData dsd in lst_dino2Restore)
                 {
-                    dsd.CurrentHealth = dsd.MaxHealth;
+                    dsd._CurrentHealth = dsd._MaxHealth;
                 }
             }
             catch
@@ -176,7 +172,7 @@ namespace Dinopostres.Definitions
         {
             try
             {
-                return lst_dinoInventory.Where((x) => x.IsSelected).First();
+                return lst_dinoInventory.Where((x) => x._IsSelected).First();
             }
             catch {
                 Debug.LogWarning("No dino found as active dino");
@@ -195,11 +191,11 @@ namespace Dinopostres.Definitions
             int uniqueCode = UnityEngine.Random.Range(0, 50)*10000000;
             id= System.Convert.ToInt32(DateTime.Today.ToString("ddMMyyyy"))+ uniqueCode;
 
-            bool isSet = lst_dinoInventory.Where((x) => x.ID == id).Any();
+            bool isSet = lst_dinoInventory.Where((x) => x._ID == id).Any();
             while(isSet)
             {
                 id++;
-                isSet = lst_dinoInventory.Where((x) => x.ID == id).Any();
+                isSet = lst_dinoInventory.Where((x) => x._ID == id).Any();
             }
 
             return id;
@@ -236,7 +232,7 @@ namespace Dinopostres.Definitions
 
             foreach (DinoCount dc in _lock._EnemyCount)
             {
-                isUnLock = isUnLock && lst_defetedPerDino.Any(x=> x.Dino==dc.Dino && x.Value>dc.Value);
+                isUnLock = isUnLock && lst_defetedPerDino.Any(x=> x._Dino==dc._Dino && x._Value>dc._Value);
             }
             foreach (LocationCount loc in _lock._LocationCount)
             {
@@ -311,9 +307,9 @@ namespace Dinopostres.Definitions
                     int_totalDefeatDinos++;
                     DinoDef.DinoChar _dino= (DinoDef.DinoChar)Convert.ToInt32(nfoRef);
 
-                    if (lst_defetedPerDino.Any(x=> x.Dino==_dino))
+                    if (lst_defetedPerDino.Any(x=> x._Dino==_dino))
                     {
-                        lst_defetedPerDino.First(x => x.Dino == _dino).Value+=1;
+                        lst_defetedPerDino.First(x => x._Dino == _dino)._Value+=1;
                     }
                     else
                     {
