@@ -11,7 +11,7 @@ namespace Dinopostres.TriggerEffects {
         private UnityEvent ua_trigerEvent;
         [SerializeField]
         private UnlockDef UD_unlockCondition;
-        void Start()
+        private void Start()
         {
             if (GameManager._instance._GameData.CheckForUnlock(UD_unlockCondition))
             {

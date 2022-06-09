@@ -54,7 +54,7 @@ namespace Dinopostres.Managers
         public GameObject _Spawners { set => lst_spawnersUsed.Add(value); }
 
         // Start is called before the first frame update
-        void Awake()
+        private void Awake()
         {
             if (LM_instance == null)
             {

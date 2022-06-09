@@ -23,7 +23,7 @@ namespace Dinopostres.UIElements
 
         private const int int_mask = (int)GameMode.MenuDef.decriptions | (int)GameMode.MenuDef.none | (int)GameMode.MenuDef.pause;
         // Start is called before the first frame update
-        void Awake()
+        private void Awake()
         {
             GameManager._instance.InS_gameActions.DinopostreController.Pause.performed +=PauseGame;
             btn_resume.onClick.AddListener(() => PauseGame());

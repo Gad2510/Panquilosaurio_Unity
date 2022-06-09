@@ -10,7 +10,7 @@ namespace Dinopostres.TriggerEffects
         private Teleporter tp_parentTeleporter;
 
         // Start is called before the first frame update
-        void Awake()
+        private void Awake()
         {
             tp_parentTeleporter = GetComponentInParent<Teleporter>();
         }

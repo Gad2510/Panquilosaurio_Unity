@@ -13,7 +13,7 @@ namespace Dinopostres.UIElements
     public abstract class CarruselBehavior<T> : MonoBehaviour, IUIMultipleMenu
     {
         [SerializeField]
-        Transform trns_itemParents;
+        private Transform trns_itemParents;
 
         protected UIDescriptions<T>[] arr_items;
 

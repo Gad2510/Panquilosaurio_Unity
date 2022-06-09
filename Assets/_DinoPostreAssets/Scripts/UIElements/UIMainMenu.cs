@@ -8,17 +8,17 @@ namespace Dinopostres.UIElements
     public class UIMainMenu : MonoBehaviour
     {
         [SerializeField]
-        Button btn_newGame;
+        private Button btn_newGame;
         [SerializeField]
-        Button btn_loadGame;
+        private Button btn_loadGame;
         [SerializeField]
-        Button btn_settings;
+        private Button btn_settings;
         [SerializeField]
-        Button btn_exit;
+        private Button btn_exit;
 
         private int int_gameCount;
         // Start is called before the first frame update
-        void Start()
+        private void Start()
         {
             int_gameCount = MemoryManager.GamesCount();
             btn_newGame.gameObject.SetActive(int_gameCount < 3);

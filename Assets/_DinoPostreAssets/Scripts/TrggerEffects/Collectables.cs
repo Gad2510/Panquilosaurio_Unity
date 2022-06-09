@@ -9,21 +9,21 @@ namespace Dinopostres.TriggerEffects
     public class Collectables : MonoBehaviour
     {
         [SerializeField]
-        IngredientDef.Sample enm_Type;
-        Rigidbody selfRigid;
-        MeshRenderer mhr_selfRenderer;
+        private IngredientDef.Sample enm_Type;
+        private Rigidbody selfRigid;
+        private MeshRenderer mhr_selfRenderer;
         protected const float f_couldDown = 5f;
 
-        bool hasTaken = false;
+        private bool hasTaken = false;
         // Start is called before the first frame update
-        void Awake()
+        private void Awake()
         {
             mhr_selfRenderer = GetComponent<MeshRenderer>();
             selfRigid = GetComponent<Rigidbody>();
 
         }
 
-        void OnBecameVisible()
+        private void OnBecameVisible()
         {
             gameObject.layer = LayerMask.NameToLayer("Colectables");
             hasTaken = false;

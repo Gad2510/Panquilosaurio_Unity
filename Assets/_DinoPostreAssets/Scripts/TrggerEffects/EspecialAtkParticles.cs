@@ -4,14 +4,12 @@ namespace Dinopostres.TriggerEffects
 {
     public class EspecialAtkParticles : AttackObject
     {
-        ParticleSystem par_Particles;
-
         [SerializeField]
-        float f_MaxDistance;
+        private float f_MaxDistance;
         [SerializeField]
-        AnimationCurve ac_AnimationCurve;
+        private AnimationCurve ac_AnimationCurve;
 
-        float f_counter;
+        private float f_counter;
 
         protected override void Awake()
         {

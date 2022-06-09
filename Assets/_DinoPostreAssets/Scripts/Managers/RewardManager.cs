@@ -10,7 +10,7 @@ namespace Dinopostres.Managers
         private Dictionary<IngredientDef.Sample ,Queue<Rigidbody>> inactiveObjects;
         Vector3 offset= new Vector3(0, 0.3f, 0);
         // Start is called before the first frame update
-        void Awake()
+        private void Awake()
         {
             inactiveObjects = new Dictionary<IngredientDef.Sample, Queue<Rigidbody>>();
         }

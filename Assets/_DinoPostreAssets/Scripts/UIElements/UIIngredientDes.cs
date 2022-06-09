@@ -11,13 +11,13 @@ namespace Dinopostres.UIElements
     public class UIIngredientDes : MonoBehaviour
     {
         [SerializeField]
-        GameObject go_ingredientDetails;
+        private GameObject go_ingredientDetails;
         [SerializeField]
-        Image img_ingredientImg;
+        private Image img_ingredientImg;
         [SerializeField]
-        TextMeshProUGUI txt_ingredientCount;
+        private TextMeshProUGUI txt_ingredientCount;
 
-        IngredientDef.Sample enm_ingredient= IngredientDef.Sample.none;
+        private IngredientDef.Sample enm_ingredient= IngredientDef.Sample.none;
        
         public IngredientDef.Sample _Ingredient { get => enm_ingredient; }
 

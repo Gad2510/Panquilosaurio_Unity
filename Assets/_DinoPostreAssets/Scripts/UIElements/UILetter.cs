@@ -12,7 +12,7 @@ namespace Dinopostres.UIElements
 {
     public class UILetter : MonoBehaviour
     {
-        enum SwitchLetter
+        private enum SwitchLetter
         {
             _97 = '~',
             _98 = '"',

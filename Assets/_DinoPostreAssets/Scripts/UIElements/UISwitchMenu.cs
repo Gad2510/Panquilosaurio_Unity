@@ -79,7 +79,7 @@ namespace Dinopostres.UIElements
         private GameObject go_menu;
         [SerializeField]
         private Image img_label;
-        IUIMultipleMenu UI_carrusselBH;
+        private IUIMultipleMenu UI_carrusselBH;
 
         public bool SetObjectActive { 
             set {

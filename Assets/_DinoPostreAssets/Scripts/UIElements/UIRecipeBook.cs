@@ -12,11 +12,10 @@ namespace Dinopostres.UIElements
     public class UIRecipeBook : CarruselBehavior<Recipe>
     {
         [SerializeField]
-        TextMeshProUGUI txt_migas;
+        private TextMeshProUGUI txt_migas;
 
         private UIRecipeDes UIR_currentRecipe;
         private List<IngredientCount> lst_ingredients;
-        public UIDescriptions<Recipe> [] test;
         protected override void Start()
         {
             txt_migas.text = GameManager._instance._GameData._Migas.ToString("00000");
@@ -52,7 +51,6 @@ namespace Dinopostres.UIElements
             if(arr_items!= null)
             {
                 arr_items = arr_items.OrderBy((x) => x.transform.parent.GetSiblingIndex()).ToArray();
-                test = arr_items;
                 arr_items[0].SetButtonAsSelected();
             }
                 

@@ -12,7 +12,7 @@ namespace Dinopostres.Managers
     {
         public delegate void EventListener(Events.Event ev);
         public EventListener OnRecordEvent;
-        public EventListener OnDead;
+        public EventListener OnPlayerDead;
 
         public static GameManager _instance;
         private LevelManager LM_LevelManager;
@@ -44,7 +44,7 @@ namespace Dinopostres.Managers
             }
         }
         // Start is called before the first frame update
-        void Awake()
+        private void Awake()
         {
 
             InS_gameActions = new DinoPostreAction();
@@ -87,7 +87,7 @@ namespace Dinopostres.Managers
         public void LoseLive()
         {
             int_lives--;
-            OnDead.Invoke(null);
+            OnPlayerDead.Invoke(null);
             if(int_lives<= 0 ||(_GameData.DinoInventory.Count - _LivesInverse) <= 0)
             {
                 LM_LevelManager.LoadLevel("Criadero");

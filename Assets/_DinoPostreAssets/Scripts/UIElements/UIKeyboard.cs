@@ -20,12 +20,12 @@ namespace Dinopostres.UIElements
         [SerializeField]
         private TMP_InputField intxt_name;
 
-        UILetter[] arr_letters;
-        string str_name;
+        private UILetter[] arr_letters;
+        private string str_name;
 
-        bool isSimbols;
+        private bool isSimbols;
         // Start is called before the first frame update
-        void Start()
+        private void Start()
         {
             str_name = "";
             arr_letters = trns_keysparent.GetComponentsInChildren<UILetter>();

@@ -18,7 +18,7 @@ namespace Dinopostres.UIElements
         private UILoadGameBtn[] arr_LoadBtns;
         private UILoadGameBtn UILBtn_CurrentBtn;
         // Start is called before the first frame update
-        void Start()
+        private void Start()
         {
             arr_LoadBtns = GetComponentsInChildren<UILoadGameBtn>();
             UpdateLoadBtns();

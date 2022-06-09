@@ -14,9 +14,9 @@ namespace Dinopostres.UIElements
         [SerializeField]
         private GameObject go_lifesParent;
         [SerializeField]
-        Sprite img_liveImage;
+        private Sprite img_liveImage;
         [SerializeField]
-        Sprite img_lostLiveImage;
+        private Sprite img_lostLiveImage;
         public Image[] arr_lifes;
         private void Awake()
         {
@@ -25,7 +25,7 @@ namespace Dinopostres.UIElements
             UpdateMigas(null);
 
             GameManager._instance.OnRecordEvent += UpdateMigas;
-            GameManager._instance.OnDead += LoseLife;
+            GameManager._instance.OnPlayerDead += LoseLife;
         }
 
 
@@ -47,7 +47,7 @@ namespace Dinopostres.UIElements
         private void OnDestroy()
         {
             GameManager._instance.OnRecordEvent -= UpdateMigas;
-            GameManager._instance.OnDead -= LoseLife;
+            GameManager._instance.OnPlayerDead -= LoseLife;
         }
 
         private void ResetLifes()
