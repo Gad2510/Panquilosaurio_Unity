@@ -25,7 +25,8 @@ namespace Dinopostres.UIElements
         // Start is called before the first frame update
         private void Awake()
         {
-            GameManager._instance.InS_gameActions.DinopostreController.Pause.performed +=PauseGame;
+            GameMode._Instance.SetControllerFuntions(ControllersManager.PlayerActions.Pause,
+                ControllersManager.InputState.Perform, PauseGame);
             btn_resume.onClick.AddListener(() => PauseGame());
             btn_exit.onClick.AddListener(() =>ExitStage());
             btn_inventory.onClick.AddListener(() => LevelManager._Instance._GameMode.OpenCloseSpecicficMenu(GameMode.MenuDef.inventory, true));
@@ -37,7 +38,8 @@ namespace Dinopostres.UIElements
         }
         private void OnDestroy()
         {
-            GameManager._instance.InS_gameActions.DinopostreController.Pause.performed -= PauseGame;
+            GameMode._Instance.SetControllerFuntions(ControllersManager.PlayerActions.Pause,
+                ControllersManager.InputState.Perform, PauseGame,false);
         }
         private void PauseGame(InputAction.CallbackContext _ctx)
         {

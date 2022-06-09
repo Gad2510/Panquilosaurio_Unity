@@ -18,27 +18,27 @@ namespace Dinopostres.UIElements
         private List<IngredientCount> lst_ingredients;
         protected override void Start()
         {
-            txt_migas.text = GameManager._instance._GameData._Migas.ToString("00000");
+            txt_migas.text = GameMode._Instance._GameData._Migas.ToString("00000");
             base.Start();
         }
 
         protected override UnityAction GetDesciptionEvent(Recipe _item)
         {
             return () => {
-                if (UIR_currentRecipe != null && GameManager._instance._GameData.CanBePurchase(UIR_currentRecipe.StoreData._Ingredients))
+                if (UIR_currentRecipe != null && GameMode._Instance._GameData.CanBePurchase(UIR_currentRecipe.StoreData._Ingredients))
                 {
-                    GameManager._instance._GameData.MakePurchase(UIR_currentRecipe.StoreData._Ingredients);
-                    GameManager._instance._GameData.RegisterNewDino(_item._Dino);
-                    GameManager._instance.OnRecordEvent(null);
+                    GameMode._Instance._GameData.MakePurchase(UIR_currentRecipe.StoreData._Ingredients);
+                    GameMode._Instance._GameData.RegisterNewDino(_item._Dino);
+                    GameMode.OnRecordEvent(null);
                     UpdateRecepeeDes();
-                    txt_migas.text = GameManager._instance._GameData._Migas.ToString("00000");
+                    txt_migas.text = GameMode._Instance._GameData._Migas.ToString("00000");
                 }
             };
         }
 
         protected override void InitUiValues()
         {
-            RecipeBook._Instance().SortRecipies(GameManager._instance._GameData._UnlockRecipies);
+            RecipeBook._Instance().SortRecipies(GameMode._Instance._GameData._UnlockRecipies);
             for(int i = 0; i < arr_items.Length; i++)
             {
                 Recipe rep= RecipeBook._Instance()[i];

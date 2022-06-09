@@ -61,10 +61,10 @@ namespace Dinopostres.Managers
                 LM_instance = this;
             }
 
-            PlayerData pl = GameManager._instance._GameData;
-            string levelName=SceneManager.GetActiveScene().name;
+            string levelName = SceneManager.GetActiveScene().name;
             LoadGameMode(levelName);
-
+            PlayerData pl = GameMode._Instance._GameData;
+            
             EM_EnemyManager = this.gameObject.AddComponent<EnemyManager>();
             RM_RewardManger = this.gameObject.AddComponent<RewardManager>();
 
@@ -108,9 +108,9 @@ namespace Dinopostres.Managers
             }
             else if(dic_levelStates[SceneManager.GetActiveScene().name] == GameStates.Map)
             {
-                RecipeBook._Instance().CheckForUnlockRecipies(GameManager._instance._GameData);
-                GameManager._instance._GameData.RestoreHP();
-                MemoryManager.SaveGame(GameManager._instance._GameData);
+                RecipeBook._Instance().CheckForUnlockRecipies(GameMode._Instance._GameData);
+                GameMode._Instance._GameData.RestoreHP();
+                MemoryManager.SaveGame(GameMode._Instance._GameData);
             }
 
             

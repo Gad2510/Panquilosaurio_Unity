@@ -15,11 +15,13 @@ namespace Dinopostres.TriggerEffects
 
         private void Start()
         {
-            GameManager._instance.InS_gameActions.DinopostreController.Interaction.performed += OpenMenu;
+            GameMode._Instance.SetControllerFuntions(ControllersManager.PlayerActions.Interaction,
+                ControllersManager.InputState.Perform,OpenMenu);
         }
         private void OnDestroy()
         {
-            GameManager._instance.InS_gameActions.DinopostreController.Interaction.performed -= OpenMenu;
+            GameMode._Instance.SetControllerFuntions(ControllersManager.PlayerActions.Interaction,
+                ControllersManager.InputState.Perform, OpenMenu,false);
         }
 
         private void OnTriggerEnter(Collider other)

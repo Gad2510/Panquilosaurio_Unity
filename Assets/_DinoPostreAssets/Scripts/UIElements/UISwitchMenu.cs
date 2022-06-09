@@ -37,14 +37,18 @@ namespace Dinopostres.UIElements
 
             lst_menus[int_index].SetObjectActive = true;
 
-            GameManager._instance.InS_gameActions.DinopostreController.AttackA.performed += MoveMenu;
-            GameManager._instance.InS_gameActions.DinopostreController.AttackB.performed += MoveMenu;
+            GameMode._Instance.SetControllerFuntions(ControllersManager.PlayerActions.AttackA,
+                ControllersManager.InputState.Perform, MoveMenu);
+            GameMode._Instance.SetControllerFuntions(ControllersManager.PlayerActions.AttackB,
+                 ControllersManager.InputState.Perform, MoveMenu);
             Player.PL_Instance.IsDispacheOpen = true;
         }
         private void OnDisable()
         {
-            GameManager._instance.InS_gameActions.DinopostreController.AttackA.performed -= MoveMenu;
-            GameManager._instance.InS_gameActions.DinopostreController.AttackB.performed -= MoveMenu;
+            GameMode._Instance.SetControllerFuntions(ControllersManager.PlayerActions.AttackA,
+                ControllersManager.InputState.Perform, MoveMenu,false);
+            GameMode._Instance.SetControllerFuntions(ControllersManager.PlayerActions.AttackB,
+                 ControllersManager.InputState.Perform, MoveMenu,false);
             Player.PL_Instance.IsDispacheOpen = false;
         }
         public void MoveMenu(InputAction.CallbackContext _ctx)

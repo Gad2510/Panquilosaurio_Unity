@@ -34,7 +34,7 @@ namespace Dinopostres.TriggerEffects
             float counter=0;
             while (counter <= f_couldDown)
             {
-                counter += GameManager._TimeScale;
+                counter += GameMode._Instance._TimeScale;
                 yield return null;
             }
             Unspawn();
@@ -64,8 +64,7 @@ namespace Dinopostres.TriggerEffects
             StopAllCoroutines();
 
             Events.RecordEvent ev = new Events.RecordEvent(0, "Envio de ingredientes", 10 + (int)enm_Type);
-            GameManager._instance.OnRecordEvent(ev);
-
+            GameMode.OnRecordEvent(ev);
         }
     }
 }

@@ -57,8 +57,8 @@ namespace Dinopostres.CharacterControllers
                 Percepcion();
                 base.Update();
             }
-            if(nav_MeshAgent!=null)
-                nav_MeshAgent.speed = f_Speed * GameManager._Time;
+            if(nav_MeshAgent!=null && GameMode._Instance!=null)
+                nav_MeshAgent.speed = f_Speed * GameMode._Instance._Time;
 
             MoveHealBar();
 
@@ -79,7 +79,7 @@ namespace Dinopostres.CharacterControllers
             }
             _state = EnemyState.move;
 
-            selfRigid.velocity -= selfRigid.velocity * (GameManager._TimeScale*4f);
+            selfRigid.velocity -= selfRigid.velocity * (GameMode._Instance._TimeScale*4f);
             if (selfRigid.velocity.magnitude < 0)
                 selfRigid.velocity = Vector3.zero;
 
@@ -130,7 +130,7 @@ namespace Dinopostres.CharacterControllers
             float counter = 0;
             while(counter< _couldown)
             {
-                counter += GameManager._TimeScale;
+                counter += GameMode._Instance._TimeScale;
                 yield return null;
             }
             base.isInvincible = false;
@@ -154,7 +154,7 @@ namespace Dinopostres.CharacterControllers
             if (isDead)
             {
                 RecordEvent ev = new RecordEvent(6, "Enemy defeted", 3000 + (int)DP_current._DinoChar);
-                GameManager._instance.OnRecordEvent(ev);
+                GameMode.OnRecordEvent(ev);
                 StartCoroutine(SpawnReward());
             }
         }
@@ -180,7 +180,7 @@ namespace Dinopostres.CharacterControllers
             while (counter < f_invinibleCoulddown)
             {
                 v3_lastVel = selfRigid.velocity;
-                counter += GameManager._TimeScale;
+                counter += GameMode._Instance._TimeScale;
                 yield return null;
             }
             if (nav_MeshAgent != null)
@@ -209,7 +209,7 @@ namespace Dinopostres.CharacterControllers
             while (counter < f_invinibleCoulddown)
             {
                 v3_lastVel = selfRigid.velocity;
-                counter += GameManager._TimeScale;
+                counter += GameMode._Instance._TimeScale;
                 yield return null;
             }
             nav_MeshAgent.baseOffset = 0f;

@@ -59,7 +59,7 @@ namespace Dinopostres.UIElements
 
         private void LockOrUnlockRecipe()
         {
-            bool isRecipeUnlock = GameManager._instance._GameData.GetRecipeUnlock((int)storeData._Dino);
+            bool isRecipeUnlock = GameMode._Instance._GameData.GetRecipeUnlock((int)storeData._Dino); //Consulta si la receta esta desbloqueada
             go_lockImage.SetActive(!isRecipeUnlock);
             btn_executer.interactable = isRecipeUnlock;
             //costomNav.mode = (isRecipeUnlock) ? Navigation.Mode.Automatic : Navigation.Mode.None;

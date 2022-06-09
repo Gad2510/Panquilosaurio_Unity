@@ -52,7 +52,7 @@ namespace Dinopostres.CharacterControllers
             if (isDead)
             {
                 RecordEvent ev = new RecordEvent(6, "Enemy defeted", 3000 + (int)DP_current._DinoChar);
-                GameManager._instance.OnRecordEvent(ev);
+                GameMode.OnRecordEvent(ev);
                 StartCoroutine(SpawnReward());
             }
         }
@@ -78,7 +78,7 @@ namespace Dinopostres.CharacterControllers
             float counter = 0;
             while (counter < f_attackPreparation)
             {
-                counter += GameManager._TimeScale;
+                counter += GameMode._Instance._TimeScale;
                 yield return null;
             }
             counter = 0;
@@ -86,7 +86,7 @@ namespace Dinopostres.CharacterControllers
             LeanTween.value(0.1f, 0f, 0.2f).setOnUpdate((x) => nav_MeshAgent.baseOffset = x);
             while (counter < f_invinibleCoulddown)
             {
-                counter += GameManager._TimeScale;
+                counter += GameMode._Instance._TimeScale;
                 yield return null;
             }
             nav_MeshAgent.enabled = false;
@@ -121,7 +121,7 @@ namespace Dinopostres.CharacterControllers
                     DP_current.GetRewards(true);
                 }
 
-                counter += GameManager._TimeScale;
+                counter += GameMode._Instance._TimeScale;
                 yield return null;
             }
             LevelManager._Instance.SpawnExitTeleporter();

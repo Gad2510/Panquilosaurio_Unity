@@ -24,8 +24,8 @@ namespace Dinopostres.UIElements
             arr_lifes = arr_lifes.OrderBy((x) => x.transform.GetSiblingIndex()).ToArray();
             UpdateMigas(null);
 
-            GameManager._instance.OnRecordEvent += UpdateMigas;
-            GameManager._instance.OnPlayerDead += LoseLife;
+            GameMode.OnRecordEvent += UpdateMigas;
+            GameMode.OnPlayerDead += LoseLife;
         }
 
 
@@ -46,8 +46,8 @@ namespace Dinopostres.UIElements
 
         private void OnDestroy()
         {
-            GameManager._instance.OnRecordEvent -= UpdateMigas;
-            GameManager._instance.OnPlayerDead -= LoseLife;
+            GameMode.OnRecordEvent -= UpdateMigas;
+            GameMode.OnPlayerDead -= LoseLife;
         }
 
         private void ResetLifes()
@@ -59,7 +59,7 @@ namespace Dinopostres.UIElements
         }
         public void LoseLife(Events.Event _ev)
         {
-            int index = GameManager.int_maxLives - GameManager._instance._Lives+1;
+            int index = ((GameModeINSTAGE)(GameMode._Instance))._LivesInverse +1;
             if (index >= arr_lifes.Length)
                 return;
 
@@ -67,7 +67,7 @@ namespace Dinopostres.UIElements
         }
         private void UpdateMigas(Events.Event _ev)
         {
-            txt_migas.text= GameManager._instance._GameData._Migas. ToString("0000");
+            txt_migas.text= GameMode._Instance._GameData._Migas. ToString("0000");
         }
     }
 }

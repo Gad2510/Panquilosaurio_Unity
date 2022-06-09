@@ -68,7 +68,7 @@ namespace Dinopostres.TriggerEffects
                 if (lvlName.Equals("Criadero"))
                 {
                     RecordEvent ev = new RecordEvent(7, "Call from Teleporter", 40000 + ((int)LevelManager._Instance._Area * 100) + (int)LevelManager._Instance._Rank);
-                    GameManager._instance.OnRecordEvent(ev);
+                    GameMode.OnRecordEvent(ev);
                 }
                 LevelManager._Instance.LoadStage(enm_area, enm_rank);
                 LevelManager._Instance.LoadLevel(lvlName);

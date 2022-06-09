@@ -13,7 +13,7 @@ MonoBehaviour:
   m_Name: EnemyStorage
   m_EditorClassIdentifier: 
   lst_Definitions:
-  - Dino: 0
+  - enm_dino: 0
     lst_Areas:
     - enm_Area: 0
       enm_Rank: 1
@@ -29,7 +29,7 @@ MonoBehaviour:
       int_Count: 80
     - enm_Ingredient: 3
       int_Count: 20
-  - Dino: 1
+  - enm_dino: 1
     lst_Areas:
     - enm_Area: 0
       enm_Rank: 1
@@ -45,7 +45,7 @@ MonoBehaviour:
       int_Count: 80
     - enm_Ingredient: 4
       int_Count: 10
-  - Dino: 2
+  - enm_dino: 2
     lst_Areas: []
     str_DefaultSkill: Bite
     DP_prefeb: {fileID: 1004624042988374264, guid: 75418e07bc987f14fb4522885e4adbf9, type: 3}
@@ -57,7 +57,7 @@ MonoBehaviour:
       int_Count: 30
     - enm_Ingredient: 1
       int_Count: 10
-  - Dino: 3
+  - enm_dino: 3
     lst_Areas: []
     str_DefaultSkill: Peck
     DP_prefeb: {fileID: 5179616011630811484, guid: 0776fa41e84fe6941b6e724b43e3b43d, type: 3}

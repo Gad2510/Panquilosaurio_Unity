@@ -37,13 +37,14 @@ namespace Dinopostres.UIElements
             if(arr_LoadBtns!= null)
                 arr_LoadBtns[0].SetButtonAsSelected();
 
-
-            GameManager._instance.InS_gameActions.DinopostreController.Return.performed += DeleteSaveData;
+            GameMode._Instance.SetControllerFuntions(ControllersManager.PlayerActions.Return,
+                ControllersManager.InputState.Perform, DeleteSaveData);
         }
 
         private void OnDisable()
         {
-            GameManager._instance.InS_gameActions.DinopostreController.Return.performed -= DeleteSaveData;
+            GameMode._Instance.SetControllerFuntions(ControllersManager.PlayerActions.Return,
+                ControllersManager.InputState.Perform, DeleteSaveData,false);
         }
 
         private void DeleteSaveData(InputAction.CallbackContext ctx)

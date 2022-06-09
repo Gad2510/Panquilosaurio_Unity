@@ -13,7 +13,7 @@ namespace Dinopostres.TriggerEffects {
         private UnlockDef UD_unlockCondition;
         private void Start()
         {
-            if (GameManager._instance._GameData.CheckForUnlock(UD_unlockCondition))
+            if (GameMode._Instance._GameData.CheckForUnlock(UD_unlockCondition))
             {
                 ua_trigerEvent.Invoke();
             }

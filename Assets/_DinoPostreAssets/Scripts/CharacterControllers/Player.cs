@@ -28,7 +28,7 @@ namespace Dinopostres.CharacterControllers
         // Start is called before the first frame update
         protected override void Start()
         {
-            DinoSaveData info = GameManager._instance.GetActiveDino();
+            DinoSaveData info = ((GameModeINSTAGE)GameMode._Instance).GetActiveDino();
             SwitchDino(info);
 
             base.Start();
@@ -45,12 +45,24 @@ namespace Dinopostres.CharacterControllers
             Camera.main.gameObject.AddComponent<CameraController>();
 
             //Bind Attacks
-            GameManager._instance.InS_gameActions.DinopostreController.AttackA.performed += Controllers;
-            GameManager._instance.InS_gameActions.DinopostreController.AttackB.performed += Controllers;
-            GameManager._instance.InS_gameActions.DinopostreController.Dispacher.performed += Controllers;
+            GameMode._Instance.SetControllerFuntions(ControllersManager.PlayerActions.AttackA,
+                ControllersManager.InputState.Perform, Controllers);
+            GameMode._Instance.SetControllerFuntions(ControllersManager.PlayerActions.AttackB,
+                ControllersManager.InputState.Perform, Controllers);
+            GameMode._Instance.SetControllerFuntions(ControllersManager.PlayerActions.Dispacher,
+                ControllersManager.InputState.Perform, Controllers);
         }
 
-        
+        protected override void OnDestroy()
+        {
+            GameMode._Instance.SetControllerFuntions(ControllersManager.PlayerActions.AttackA,
+                ControllersManager.InputState.Perform, Controllers,false);
+            GameMode._Instance.SetControllerFuntions(ControllersManager.PlayerActions.AttackB,
+                ControllersManager.InputState.Perform, Controllers,false);
+            GameMode._Instance.SetControllerFuntions(ControllersManager.PlayerActions.Dispacher,
+                ControllersManager.InputState.Perform, Controllers,false);
+            base.OnDestroy();
+        }
 
         protected override void Update()
         {
@@ -61,10 +73,9 @@ namespace Dinopostres.CharacterControllers
         }
         protected override void GetDead()
         {
-            Debug.Log($"Inventory {GameManager._instance._GameData._DinoInventory.Count} | LIVES {GameManager._instance._LivesInverse}");
-            GameManager._instance.LoseLive();
+            ((GameModeINSTAGE)(GameMode._Instance)).LoseLive();
 
-            if ((GameManager._instance._GameData._DinoInventory.Count-GameManager._instance._LivesInverse) >0)
+            if ((GameMode._Instance._GameData._DinoInventory.Count- ((GameModeINSTAGE)(GameMode._Instance))._LivesInverse) >0)
             {
                 GameManager._instance.PauseGame(true);
                 OpenDispacher();
@@ -83,9 +94,11 @@ namespace Dinopostres.CharacterControllers
         {
             Vector3 velocity = selfRigid.velocity;
 
-            if (direction.magnitude > 0 && GameManager._Time>0)
+            if (direction.magnitude > 0 && GameMode._Instance._Time>0)
                 ChangeDirection();
-            direction = GameManager._instance.InS_gameActions.DinopostreController.Movement.ReadValue<Vector2>();
+
+            if(GameMode._Instance!=null)
+                direction = GameMode._Instance.GetControllerValue(ControllersManager.PlayerActions.Movement).ReadValue<Vector2>();
 
             DP_current.SetAnimationVariable("f_Speed",direction.magnitude);
 
@@ -94,7 +107,7 @@ namespace Dinopostres.CharacterControllers
 
 
 
-            selfRigid.velocity = velocity *f_Speed* (GameManager._Time*2f);
+            selfRigid.velocity = velocity *f_Speed* (GameMode._Instance._Time*2f);
         }
 
         private void ChangeDirection()
@@ -140,7 +153,6 @@ namespace Dinopostres.CharacterControllers
                 Destroy(DP_current.gameObject);
                 currentData._IsSelected = false;
             }
-                
             DinoPostre dino = (Instantiate(EnemyStorage._Instance().Look4DinoDef(_newDino._Dino)._Prefab, transform) as GameObject).GetComponent<DinoPostre>();
             DP_current = dino;
             DP_current.IsPlayer = true;
@@ -152,7 +164,7 @@ namespace Dinopostres.CharacterControllers
             f_Speed = (100 / DP_current._Peso);
             isDispacherOpen = false;
             RecordEvent ev = new RecordEvent(1, "Switch dino", 2);
-            GameManager._instance.OnRecordEvent(ev);
+            GameMode.OnRecordEvent(ev);
 
             if (isDead)
             {

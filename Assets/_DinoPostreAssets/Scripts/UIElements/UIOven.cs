@@ -66,24 +66,24 @@ namespace Dinopostres.UIElements
             btn_levelUP.onClick.AddListener(() =>
             {
 
-            if (UID_currentDino != null && GameManager._instance._GameData.CanBePurchase(lst_ingredients2LUP))
+            if (UID_currentDino != null && GameMode._Instance._GameData.CanBePurchase(lst_ingredients2LUP))
                 {
                     DinoSaveData _save = UID_currentDino.ReturnStoreData();
-                    GameManager._instance._GameData.MakePurchase(lst_ingredients2LUP);
+                    GameMode._Instance._GameData.MakePurchase(lst_ingredients2LUP);
                     _save.LevelUP();
                     UpdateSliders(_save);
                     UID_currentDino.QuickRelodStats();
                     UpdateDescription(_save);
                     UpdateIngredients(_save._Dino, _save._Level);
-                    GameManager._instance.OnRecordEvent(null);
-                    txt_migas.text = GameManager._instance._GameData._Migas.ToString("00000");
+                    GameMode.OnRecordEvent(null);
+                    txt_migas.text = GameMode._Instance._GameData._Migas.ToString("00000");
                 }
             });
             btn_delete.onClick.AddListener(() => {
-                if (GameManager._instance._GameData._DinoInventory.Count > 1)
+                if (GameMode._Instance._GameData._DinoInventory.Count > 1)
                 {
                     DinoSaveData _save = UID_currentDino.ReturnStoreData();
-                    GameManager._instance._GameData.DeleteDino(_save._ID);
+                    GameMode._Instance._GameData.DeleteDino(_save._ID);
                     InitBtnEvents();
                     InitUiValues();
                     InitUIVisuals();
@@ -92,10 +92,10 @@ namespace Dinopostres.UIElements
             });
             btn_return.onClick.AddListener(() => {
                 LevelManager._Instance._GameMode.OpenCloseSpecicficMenu(GameMode.MenuDef.oven,false);
-                MemoryManager.SaveGame(GameManager._instance._GameData);
+                MemoryManager.SaveGame(GameMode._Instance._GameData);
             });
 
-            txt_migas.text = GameManager._instance._GameData._Migas.ToString("00000");
+            txt_migas.text = GameMode._Instance._GameData._Migas.ToString("00000");
 
             base.Start();
         }
@@ -106,7 +106,7 @@ namespace Dinopostres.UIElements
                 UID_currentDino = _uiDinoDes;
                 DinoSaveData _save = UID_currentDino.ReturnStoreData();
                 UpdateDescription(_save);
-                MoveDinoUI(UID_currentDino._ParentIndex, GameManager._instance._GameData._DinoInventory.Count() - 1);
+                MoveDinoUI(UID_currentDino._ParentIndex, GameMode._Instance._GameData._DinoInventory.Count() - 1);
                 int_lastIndex = UID_currentDino._ParentIndex;
                 UpdateIngredients(_save._Dino, _save._Level);
                 img_dinoImg.sprite = EnemyStorage._Instance().GetDinoImage(_save._Dino);

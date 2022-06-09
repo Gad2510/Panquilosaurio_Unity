@@ -2,10 +2,15 @@ using System.Collections;
 using System.Collections.Generic;
 using System.Linq;
 using UnityEngine;
+using UnityEngine.InputSystem;
+using Dinopostres.Definitions;
 namespace Dinopostres.Managers
 {
     public abstract class GameMode : MonoBehaviour
     {
+        public delegate void EventListener(Events.Event ev);
+        public static EventListener OnRecordEvent;
+        public static EventListener OnPlayerDead;
 
         public enum MenuDef
         {
@@ -23,7 +28,7 @@ namespace Dinopostres.Managers
             controllers= 1<<12,
             none = 1<< 0
         }
-        [SerializeField]
+        private static GameMode GM_instance;
         private Stack<MenuDef> stk_lastMenu;
        
 
@@ -44,6 +49,10 @@ namespace Dinopostres.Managers
         };
 
         protected Dictionary<MenuDef, GameObject> dic_menus;
+        public static GameMode _Instance => GM_instance;
+        public float _Time => GameManager._Time;
+        public float _TimeScale => GameManager._Time*Time.deltaTime;
+        public PlayerData _GameData => GameManager._instance._GameData;
         public MenuDef _LastMenu { 
             get {
                 if(stk_lastMenu.Count > 0)
@@ -57,6 +66,7 @@ namespace Dinopostres.Managers
         // Start is called before the first frame update
         protected virtual void Awake()
         {
+            GM_instance = this;
             InitMenus();
             stk_lastMenu = new Stack<MenuDef>();
         }
@@ -125,6 +135,19 @@ namespace Dinopostres.Managers
                     stk_lastMenu.Push(_menu);
                 }
             }
+        }
+
+        public void SetControllerFuntions(ControllersManager.PlayerActions _action, ControllersManager.InputState _state, System.Action<InputAction.CallbackContext> _function, bool _set = true)
+        {
+            if(_set)
+                ControllersManager._instance.AddComand(_action, _state, _function);
+            else
+                ControllersManager._instance.RemoveComand(_action, _state, _function);
+        }
+
+        public InputAction GetControllerValue(ControllersManager.PlayerActions _action)
+        {
+            return ControllersManager._instance.ReturnValue(_action);
         }
     }
 }

@@ -32,7 +32,7 @@ namespace Dinopostres.CharacterControllers
         private bool InmovilizeInAir()
         {
             bool check = selfRigid.velocity.magnitude > 0.5f;
-            if (GameManager._TimeScale > 0)
+            if (GameMode._Instance._TimeScale > 0)
             {
                 v3_lastVel = selfRigid.velocity;
                 selfRigid.constraints = RigidbodyConstraints.FreezePositionY & RigidbodyConstraints.FreezeRotationX & RigidbodyConstraints.FreezeRotationZ;
@@ -162,7 +162,7 @@ namespace Dinopostres.CharacterControllers
             float counter = 0;
             while (counter < _time)
             {
-                counter += GameManager._TimeScale;
+                counter += GameMode._Instance._TimeScale;
                 yield return null;
             }
             yield return _time;
@@ -176,7 +176,7 @@ namespace Dinopostres.CharacterControllers
             while (counter < f_invinibleCoulddown)
             {
                 v3_lastVel = selfRigid.velocity;
-                counter += GameManager._TimeScale;
+                counter += GameMode._Instance._TimeScale;
                 yield return null;
             }
             yield return ww_InmovilizeByLunch;

@@ -30,27 +30,27 @@ namespace Dinopostres.UIElements
             _uiDino.AddBtnClicEvent(() => GetDesciptionEvent(_uiDino.StoreData));
             _uiDino.AddBtnSelectedEvent(() => {
                 UpdateDescription(_uiDino.ReturnStoreData());
-                MoveDinoUI(_uiDino._ParentIndex, GameManager._instance._GameData._DinoInventory.Count() - 1);
+                MoveDinoUI(_uiDino._ParentIndex, GameMode._Instance._GameData._DinoInventory.Count() - 1);
                 int_lastIndex = _uiDino._ParentIndex;
 
             });
         }
         protected override void InitUIVisuals()
         {
-            if (GameManager._instance._GameData._DinoInventory.Count() < arr_items.Length)
+            if (GameMode._Instance._GameData._DinoInventory.Count() < arr_items.Length)
             {
                 for (int i = arr_items.Length - 1;i>=0; i--)
                 {
-                    arr_items[i].gameObject.SetActive(i < GameManager._instance._GameData._DinoInventory.Count());
+                    arr_items[i].gameObject.SetActive(i < GameMode._Instance._GameData._DinoInventory.Count());
                 }
             }
             arr_items[int_currentIndex].SetButtonAsSelected();
         }
         protected override void InitUiValues()
         {
-            for(int i =0; i< GameManager._instance._GameData._DinoInventory.Count() && i< arr_items.Length; i++)
+            for(int i =0; i< GameMode._Instance._GameData._DinoInventory.Count() && i< arr_items.Length; i++)
             {
-                DinoSaveData saveData = GameManager._instance._GameData._DinoInventory[i];
+                DinoSaveData saveData = GameMode._Instance._GameData._DinoInventory[i];
                 arr_items[i].InitStats(saveData, GetDesciptionEvent(saveData));
             }
         }
@@ -70,7 +70,7 @@ namespace Dinopostres.UIElements
 
         protected override DinoSaveData SetItemValue(int _index)
         {
-            return GameManager._instance._GameData._DinoInventory[_index];
+            return GameMode._Instance._GameData._DinoInventory[_index];
         }
 
         protected override UnityAction GetDesciptionEvent(DinoSaveData _item)
