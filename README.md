@@ -38,6 +38,8 @@ Introducción
 ## Empezamos amasar 
 
   Uno de los grandes retos para empezar el desarrollo de un juego es saber cómo empezar a programar y más pensarlo para poder expandirlo a futuro a una modalidad online multijugador, tomé toda una semana para crear un archivo de la arquitectura del programa con el cual fui desglosando tas las posibles funciones que podía tener el juego. Esto me ayudo de guía inicial, a pesar de estar mal estructurado por la poca experiencia que tenía haciéndolos. Una de las primeras cosas que me quise enfocar fue en el combate del jugador, por lo que antes de combatir primero hay que hacer un jugador. Con los modelos ya hechos empecé a desarrollar mi primer controlador con el modelo base del Agujaceratops (Triceratops). 
+  
+  ![Imagen de arquitectura del programa](/READMEimg/Panquilosaurio Arquitecture.png)
 
 ### El jugador 
   
