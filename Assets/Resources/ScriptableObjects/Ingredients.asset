@@ -15,21 +15,21 @@ MonoBehaviour:
   lst_Ingredients:
   - enm_Ingredient: 0
     enm_IngreType: 3
-    spt_IngreImage: {fileID: 0}
+    spt_IngreImage: {fileID: 21300000, guid: 56d545d160b723a48b50c19b5ddf4d7b, type: 3}
     obj_Colectable: {fileID: 1389482468973450677, guid: 37d5e13907a8f7642bac9492449cb9c8, type: 3}
   - enm_Ingredient: 1
     enm_IngreType: 0
-    spt_IngreImage: {fileID: 0}
+    spt_IngreImage: {fileID: 21300000, guid: 3ca5242ab74ec6845a92681cb2f33df9, type: 3}
     obj_Colectable: {fileID: 2376059307339953027, guid: 3720378ebc9eca04db432dd69b97c88c, type: 3}
   - enm_Ingredient: 2
     enm_IngreType: 2
-    spt_IngreImage: {fileID: 0}
+    spt_IngreImage: {fileID: 21300000, guid: fc45298b970f6e3409548793bd06497c, type: 3}
     obj_Colectable: {fileID: 2376059307339953027, guid: a57464b44d120d442b8bea21b835f0c0, type: 3}
   - enm_Ingredient: 3
     enm_IngreType: 0
-    spt_IngreImage: {fileID: 0}
+    spt_IngreImage: {fileID: 21300000, guid: 0c22db648f59f524eb465e278d7d5062, type: 3}
     obj_Colectable: {fileID: 2376059307339953027, guid: eca32d2ec49f6014299b6d8815096ac8, type: 3}
   - enm_Ingredient: 4
     enm_IngreType: 3
-    spt_IngreImage: {fileID: 0}
+    spt_IngreImage: {fileID: 21300000, guid: 5505bec0dae19ca4c854c6d23e2635c3, type: 3}
     obj_Colectable: {fileID: 2376059307339953027, guid: 92796b9f3a1d69c45a691267698f5721, type: 3}
