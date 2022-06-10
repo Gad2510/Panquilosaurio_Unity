@@ -22,7 +22,7 @@ namespace Dinopostres.TriggerEffects
 
         public LocationCount.Area _Area { get => enm_area; }
         public LocationCount.Rank _Rank { get => enm_rank; }
-        private void Awake()
+        private void Start()
         {
             if((!isStage && isLock) || (isStage && isBoss))
             {

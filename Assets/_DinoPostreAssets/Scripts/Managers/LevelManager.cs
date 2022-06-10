@@ -104,7 +104,7 @@ namespace Dinopostres.Managers
             if (dic_levelStates[SceneManager.GetActiveScene().name]== GameStates.InStage)
             {
                 RM_RewardManger.ClearReferences();
-                MovePlayer();
+                Invoke(nameof(MovePlayer),0.1f);
             }
             else if(dic_levelStates[SceneManager.GetActiveScene().name] == GameStates.Map)
             {

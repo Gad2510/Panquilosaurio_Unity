@@ -30,7 +30,6 @@ namespace Dinopostres.Definitions
             }
             catch
             {
-                Debug.LogError("No Boss in the current stage");
                 return null;
             }
         }

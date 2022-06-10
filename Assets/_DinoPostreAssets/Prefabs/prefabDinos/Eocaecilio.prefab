@@ -93,7 +93,6 @@ MonoBehaviour:
   - 
   - 
   - Bire
-  f_TestHP: 0
 --- !u!1 &2508552375829337602
 GameObject:
   m_ObjectHideFlags: 0
@@ -136,7 +135,7 @@ BoxCollider:
   m_Enabled: 1
   serializedVersion: 2
   m_Size: {x: 0.1, y: 0.1, z: 0.4}
-  m_Center: {x: 0, y: 0.05, z: 0.2}
+  m_Center: {x: 0, y: 0.04, z: 0.2}
 --- !u!1 &8191308690772314210
 GameObject:
   m_ObjectHideFlags: 0
@@ -258,7 +257,7 @@ BoxCollider:
   m_Enabled: 1
   serializedVersion: 2
   m_Size: {x: 0.1, y: 0.1, z: 0.4}
-  m_Center: {x: 0, y: 0.02, z: -0.1}
+  m_Center: {x: 0, y: 0.03, z: -0.1}
 --- !u!1001 &5044109367480751329
 PrefabInstance:
   m_ObjectHideFlags: 0
