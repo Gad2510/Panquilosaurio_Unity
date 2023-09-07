@@ -5,6 +5,7 @@ using UnityEngine.InputSystem;
 using Dinopostres.Managers;
 using Dinopostres.Definitions;
 using Dinopostres.Events;
+using System.Threading.Tasks;
 
 namespace Dinopostres.CharacterControllers
 {
@@ -28,10 +29,10 @@ namespace Dinopostres.CharacterControllers
         // Start is called before the first frame update
         protected override void Start()
         {
-            DinoSaveData info = ((GameModeINSTAGE)GameMode._Instance).GetActiveDino();
-            SwitchDino(info);
-
             base.Start();
+
+            DinoSaveData info = ((GameModeINSTAGE)GameMode._Instance).GetActiveDino();
+            CreateDinoInstance(info);
 
             gameObject.tag = "Player";
 
@@ -148,21 +149,23 @@ namespace Dinopostres.CharacterControllers
 
         public void SwitchDino(DinoSaveData _newDino)
         {
-            if (DP_current != null)
+            
+            if (DP_current != null && currentData._Dino!=_newDino._Dino)
             {
+                
                 Destroy(DP_current.gameObject);
+                //Manda actualizar su estado de seleccion en la base de datos
                 currentData._IsSelected = false;
+                CreateDinoInstance(_newDino);
             }
-            DinoPostre dino = (Instantiate(EnemyStorage._Instance().Look4DinoDef(_newDino._Dino)._Prefab, transform) as GameObject).GetComponent<DinoPostre>();
-            DP_current = dino;
-            DP_current.IsPlayer = true;
-            DP_current.transform.localPosition = Vector3.zero;
-            DP_current.InitStats(_newDino._Level);
-            DP_current._CurrentHealth = _newDino._CurrentHealth;
-            currentData = _newDino;
-            currentData._IsSelected = true;
-            f_Speed = (100 / DP_current._Peso);
+            else if(currentData._Dino == _newDino._Dino)
+            {
+                SetInitStats(_newDino);
+            }
+
             isDispacherOpen = false;
+            
+            //Aumenta el numero de llamadas de cambio de dino en la base de datos
             RecordEvent ev = new RecordEvent(1, "Switch dino", 2);
             GameMode.OnRecordEvent(ev);
 
@@ -170,8 +173,30 @@ namespace Dinopostres.CharacterControllers
             {
                 GameManager._instance.PauseGame(false);
                 isDead = false;
-                UpdateHealthBar();
             }
+        }
+
+        public void CreateDinoInstance(DinoSaveData _newDino)
+        {
+            DinoPostre dino;
+             dino = (Instantiate(EnemyStorage._Instance().Look4DinoDef(_newDino._Dino)._Prefab, transform) as GameObject).GetComponent<DinoPostre>();
+            DP_current = dino;
+
+            SetInitStats(_newDino);
+        }
+
+        public void SetInitStats(DinoSaveData _newDino)
+        {
+            DP_current.IsPlayer = true;
+            DP_current.transform.localPosition = Vector3.zero;
+            DP_current.InitStats(_newDino._Level);
+            DP_current._CurrentHealth = _newDino._CurrentHealth;
+
+            currentData = _newDino;
+            currentData._IsSelected = true;
+            f_Speed = (100 / DP_current._Peso);
+
+            UpdateHealthBar();
         }
         
     }

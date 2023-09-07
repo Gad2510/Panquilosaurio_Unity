@@ -16,6 +16,7 @@ namespace Dinopostres.Managers
             string pathCombined = Path.Combine(
                 Application.persistentDataPath,
                 _gameName + ".data");
+            Debug.Log(pathCombined);
             BinaryFormatter bf = new BinaryFormatter();
             FileStream file = File.Create(pathCombined);
             PlayerData newGameData = new PlayerData(_gameName);

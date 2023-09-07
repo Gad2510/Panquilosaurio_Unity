@@ -49,6 +49,9 @@ namespace Dinopostres.UIElements
 
         private void OnEnable()
         {
+            int_gameCount = MemoryManager.GamesCount();
+            btn_newGame.gameObject.SetActive(int_gameCount < 3);
+            btn_loadGame.gameObject.SetActive(int_gameCount > 0);
             if (int_gameCount < 3)
             {
                 btn_newGame.Select();

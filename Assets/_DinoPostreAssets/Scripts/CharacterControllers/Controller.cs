@@ -58,22 +58,17 @@ namespace Dinopostres.CharacterControllers
             selfRigid = GetComponent<Rigidbody>();
             DP_current = GetComponentInChildren<DinoPostre>();
             gameObject.tag = "Controller";
-            if (DP_current)
-            {
-                //index 0= cantidad , 1= posicion
-                Managers.EnemyManager._OnDamage += ExecuteAction;
-            }
-            f_Speed = (100 / DP_current._Peso);
+
+            Managers.EnemyManager._OnDamage += ExecuteAction;
+
+            //f_Speed = (100 / DP_current._Peso);
             
             CreateHealthBar();
         }
 
         protected virtual void OnDestroy()
         {
-            if (DP_current)
-            {
-                Managers.EnemyManager._OnDamage -= ExecuteAction;
-            }
+            Managers.EnemyManager._OnDamage -= ExecuteAction;
 
             if(sl_healthVisual!=null)
                 Destroy(sl_healthVisual.gameObject);
@@ -103,6 +98,9 @@ namespace Dinopostres.CharacterControllers
             switch (ev._Action)
             {
                 case Events.ActionEvent.GameActions.HIT:
+                    if (DP_current == null)
+                        break;
+
                     if (!isInvincible)
                     {
                         StartCoroutine(InvinsibleCouldown(f_invinibleCoulddown));

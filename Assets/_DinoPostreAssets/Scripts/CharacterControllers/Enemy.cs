@@ -42,7 +42,7 @@ namespace Dinopostres.CharacterControllers
             isAttacking = false;
             v3_Origin = transform.position;
             nav_MeshAgent = gameObject.AddComponent<NavMeshAgent>();
-
+            f_Speed = (100 / DP_current._Peso);
             nav_MeshAgent.speed = f_Speed;
             nav_MeshAgent.radius = 0.1f;
             

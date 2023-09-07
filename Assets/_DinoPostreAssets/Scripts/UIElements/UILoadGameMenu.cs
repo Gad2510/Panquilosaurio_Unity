@@ -87,6 +87,12 @@ namespace Dinopostres.UIElements
                 
             }
 
+            if (games.Count <= 0)
+            {
+                LevelManager._Instance._GameMode.OpenCloseSpecicficMenu(GameMode.MenuDef.load, false);
+                LevelManager._Instance._GameMode.OpenCloseSpecicficMenu(GameMode.MenuDef.menu, true);
+            }
+
         }
     }
 }

@@ -10,7 +10,7 @@ using Dinopostres.Interfeces;
 
 namespace Dinopostres.UIElements
 {
-    public abstract class CarruselBehavior<T> : MonoBehaviour, IUIMultipleMenu
+    public abstract class CarruselBehavior<T>: MonoBehaviour, IUIMultipleMenu
     {
         [SerializeField]
         private Transform trns_itemParents;
@@ -83,6 +83,9 @@ namespace Dinopostres.UIElements
 
         protected void MoveDinoUI(int _siblingIndex, int _inventoryCount)
         {
+            
+            if (_inventoryCount <= trns_itemParents.childCount)
+                return;
             T saveData;
             if (_siblingIndex == 0)
             {
